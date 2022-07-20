@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Skmr.ClipToTok.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\darkf\\Desktop\\ctttest\\video.mp4\""
+    }
+  }
+}

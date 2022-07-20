@@ -1,0 +1,274 @@
+﻿<Window x:Class="Skmr.ClipToTok.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Skmr.ClipToTok.WPF"
+        xmlns:reactiveui="http://reactiveui.net"
+        xmlns:skia="clr-namespace:SkiaSharp.Views.WPF;assembly=SkiaSharp.Views.WPF"
+        mc:Ignorable="d"
+        Title="Clip2Tok" Height="450" Width="800">
+    <Grid Background="#202020">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*" MinWidth="300" MaxWidth="425"/>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Bar -->
+        
+        <Border Grid.ColumnSpan="5" Background="#101010">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal"  HorizontalAlignment="Center">
+                <Button Padding="20,5" Content="Shop" FontSize="20"/>
+                <Button Padding="20,5" Content="GitHub" FontSize="20"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Options -->
+
+        <Border Grid.Column="1" Grid.Row="2" CornerRadius="20" Background="#101010" Padding="20">
+            <ScrollViewer >
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Border">
+                                <Setter Property="Margin" Value="2"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackPanel.Resources>
+                    <!-- Base -->
+                    <Border BorderBrush="#909090" 
+                            BorderThickness="1" 
+                            CornerRadius="5">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Foreground="White" FontSize="15" Content="Base" />
+                            </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Video" Foreground="White"/>
+                                <TextBox Grid.Row="0" Grid.Column="2" Margin="2" x:Name="txtSourceVideo" Text="{Binding Settings.Video, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Border Grid.Row="0" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="SourceVideo_Drop" AllowDrop="True"/>
+
+                                <Label Grid.Row="1" Grid.Column="1" Content="Resolution" Foreground="White"/>
+                                <TextBox Grid.Row="1" Grid.Column="2" Margin="2" Text="{Binding Settings.Resolution, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <Label Grid.Row="2" Grid.Column="1" Content="Preview Image" Foreground="White"/>
+                                <TextBox Grid.Row="2" Grid.Column="2" Margin="2" x:Name="txtPrevImage" Text="{Binding Image, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Border Grid.Row="2" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="PreviewImage_Drop" AllowDrop="True"/>
+
+                                <Label Grid.Row="3" Grid.Column="1" Content="Result Folder" Foreground="White"/>
+                                <TextBox Grid.Row="3" Grid.Column="2" Margin="2" x:Name="txtResFolder" Text="{Binding Settings.ResultFolder, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Border Grid.Row="3" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="ResultFolder_Drop" AllowDrop="True"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <!-- Gameplay -->
+                    <Border BorderBrush="#909090" 
+                            BorderThickness="1" 
+                            CornerRadius="5">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Foreground="White" FontSize="15" Content="Gameplay" />
+                            </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="XPos" Foreground="White"/>
+                                <Slider Grid.Row="0" Grid.Column="2" Value="{Binding Settings.ScreenPosGameplay.PosX, UpdateSourceTrigger=PropertyChanged}" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                                <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Settings.ScreenPosGameplay.PosX, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+
+                                <Label Grid.Row="1" Grid.Column="1" Content="YPos" Foreground="White"/>
+                                <Slider Grid.Row="1" Grid.Column="2" Value="{Binding Settings.ScreenPosGameplay.PosY, UpdateSourceTrigger=PropertyChanged}" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Settings.ScreenPosGameplay.PosY, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+
+                                <Label Grid.Row="2" Grid.Column="1" Content="Width" Foreground="White"/>
+                                <Slider Grid.Row="2" Grid.Column="2" Value="{Binding Settings.ScreenPosGameplay.Width, UpdateSourceTrigger=PropertyChanged}" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Settings.ScreenPosGameplay.Width, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+
+                                <Label Grid.Row="3" Grid.Column="1" Content="Height" Foreground="White"/>
+                                <Slider Grid.Row="3" Grid.Column="2" Value="{Binding Settings.ScreenPosGameplay.Height, UpdateSourceTrigger=PropertyChanged}" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                                <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Settings.ScreenPosGameplay.Height, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <!-- Webcam Option -->
+                    <Border BorderBrush="#909090" 
+                            BorderThickness="1" 
+                            CornerRadius="5">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Webcam" />
+                                <CheckBox Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Settings.HasWebcam}"/>
+                            </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="XPos" Foreground="White"/>
+                                <Slider Grid.Row="0" Grid.Column="2" Value="{Binding Settings.ScreenPosWebcam.PosX, UpdateSourceTrigger=PropertyChanged}" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                                <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Settings.ScreenPosWebcam.PosX, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                                
+                                <Label Grid.Row="1" Grid.Column="1" Content="YPos" Foreground="White"/>
+                                <Slider Grid.Row="1" Grid.Column="2" Value="{Binding Settings.ScreenPosWebcam.PosY, UpdateSourceTrigger=PropertyChanged}" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Settings.ScreenPosWebcam.PosY, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                                
+                                <Label Grid.Row="2" Grid.Column="1" Content="Width" Foreground="White"/>
+                                <Slider Grid.Row="2" Grid.Column="2" Value="{Binding Settings.ScreenPosWebcam.Width, UpdateSourceTrigger=PropertyChanged}" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Settings.ScreenPosWebcam.Width, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                                
+                                <Label Grid.Row="3" Grid.Column="1" Content="Height" Foreground="White"/>
+                                <Slider Grid.Row="3" Grid.Column="2" Value="{Binding Settings.ScreenPosWebcam.Height, UpdateSourceTrigger=PropertyChanged}" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                                <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Settings.ScreenPosWebcam.Height, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <!-- Background -->
+                    <Border BorderBrush="#909090" 
+                            BorderThickness="1" 
+                            CornerRadius="5">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Background" />
+                                <CheckBox Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Settings.HasBackground}"/>
+                            </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Image" Foreground="White"/>
+                                <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtBackgroundImage" Margin="2" Text="{Binding Settings.BackgroundImage}"/>
+                                <Border Grid.Row="0" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="BackgroundImage_Drop" AllowDrop="True"/>
+
+                                <Label Grid.Row="1" Grid.Column="1" Content="Alignment" Foreground="White"/>
+                                <ComboBox Grid.Row="1" Grid.Column="2" Margin="2"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Buttons -->
+
+        <Grid Grid.Row="4" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding RenderCommand}" Margin="5" Content="Render" Grid.Column="1" Grid.RowSpan="2"/>
+            <Button Command="{Binding Settings.SaveCommand}" Margin="5" Content="Save" Grid.Column="0" Grid.Row ="0"/>
+            <Button Command="{Binding Settings.LoadCommand}" Margin="5" Content="Load" Grid.Column="0" Grid.Row ="1"/>
+        </Grid>
+
+
+
+        <Grid Grid.Column="3" Grid.Row="2" Grid.RowSpan="3">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Preview Image -->
+            <Border Grid.Row="0"
+                Background="#101010" CornerRadius="20" Padding="20">
+                <Grid>
+                    <Image Source="{Binding Image}" Height="auto"/>
+                    <skia:SKElement x:Name="canvasView" PaintSurface="SKElement_PaintSurface" IgnorePixelScaling="True" />
+                </Grid>
+            </Border>
+
+            <!-- Console -->
+            <Border Grid.Column="3" Grid.Row="2"
+                Background="#101010" CornerRadius="20" Padding="20">
+                <ScrollViewer >
+                    <TextBlock Text="{Binding Log}" Foreground="White" />
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

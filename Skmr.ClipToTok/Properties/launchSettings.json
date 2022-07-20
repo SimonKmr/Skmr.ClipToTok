@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ClipToTok": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\darkf\\Desktop\\ctttest\\video.mp4"
+    }
+  }
+}
