@@ -4,8 +4,15 @@
 MainViewModel ctt = new MainViewModel();
 ctt.OnLog += Ctt_OnLog;
 ctt.Settings.Load();
-ctt.Settings.Video = Environment.GetCommandLineArgs()[1];
-ctt.Render();
+
+var argument = Environment.GetCommandLineArgs()[1];
+if (File.Exists(argument))
+{
+    ctt.Settings.Video = argument;
+    ctt.Render();
+}
+else return;
+
 
 
 void Ctt_OnLog(string line)
