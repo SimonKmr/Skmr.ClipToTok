@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Reference Include="Skmr.Editor">
-      <HintPath>..\..\SimonKmr\MontageBot\Skmr.Editor\bin\Release\netcoreapp3.1\Skmr.Editor.dll</HintPath>
+      <HintPath>..\..\Skmr.Editor\Skmr.Editor\bin\Release\net6.0\Skmr.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Skmr.Editor.Images">
       <HintPath>..\..\SimonKmr\MontageBot\Skmr.Editor.Images\bin\Release\net6.0\Skmr.Editor.Images.dll</HintPath>

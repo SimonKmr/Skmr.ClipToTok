@@ -3,7 +3,9 @@ using SkiaSharp;
 using SkiaSharp.Views.Desktop;
 using SkiaSharp.Views.WPF;
 using Skmr.ClipToTok.ViewModels;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace Skmr.ClipToTok.WPF
 {
@@ -93,6 +95,17 @@ namespace Skmr.ClipToTok.WPF
         private void BackgroundImage_Drop(object sender, DragEventArgs e)
         {
             txtBackgroundImage.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            // for .NET Core you need to add UseShellExecute = true
+            // see https://docs.microsoft.com/dotnet/api/system.diagnostics.processstartinfo.useshellexecute#property-value
+            var psi = new ProcessStartInfo();
+            psi.UseShellExecute = true;
+            psi.FileName = e.Uri.AbsoluteUri;
+            Process.Start(psi);
+            e.Handled = true;
         }
     }
 }

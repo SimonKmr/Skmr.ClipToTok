@@ -102,12 +102,28 @@ namespace Skmr.ClipToTok.ViewModels
             var videoFolder = Path.GetDirectoryName(Settings.Video);
             var videoName = Path.GetFileName(Settings.Video).Split('.')[0];
 
-            Medium Clip = new Medium(
+            Medium footage = new Medium(
                 videoFolder,
                 videoName,
                 Ffmpeg.Format.Video.Mp4);
             #endregion
 
+            #region Ffmpeg - Cutting
+            Medium tmp0 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+            if (Settings.HasTimeFrame)
+            {
+                instructions.Add(new CutVideo((Settings.TimeFrameStart, Settings.TimeFrameDuration))
+                {
+                    Ffmpeg = ffmpeg,
+                    Input = footage,
+                    Output = tmp0
+                });
+            }
+            else
+            {
+                tmp0 = footage;
+            }
+            #endregion
 
             #region Ffmpeg - Normalizing
             Medium ClipNormalized = new Medium(
@@ -121,7 +137,7 @@ namespace Skmr.ClipToTok.ViewModels
             instructions.Add(new ResizeVideo(width1, height1)
             {
                 Ffmpeg = ffmpeg,
-                Input = Clip,
+                Input = tmp0,
                 Output = ClipNormalized
             });
             #endregion
@@ -215,8 +231,37 @@ namespace Skmr.ClipToTok.ViewModels
             }
             #endregion
 
-            #region Ffmpeg - Background
+
+
+            #region Ffmpeg - Color Grading
             Medium tmp4 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+
+            if (Settings.HasColorGrading)
+            {
+                instructions.Add(new ColorGradeVideo()
+                {
+                    Ffmpeg = ffmpeg,
+                    Input = tmp3,
+                    Output = tmp4,
+
+                    Contrast = Settings.Contrast,
+                    Brighness = Settings.Brighness,
+                    Saturation = Settings.Saturation,
+                    Gamma = Settings.Gamma,
+                    GammaR = Settings.GammaR,
+                    GammaG = Settings.GammaG,
+                    GammaB = Settings.GammaB,
+                    GammaWeight = Settings.GammaWeight,
+                });
+            }
+            else
+            {
+                tmp4 = tmp3;
+            }
+            #endregion
+
+            #region Ffmpeg - Background
+            Medium tmp5 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
 
             if (Settings.HasBackground)
             {
@@ -226,19 +271,21 @@ namespace Skmr.ClipToTok.ViewModels
                 instructions.Add(new BackgroundImage()
                 {
                     Ffmpeg = ffmpeg,
-                    Input = tmp3,
+                    Input = tmp4,
                     Image = new Medium(
                         backgroundImgPath,
                         backgroundImgFile,
                         Format.Image.Jpg),
-                    Output = tmp4
+                    Output = tmp5
                 });
             }
             else
             {
-                tmp4 = tmp3;
+                tmp5 = tmp4;
             }
             #endregion
+
+
 
             #region Ffmpeg - TextBubble
             //Medium tmp5 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);

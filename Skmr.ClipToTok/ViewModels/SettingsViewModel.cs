@@ -58,6 +58,29 @@ namespace Skmr.ClipToTok.ViewModels
         }
         #endregion
 
+        #region TimeFrame
+        private bool _HasTimeFrame;
+        public bool HasTimeFrame
+        {
+            get { return _HasTimeFrame; }
+            set { this.RaiseAndSetIfChanged(ref _HasTimeFrame, value); }
+        }
+
+        private TimeSpan _TimeFrameStart;
+        public TimeSpan TimeFrameStart
+        {
+            get { return _TimeFrameStart; }
+            set { this.RaiseAndSetIfChanged(ref _TimeFrameStart, value); }
+        }
+
+        private TimeSpan _TimeFrameEnd;
+        public TimeSpan TimeFrameDuration
+        {
+            get { return _TimeFrameEnd; }
+            set { this.RaiseAndSetIfChanged(ref _TimeFrameEnd, value); }
+        }
+        #endregion
+
         #region Background
         private bool _HasBackground;
         public bool HasBackground
@@ -88,6 +111,76 @@ namespace Skmr.ClipToTok.ViewModels
             get { return _ScreenPosWebcam; }
             set { this.RaiseAndSetIfChanged(ref _ScreenPosWebcam, value); }
         }
+        #endregion
+
+        #region ColorGrading
+        private bool _HasColorGrading;
+        public bool HasColorGrading
+        {
+            get { return _HasColorGrading; }
+            set { this.RaiseAndSetIfChanged(ref _HasColorGrading, value); }
+        }
+
+        
+        
+        
+        private float _Contrast = 1;
+        public float Contrast
+        {
+            get { return _Contrast; }
+            set { this.RaiseAndSetIfChanged(ref _Contrast, value); }
+        }
+        
+        private float _Brighness = 0;
+        public float Brighness
+        {
+            get { return _Brighness; }
+            set { this.RaiseAndSetIfChanged(ref _Brighness, value); }
+        }
+        
+        private float _Saturation = 1;
+        public float Saturation
+        {
+            get { return _Saturation; }
+            set { this.RaiseAndSetIfChanged(ref _Saturation, value); }
+        }
+
+        
+        private float _Gamma = 1;
+        public float Gamma
+        {
+            get { return _Gamma; }
+            set { this.RaiseAndSetIfChanged(ref _Gamma, value); }
+        }
+
+        private float _GammaR = 1f;
+        public float GammaR
+        {
+            get { return _GammaR; }
+            set { this.RaiseAndSetIfChanged(ref _GammaR, value); }
+        }
+
+        private float _GammaG = 1f;
+        public float GammaG
+        {
+            get { return _GammaG; }
+            set { this.RaiseAndSetIfChanged(ref _GammaG, value); }
+        }
+
+        private float _GammaB = 1f;
+        public float GammaB
+        {
+            get { return _GammaB; }
+            set { this.RaiseAndSetIfChanged(ref _GammaB, value); }
+        }
+        
+        private float _GammaWeight = 1f;
+        public float GammaWeight
+        {
+            get { return _GammaWeight; }
+            set { this.RaiseAndSetIfChanged(ref _GammaWeight, value); }
+        }
+
         #endregion
 
         #region Gameplay
