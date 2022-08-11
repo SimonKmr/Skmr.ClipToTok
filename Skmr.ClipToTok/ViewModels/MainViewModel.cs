@@ -143,6 +143,20 @@ namespace Skmr.ClipToTok.ViewModels
             #endregion
 
             #region Ffmpeg - Speedup
+            Medium tmp1 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+            if (Settings.HasChangeSpeed)
+            {
+                instructions.Add(new ChangeSpeed(Settings.Speed)
+                {
+                    Ffmpeg = ffmpeg,
+                    Input = ClipNormalized,
+                    Output = tmp1
+                });
+            }
+            else
+            {
+                tmp1 = ClipNormalized;
+            }
             #endregion
 
             #region Ffmpeg - Webcam
@@ -151,7 +165,7 @@ namespace Skmr.ClipToTok.ViewModels
                 "webcam",
                 Ffmpeg.Format.Video.Mp4);
 
-            Medium tmp1 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+            Medium tmp2 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
 
             if (Settings.HasWebcam)
             {
@@ -162,8 +176,8 @@ namespace Skmr.ClipToTok.ViewModels
                     Settings.ScreenPosWebcam.PosY)
                 {
                     Ffmpeg = ffmpeg,
-                    Input = ClipNormalized,
-                    Output = tmp1,
+                    Input = tmp1,
+                    Output = tmp2,
                 });
 
                 int h1 = (int)(Settings.Resolution * ((double)Settings.ScreenPosWebcam.Height / (double)Settings.ScreenPosWebcam.Width));
@@ -172,7 +186,7 @@ namespace Skmr.ClipToTok.ViewModels
                 instructions.Add(new ResizeVideo(Settings.Resolution, h1)
                 {
                     Ffmpeg = ffmpeg,
-                    Input = tmp1,
+                    Input = tmp2,
                     Output = Webcam,
                 });
 
@@ -186,7 +200,7 @@ namespace Skmr.ClipToTok.ViewModels
                 "gameplay",
                 Ffmpeg.Format.Video.Mp4);
 
-            Medium tmp2 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+            Medium tmp3 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
 
             instructions.Add(new CropVideo(
                 Settings.ScreenPosGameplay.Width,
@@ -195,8 +209,8 @@ namespace Skmr.ClipToTok.ViewModels
                 Settings.ScreenPosGameplay.PosY)
             {
                 Ffmpeg = ffmpeg,
-                Input = ClipNormalized,
-                Output = tmp2,
+                Input = tmp1,
+                Output = tmp3,
             });
 
             int h2 = (int)((double)Settings.Resolution * ((double)Settings.ScreenPosGameplay.Height / (double)Settings.ScreenPosGameplay.Width));
@@ -205,7 +219,7 @@ namespace Skmr.ClipToTok.ViewModels
             instructions.Add(new ResizeVideo(Settings.Resolution, h2)
             {
                 Ffmpeg = ffmpeg,
-                Input = tmp2,
+                Input = tmp3,
                 Output = GameplayArea
             });
 
@@ -213,7 +227,7 @@ namespace Skmr.ClipToTok.ViewModels
             #endregion
 
             #region Ffmpeg - VStack
-            Medium tmp3 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+            Medium tmp4 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
             composition.Reverse();
             if (composition.Count > 1)
             {
@@ -221,28 +235,28 @@ namespace Skmr.ClipToTok.ViewModels
                 instructions.Add(new VStack()
                 {
                     Input = composition.ToArray(),
-                    Output = tmp3,
+                    Output = tmp4,
                     Ffmpeg = ffmpeg
                 });
             }
             else
             {
-                tmp3 = composition[0];
+                tmp4 = composition[0];
             }
             #endregion
 
 
 
             #region Ffmpeg - Color Grading
-            Medium tmp4 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+            Medium tmp5 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
 
             if (Settings.HasColorGrading)
             {
                 instructions.Add(new ColorGradeVideo()
                 {
                     Ffmpeg = ffmpeg,
-                    Input = tmp3,
-                    Output = tmp4,
+                    Input = tmp4,
+                    Output = tmp5,
 
                     Contrast = Settings.Contrast,
                     Brighness = Settings.Brighness,
@@ -256,12 +270,12 @@ namespace Skmr.ClipToTok.ViewModels
             }
             else
             {
-                tmp4 = tmp3;
+                tmp5 = tmp4;
             }
             #endregion
 
             #region Ffmpeg - Background
-            Medium tmp5 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+            Medium tmp6 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
 
             if (Settings.HasBackground)
             {
@@ -271,17 +285,17 @@ namespace Skmr.ClipToTok.ViewModels
                 instructions.Add(new BackgroundImage()
                 {
                     Ffmpeg = ffmpeg,
-                    Input = tmp4,
+                    Input = tmp5,
                     Image = new Medium(
                         backgroundImgPath,
                         backgroundImgFile,
                         Format.Image.Jpg),
-                    Output = tmp5
+                    Output = tmp6
                 });
             }
             else
             {
-                tmp5 = tmp4;
+                tmp6 = tmp5;
             }
             #endregion
 

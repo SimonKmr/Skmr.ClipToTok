@@ -180,7 +180,25 @@ namespace Skmr.ClipToTok.ViewModels
             get { return _GammaWeight; }
             set { this.RaiseAndSetIfChanged(ref _GammaWeight, value); }
         }
+        #endregion
 
+        #region ChangeSpeed
+        private bool _HasChangeSpeed;
+        public bool HasChangeSpeed
+        {
+            get { return _HasChangeSpeed; }
+            set { this.RaiseAndSetIfChanged(ref _HasChangeSpeed, value); }
+        }
+
+
+
+
+        private double _Speed = 1;
+        public double Speed
+        {
+            get { return _Speed; }
+            set { this.RaiseAndSetIfChanged(ref _Speed, value); }
+        }
         #endregion
 
         #region Gameplay
