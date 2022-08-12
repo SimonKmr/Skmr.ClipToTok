@@ -107,11 +107,6 @@ namespace Skmr.ClipToTok.WPF
             txtSourceVideo.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
         }
 
-        private void PreviewImage_Drop(object sender, DragEventArgs e)
-        {
-            txtPrevImage.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-        }
-
         private void ResultFolder_Drop(object sender, DragEventArgs e)
         {
             txtResFolder.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];

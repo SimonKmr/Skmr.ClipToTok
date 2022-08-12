@@ -69,7 +69,6 @@
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="10"/>
@@ -86,13 +85,9 @@
                                 <Label Grid.Row="1" Grid.Column="1" Content="Resolution" Foreground="White"/>
                                 <TextBox Grid.Row="1" Grid.Column="2" Margin="2" Text="{Binding Settings.Resolution, UpdateSourceTrigger=PropertyChanged}"/>
 
-                                <Label Grid.Row="2" Grid.Column="1" Content="Preview Image" Foreground="White"/>
-                                <TextBox Grid.Row="2" Grid.Column="2" Margin="2" x:Name="txtPrevImage" Text="{Binding Image, UpdateSourceTrigger=PropertyChanged}"/>
-                                <Border Grid.Row="2" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="PreviewImage_Drop" AllowDrop="True"/>
-
-                                <Label Grid.Row="3" Grid.Column="1" Content="Result Folder" Foreground="White"/>
-                                <TextBox Grid.Row="3" Grid.Column="2" Margin="2" x:Name="txtResFolder" Text="{Binding Settings.ResultFolder, UpdateSourceTrigger=PropertyChanged}"/>
-                                <Border Grid.Row="3" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="ResultFolder_Drop" AllowDrop="True"/>
+                                <Label Grid.Row="2" Grid.Column="1" Content="Result Folder" Foreground="White"/>
+                                <TextBox Grid.Row="2" Grid.Column="2" Margin="2" x:Name="txtResFolder" Text="{Binding Settings.ResultFolder, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Border Grid.Row="2" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="ResultFolder_Drop" AllowDrop="True"/>
                             </Grid>
                         </StackPanel>
                     </Border>
@@ -390,7 +385,7 @@
             <Button Click="Play_Click" Margin="5" Width="150" Content="Play/Pause"/>
         </StackPanel>
 
-        <!-- Preview Image -->
+        <!-- Preview Frame -->
         <Border Grid.Row="2" Grid.Column="3" SizeChanged="Border_SizeChanged" x:Name="previewFrame"
                 Background="#101010" CornerRadius="10" Padding="20">
             <Grid>
