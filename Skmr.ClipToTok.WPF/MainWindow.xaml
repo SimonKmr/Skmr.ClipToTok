@@ -5,23 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Skmr.ClipToTok.WPF"
         xmlns:reactiveui="http://reactiveui.net"
+        xmlns:lvs="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
         xmlns:skia="clr-namespace:SkiaSharp.Views.WPF;assembly=SkiaSharp.Views.WPF"
         mc:Ignorable="d"
         Title="Clip2Tok" Height="900" Width="1600">
     <Grid Background="#202020">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="*" MinWidth="300" MaxWidth="425"/>
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
@@ -36,7 +38,7 @@
 
         <!-- Options -->
 
-        <Border Grid.Column="1" Grid.Row="2" CornerRadius="20" Background="#101010" Padding="20">
+        <Border Grid.Column="1" Grid.Row="2" CornerRadius="10" Background="#101010" Padding="20">
             <ScrollViewer >
                 <StackPanel>
                     <StackPanel.Resources>
@@ -381,42 +383,27 @@
 
         <!-- Buttons -->
 
-        <Grid Grid.Row="4" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Command="{Binding RenderCommand}" Margin="5" Content="Render" Grid.Column="1" Grid.RowSpan="2"/>
-            <Button Command="{Binding Settings.SaveCommand}" Margin="5" Content="Save" Grid.Column="0" Grid.Row ="0"/>
-            <Button Command="{Binding Settings.LoadCommand}" Margin="5" Content="Load" Grid.Column="0" Grid.Row ="1"/>
-        </Grid>
+        <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Horizontal">
+            <Button Command="{Binding RenderCommand}" Margin="5" Width="150" Content="Render"/>
+            <Button Command="{Binding Settings.SaveCommand}" Margin="5" Width="150" Content="Save"/>
+            <Button Command="{Binding Settings.LoadCommand}" Margin="5" Width="150" Content="Load"/>
+            <Button Click="Play_Click" Margin="5" Width="150" Content="Play/Pause"/>
+        </StackPanel>
 
+        <!-- Preview Image -->
+        <Border Grid.Row="2" Grid.Column="3" SizeChanged="Border_SizeChanged" x:Name="previewFrame"
+                Background="#101010" CornerRadius="10" Padding="20">
+            <Grid>
+                <lvs:VideoView x:Name="videoView">
+                    <skia:SKElement x:Name="canvasView" PaintSurface="SKElement_PaintSurface" IgnorePixelScaling="True" Width="100" Height="100"/>
+                </lvs:VideoView>
+            </Grid>
+        </Border>
 
-
-        <Grid Grid.Column="3" Grid.Row="2" Grid.RowSpan="3">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Preview Image -->
-            <Border Grid.Row="0"
-                Background="#101010" CornerRadius="20" Padding="20">
-                <Grid>
-                    <Image Source="{Binding Image}" Height="auto"/>
-                    <skia:SKElement x:Name="canvasView" PaintSurface="SKElement_PaintSurface" IgnorePixelScaling="True" />
-                </Grid>
-            </Border>
-
+        <Grid Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" >
             <!-- Console -->
-            <Border Grid.Column="3" Grid.Row="2"
-                Background="#101010" CornerRadius="20" Padding="20">
+            <Border Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3"
+                Background="#101010" CornerRadius="10">
                 <ScrollViewer >
                     <TextBlock Text="{Binding Log}" Foreground="White" />
                 </ScrollViewer>
