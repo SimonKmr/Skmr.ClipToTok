@@ -46,10 +46,9 @@
             <ScrollViewer >
                 <Grid>
                     <rxui:RoutedViewHost
-                    x:Name="RoutedViewHost"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    />
+                        x:Name="RoutedViewHost"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"/>
                 </Grid>
 
             </ScrollViewer>
