@@ -50,14 +50,14 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="1" Content="Video" Foreground="White"/>
-                        <TextBox Grid.Row="0" Grid.Column="2" Margin="2" x:Name="txtSourceVideo" Text="{Binding Settings.Video, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Row="0" Grid.Column="2" Margin="2" x:Name="txtSourceVideo"/>
                         <Border Grid.Row="0" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="SourceVideo_Drop" AllowDrop="True"/>
 
                         <Label Grid.Row="1" Grid.Column="1" Content="Resolution" Foreground="White"/>
-                        <TextBox Grid.Row="1" Grid.Column="2" Margin="2" Text="{Binding Settings.Resolution, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Row="1" Grid.Column="2" Margin="2" x:Name="txtResolution"/>
 
                         <Label Grid.Row="2" Grid.Column="1" Content="Result Folder" Foreground="White"/>
-                        <TextBox Grid.Row="2" Grid.Column="2" Margin="2" x:Name="txtResFolder" Text="{Binding Settings.ResultFolder, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Row="2" Grid.Column="2" Margin="2" x:Name="txtResFolder"/>
                         <Border Grid.Row="2" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="ResultFolder_Drop" AllowDrop="True"/>
                     </Grid>
                 </StackPanel>
@@ -73,7 +73,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Time Frame" />
-                        <CheckBox Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Settings.HasTimeFrame}"/>
+                        <CheckBox Grid.Column="1" VerticalAlignment="Center" x:Name="cbTimeFrameEnabled"/>
 
                     </Grid>
                     <Grid>
@@ -91,10 +91,10 @@
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Grid.Column="1" Content="Start" Foreground="White"/>
-                        <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Settings.TimeFrameStart, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtTimeFrameStart" Margin="2"/>
                         <Label Grid.Row="0" Grid.Column="3" Content="->" Foreground="White"/>
                         <Label Grid.Row="0" Grid.Column="4" Content="Duration" Foreground="White"/>
-                        <TextBox Grid.Row="0" Grid.Column="5" Text="{Binding Settings.TimeFrameDuration, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <TextBox Grid.Row="0" Grid.Column="5" x:Name="txtTimeFrameDuration" Margin="2"/>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -124,7 +124,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Change Speed" />
-                        <CheckBox Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Settings.HasChangeSpeed}"/>
+                        <CheckBox Grid.Column="1" VerticalAlignment="Center" x:Name="cbSpeed"/>
 
                     </Grid>
                     <Grid>
@@ -141,8 +141,8 @@
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="1" Content="Speed" Foreground="White"/>
-                        <Slider Grid.Row="0" Grid.Column="2" Value="{Binding Settings.Speed, UpdateSourceTrigger=PropertyChanged}" Minimum=".1"  Maximum="4" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Settings.Speed, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="0" Grid.Column="2" x:Name="slSpeed" Minimum=".1"  Maximum="4" TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtSpeed" Margin="2"/>
 
                     </Grid>
                 </StackPanel>
@@ -286,7 +286,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Color Grading" />
-                        <CheckBox Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Settings.HasColorGrading}"/>
+                        <CheckBox Grid.Column="1" VerticalAlignment="Center" x:Name="cbColorGrading"/>
                     </Grid>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -308,36 +308,36 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="1" Content="Contrast" Foreground="White"/>
-                        <Slider Grid.Row="0" Grid.Column="2" Value="{Binding Settings.Contrast, UpdateSourceTrigger=PropertyChanged}" Minimum="-1000" Maximum="1000" TickFrequency="1" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Settings.Contrast, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="0" Grid.Column="2" x:Name="slContrast" Minimum="-1000" Maximum="1000" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtContrast" Margin="2"/>
 
                         <Label Grid.Row="1" Grid.Column="1" Content="Brightness" Foreground="White"/>
-                        <Slider Grid.Row="1" Grid.Column="2" Value="{Binding Settings.Brighness, UpdateSourceTrigger=PropertyChanged}" Minimum="-1" Maximum="1" TickFrequency=".1" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Settings.Brighness, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="1" Grid.Column="2" x:Name="slBrightness" Minimum="-1" Maximum="1" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBrightness" Margin="2"/>
 
                         <Label Grid.Row="2" Grid.Column="1" Content="Saturation" Foreground="White"/>
-                        <Slider Grid.Row="2" Grid.Column="2" Value="{Binding Settings.Saturation, UpdateSourceTrigger=PropertyChanged}" Maximum="3" TickFrequency=".1" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Settings.Saturation, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="2" Grid.Column="2" x:Name="slSaturation" Maximum="3" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtSaturation" Margin="2"/>
 
                         <Label Grid.Row="3" Grid.Column="1" Content="Gamma" Foreground="White"/>
-                        <Slider Grid.Row="3" Grid.Column="2" Value="{Binding Settings.Gamma, UpdateSourceTrigger=PropertyChanged}" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Settings.Gamma, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="3" Grid.Column="2" x:Name="slGamma" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="3" Grid.Column="3" x:Name="txtGamma" Margin="2"/>
 
                         <Label Grid.Row="4" Grid.Column="1" Content="Gamma (Red)" Foreground="White"/>
-                        <Slider Grid.Row="4" Grid.Column="2" Value="{Binding Settings.GammaR, UpdateSourceTrigger=PropertyChanged}" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding Settings.GammaR, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="4" Grid.Column="2" x:Name="slGammaR" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="4" Grid.Column="3" x:Name="txtGammaR" Margin="2"/>
 
                         <Label Grid.Row="5" Grid.Column="1" Content="Gamma (Green)" Foreground="White"/>
-                        <Slider Grid.Row="5" Grid.Column="2" Value="{Binding Settings.GammaG, UpdateSourceTrigger=PropertyChanged}" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="5" Grid.Column="3" Text="{Binding Settings.GammaG, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="5" Grid.Column="2" x:Name="slGammaG" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="5" Grid.Column="3" x:Name="txtGammaG" Margin="2"/>
 
                         <Label Grid.Row="6" Grid.Column="1" Content="Gamma (Blue)" Foreground="White"/>
-                        <Slider Grid.Row="6" Grid.Column="2" Value="{Binding Settings.GammaB, UpdateSourceTrigger=PropertyChanged}" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding Settings.GammaB, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="6" Grid.Column="2" x:Name="slGammaB" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="6" Grid.Column="3" x:Name="txtGammaB" Margin="2"/>
 
                         <Label Grid.Row="7" Grid.Column="1" Content="Gamma Weight" Foreground="White"/>
-                        <Slider Grid.Row="7" Grid.Column="2" Value="{Binding Settings.GammaWeight, UpdateSourceTrigger=PropertyChanged}" Minimum="0.1" Maximum="1" TickFrequency=".1" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="7" Grid.Column="3" Text="{Binding Settings.GammaWeight, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="7" Grid.Column="2" x:Name="slGammaWeight" Minimum="0.1" Maximum="1" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="7" Grid.Column="3" x:Name="txtGammaWeight" Margin="2"/>
                     </Grid>
                 </StackPanel>
             </Border>
