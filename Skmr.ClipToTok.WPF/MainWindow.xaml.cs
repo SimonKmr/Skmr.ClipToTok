@@ -25,7 +25,7 @@ namespace Skmr.ClipToTok.WPF
 
             //MainViewModel
             var vm = new MainViewModel();
-            svm = vm.Settings;
+            svm = vm.Svm;
             ViewModel = vm;
             vm.Settings.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
             vm.Settings.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
@@ -131,15 +131,15 @@ namespace Skmr.ClipToTok.WPF
         private string playedBackVideo = String.Empty;
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(svm.Video))
+            if (File.Exists(svm.VideoFile))
             {
-                if (!playedBackVideo.Equals(svm.Video))
+                if (!playedBackVideo.Equals(svm.VideoFile))
                 {
-                    _mediaPlayer.Play(new Media(_libVLC, new Uri(svm.Video)));
-                    playedBackVideo = svm.Video;
+                    _mediaPlayer.Play(new Media(_libVLC, new Uri(svm.VideoFile)));
+                    playedBackVideo = svm.VideoFile;
                     isPlaying = true;
                 }
-                else if(!isPlaying && playedBackVideo.Equals(svm.Video))
+                else if(!isPlaying && playedBackVideo.Equals(svm.VideoFile))
                 {
                     _mediaPlayer.Play();
                     isPlaying = true;
