@@ -17,11 +17,18 @@ namespace Skmr.ClipToTok.ViewModels
         public ReactiveCommand<Unit, IRoutableViewModel> GoSettings { get; }
         public ReactiveCommand<Unit, IRoutableViewModel> GoHighlighter { get; }
 
+
+        SettingsViewModel svm;
+        HighlighterViewModel hvm;
+
         public MainViewModel()
         {
+            svm = new SettingsViewModel();
+            hvm = new HighlighterViewModel();
+
             Router = new RoutingState();
-            GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new SettingsViewModel()));
-            GoHighlighter = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new HighlighterViewModel()));
+            GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(svm));
+            GoHighlighter = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(hvm));
             
             Settings = new SettingsViewModel();
             RenderCommand = ReactiveCommand.Create(RenderThreaded);
