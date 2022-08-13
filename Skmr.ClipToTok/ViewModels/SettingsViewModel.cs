@@ -9,11 +9,20 @@ using Newtonsoft.Json;
 using ReactiveUI;
 using Skmr.Editor.Instructions;
 using Microsoft.Win32;
+using Splat;
 
 namespace Skmr.ClipToTok.ViewModels
 {
-    public class SettingsViewModel : ReactiveObject
+    public class SettingsViewModel : ReactiveObject, IRoutableViewModel
     {
+        public string? UrlPathSegment => "Settings";
+        public IScreen HostScreen { get; }
+        public SettingsViewModel(IScreen? screen = null)
+        {
+            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+        }
+
+
         public string Path { get; } = "Settings.json";
         public SettingsViewModel()
         {
@@ -55,6 +64,13 @@ namespace Skmr.ClipToTok.ViewModels
         {
             get { return _ResultFolder; }
             set { this.RaiseAndSetIfChanged(ref _ResultFolder, value); }
+        }
+
+        private string _VideoFile;
+        public string VideoFile
+        {
+            get { return _VideoFile; }
+            set { this.RaiseAndSetIfChanged(ref _VideoFile, value); }
         }
         #endregion
 

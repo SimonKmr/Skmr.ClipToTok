@@ -7,6 +7,7 @@ using Skmr.ClipToTok.ViewModels;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reactive.Disposables;
 using System.Windows;
 using System.Windows.Navigation;
 
@@ -17,18 +18,31 @@ namespace Skmr.ClipToTok.WPF
     /// </summary>
     public partial class MainWindow
     {
+        private SettingsViewModel svm;
         public MainWindow()
         {
             InitializeComponent();
-            //ViewModel
+
+            //MainViewModel
             var vm = new MainViewModel();
-            DataContext = vm;
+            ViewModel = vm;
             vm.Settings.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
             vm.Settings.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
+
+            //SettingsViewModel
+            svm = new SettingsViewModel();
             //Skia
             canvasView.SizeChanged += CanvasView_SizeChanged;
             //Vlc Player
             videoView.Loaded += VideoView_Loaded;
+
+            //Bindings
+            this.WhenActivated(disposables =>
+            {
+                this.OneWayBind(ViewModel, x => x.Router, x => x.RoutedViewHost.Router).DisposeWith(disposables);
+                this.BindCommand(ViewModel, x => x.GoSettings, x => x.SettingsTabButton).DisposeWith(disposables);
+                this.BindCommand(ViewModel, x => x.GoHighlighter, x => x.HighlighterTabButton).DisposeWith(disposables);
+            });
         }
 
 
@@ -101,22 +115,7 @@ namespace Skmr.ClipToTok.WPF
             canvas.DrawRect(xGamep * x1, yGamep * y1, widthGamep * x1, heightGamep * y1, new SKPaint() { Color = new SKColor(0, 255, 0, 122) });
         }
 
-        #region Drag and Drops
-        private void SourceVideo_Drop(object sender, System.Windows.DragEventArgs e)
-        {
-            txtSourceVideo.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-        }
 
-        private void ResultFolder_Drop(object sender, DragEventArgs e)
-        {
-            txtResFolder.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-        }
-
-        private void BackgroundImage_Drop(object sender, DragEventArgs e)
-        {
-            txtBackgroundImage.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-        }
-        #endregion
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
@@ -133,15 +132,15 @@ namespace Skmr.ClipToTok.WPF
         private string playedBackVideo = String.Empty;
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(txtSourceVideo.Text))
+            if (File.Exists(svm.Video))
             {
-                if (!playedBackVideo.Equals(txtSourceVideo.Text))
+                if (!playedBackVideo.Equals(svm.Video))
                 {
-                    _mediaPlayer.Play(new Media(_libVLC, new Uri(txtSourceVideo.Text)));
-                    playedBackVideo = txtSourceVideo.Text;
+                    _mediaPlayer.Play(new Media(_libVLC, new Uri(svm.Video)));
+                    playedBackVideo = svm.Video;
                     isPlaying = true;
                 }
-                else if(!isPlaying && playedBackVideo.Equals(txtSourceVideo.Text))
+                else if(!isPlaying && playedBackVideo.Equals(svm.Video))
                 {
                     _mediaPlayer.Play();
                     isPlaying = true;
@@ -151,7 +150,11 @@ namespace Skmr.ClipToTok.WPF
                     _mediaPlayer.Pause();
                 }
             } 
-            else _mediaPlayer.Stop();
+            else
+            {
+                _mediaPlayer.Stop();
+            }
+
         }
 
         private void Border_SizeChanged(object sender, SizeChangedEventArgs e)

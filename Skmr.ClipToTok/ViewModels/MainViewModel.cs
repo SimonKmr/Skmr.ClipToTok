@@ -6,15 +6,24 @@ using Skmr.Editor.Media;
 using System.Windows.Input;
 using static Skmr.Editor.Ffmpeg;
 using SkiaSharp;
+using System.Reactive;
+using Splat;
 
 namespace Skmr.ClipToTok.ViewModels
 {
     public class MainViewModel : ReactiveObject
     {
+        public RoutingState Router { get; }
+        public ReactiveCommand<Unit, IRoutableViewModel> GoSettings { get; }
+        public ReactiveCommand<Unit, IRoutableViewModel> GoHighlighter { get; }
+
         public MainViewModel()
         {
+            Router = new RoutingState();
+            GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new SettingsViewModel()));
+            GoHighlighter = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new HighlighterViewModel()));
+            
             Settings = new SettingsViewModel();
-
             RenderCommand = ReactiveCommand.Create(RenderThreaded);
         }
 
