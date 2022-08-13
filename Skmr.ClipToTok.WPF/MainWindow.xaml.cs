@@ -25,12 +25,11 @@ namespace Skmr.ClipToTok.WPF
 
             //MainViewModel
             var vm = new MainViewModel();
+            svm = vm.Settings;
             ViewModel = vm;
             vm.Settings.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
             vm.Settings.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
 
-            //SettingsViewModel
-            svm = new SettingsViewModel();
             //Skia
             canvasView.SizeChanged += CanvasView_SizeChanged;
             //Vlc Player
