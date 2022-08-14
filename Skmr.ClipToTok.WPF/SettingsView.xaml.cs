@@ -41,7 +41,29 @@ namespace Skmr.ClipToTok.WPF
                 this.Bind(ViewModel, vm => vm.HasChangeSpeed, v => v.cbSpeed.IsChecked).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.Speed, v => v.slSpeed.Value).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.Speed, v => v.txtSpeed.Text).DisposeWith(d);
-                
+
+                this.Bind(ViewModel, vm => vm.ScreenPosGameplay.PosX, v => v.slGameplayPosX.Value).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosGameplay.PosX, v => v.txtGameplayPosX.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosGameplay.PosY, v => v.slGameplayPosY.Value).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosGameplay.PosY, v => v.txtGameplayPosY.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosGameplay.Width, v => v.slGameplayWidth.Value).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosGameplay.Width, v => v.txtGameplayWidth.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosGameplay.Height, v => v.slGameplayHeight.Value).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosGameplay.Height, v => v.txtGameplayHeight.Text).DisposeWith(d);
+
+                this.Bind(ViewModel, vm => vm.HasWebcam, v => v.cbWebcam.IsChecked).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosWebcam.PosX, v => v.slWebcamPosX.Value).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosWebcam.PosX, v => v.txtWebcamPosX.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosWebcam.PosY, v => v.slWebcamPosY.Value).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosWebcam.PosY, v => v.txtWebcamPosY.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosWebcam.Width, v => v.slWebcamWidth.Value).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosWebcam.Width, v => v.txtWebcamWidth.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosWebcam.Height, v => v.slWebcamHeight.Value).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScreenPosWebcam.Height, v => v.txtWebcamHeight.Text).DisposeWith(d);
+
+                this.Bind(ViewModel, vm => vm.HasBackground, v => v.cbBackground.IsChecked).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.BackgroundImage, v => v.txtBackgroundImage.Text).DisposeWith(d);
+
                 this.Bind(ViewModel, vm => vm.HasColorGrading, v => v.cbColorGrading.IsChecked).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.Contrast, v => v.txtContrast.Text).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.Contrast, v => v.slContrast.Value).DisposeWith(d);

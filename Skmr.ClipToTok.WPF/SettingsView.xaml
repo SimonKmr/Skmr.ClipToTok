@@ -175,20 +175,20 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="1" Content="XPos" Foreground="White"/>
-                        <Slider Grid.Row="0" Grid.Column="2" Value="{Binding Settings.ScreenPosGameplay.PosX, UpdateSourceTrigger=PropertyChanged}" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Settings.ScreenPosGameplay.PosX, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="0" Grid.Column="2" x:Name="slGameplayPosX" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtGameplayPosX" Margin="2"/>
 
                         <Label Grid.Row="1" Grid.Column="1" Content="YPos" Foreground="White"/>
-                        <Slider Grid.Row="1" Grid.Column="2" Value="{Binding Settings.ScreenPosGameplay.PosY, UpdateSourceTrigger=PropertyChanged}" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Settings.ScreenPosGameplay.PosY, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="1" Grid.Column="2" x:Name="slGameplayPosY" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtGameplayPosY" Margin="2"/>
 
                         <Label Grid.Row="2" Grid.Column="1" Content="Width" Foreground="White"/>
-                        <Slider Grid.Row="2" Grid.Column="2" Value="{Binding Settings.ScreenPosGameplay.Width, UpdateSourceTrigger=PropertyChanged}" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Settings.ScreenPosGameplay.Width, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="2" Grid.Column="2" x:Name="slGameplayWidth" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtGameplayWidth" Margin="2"/>
 
                         <Label Grid.Row="3" Grid.Column="1" Content="Height" Foreground="White"/>
-                        <Slider Grid.Row="3" Grid.Column="2" Value="{Binding Settings.ScreenPosGameplay.Height, UpdateSourceTrigger=PropertyChanged}" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Settings.ScreenPosGameplay.Height, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="3" Grid.Column="2" x:Name="slGameplayHeight" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="3" Grid.Column="3" x:Name="txtGameplayHeight" Margin="2"/>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -203,7 +203,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Webcam" />
-                        <CheckBox Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Settings.HasWebcam}"/>
+                        <CheckBox Grid.Column="1" VerticalAlignment="Center" x:Name="cbWebcam"/>
                     </Grid>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -221,20 +221,20 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="1" Content="XPos" Foreground="White"/>
-                        <Slider Grid.Row="0" Grid.Column="2" Value="{Binding Settings.ScreenPosWebcam.PosX, UpdateSourceTrigger=PropertyChanged}" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Settings.ScreenPosWebcam.PosX, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="0" Grid.Column="2" x:Name="slWebcamPosX" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtWebcamPosX" Margin="2"/>
 
                         <Label Grid.Row="1" Grid.Column="1" Content="YPos" Foreground="White"/>
-                        <Slider Grid.Row="1" Grid.Column="2" Value="{Binding Settings.ScreenPosWebcam.PosY, UpdateSourceTrigger=PropertyChanged}" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Settings.ScreenPosWebcam.PosY, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="1" Grid.Column="2" x:Name="slWebcamPosY" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtWebcamPosY" Margin="2"/>
 
                         <Label Grid.Row="2" Grid.Column="1" Content="Width" Foreground="White"/>
-                        <Slider Grid.Row="2" Grid.Column="2" Value="{Binding Settings.ScreenPosWebcam.Width, UpdateSourceTrigger=PropertyChanged}" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Settings.ScreenPosWebcam.Width, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="2" Grid.Column="2" x:Name="slWebcamWidth" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtWebcamWidth" Margin="2"/>
 
                         <Label Grid.Row="3" Grid.Column="1" Content="Height" Foreground="White"/>
-                        <Slider Grid.Row="3" Grid.Column="2" Value="{Binding Settings.ScreenPosWebcam.Height, UpdateSourceTrigger=PropertyChanged}" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
-                        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding Settings.ScreenPosWebcam.Height, UpdateSourceTrigger=PropertyChanged}" Margin="2"/>
+                        <Slider Grid.Row="3" Grid.Column="2" x:Name="slWebcamHeight" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                        <TextBox Grid.Row="3" Grid.Column="3" x:Name="txtWebcamHeight" Margin="2"/>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -249,7 +249,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Background" />
-                        <CheckBox Grid.Column="1" VerticalAlignment="Center" IsChecked="{Binding Settings.HasBackground}"/>
+                        <CheckBox Grid.Column="1" VerticalAlignment="Center"  x:Name="cbBackground"/>
                     </Grid>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -267,7 +267,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="1" Content="Image" Foreground="White"/>
-                        <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtBackgroundImage" Margin="2" Text="{Binding Settings.BackgroundImage}"/>
+                        <TextBox Grid.Row="0" Grid.Column="2" x:Name="txtBackgroundImage" Margin="2"/>
                         <Border Grid.Row="0" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="BackgroundImage_Drop" AllowDrop="True"/>
 
                         <Label Grid.Row="1" Grid.Column="1" Content="Alignment" Foreground="White"/>
