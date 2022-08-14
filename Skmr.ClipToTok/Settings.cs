@@ -11,49 +11,72 @@ namespace Skmr.ClipToTok
     public class Settings
     {
         public Settings() { }
-        public Settings(SettingsViewModel settingsViewModel)
+        public Settings(SettingsViewModel svm)
         {
-            Resolution = settingsViewModel.Resolution;
-            ResultFolder = settingsViewModel.ResultFolder;
+            Resolution = svm.Resolution;
+            ResultFolder = svm.ResultFolder;
 
             Gameplay = new ScreenPos()
             {
-                PosX = settingsViewModel.ScreenPosGameplay.PosX,
-                PosY = settingsViewModel.ScreenPosGameplay.PosY,
-                Width = settingsViewModel.ScreenPosGameplay.Width,
-                Height = settingsViewModel.ScreenPosGameplay.Height,
+                PosX = svm.ScreenPosGameplay.PosX,
+                PosY = svm.ScreenPosGameplay.PosY,
+                Width = svm.ScreenPosGameplay.Width,
+                Height = svm.ScreenPosGameplay.Height,
             };
 
             Webcam = new Option<ScreenPos>(new ScreenPos()
             {
-                PosX = settingsViewModel.ScreenPosWebcam.PosX,
-                PosY = settingsViewModel.ScreenPosWebcam.PosY,
-                Width = settingsViewModel.ScreenPosWebcam.Width,
-                Height = settingsViewModel.ScreenPosWebcam.Height,
-            })
-            { IsEnabled = settingsViewModel.HasWebcam};
+                PosX = svm.ScreenPosWebcam.PosX,
+                PosY = svm.ScreenPosWebcam.PosY,
+                Width = svm.ScreenPosWebcam.Width,
+                Height = svm.ScreenPosWebcam.Height,
+            }, svm.HasWebcam);
 
             Background = new Option<Background>(new Background()
             {
-                Image = settingsViewModel.BackgroundImage
-            })
-            { IsEnabled = settingsViewModel.HasBackground };
+                Image = svm.BackgroundImage
+            }, svm.HasBackground);
+
+            Speed = new Option<double>(svm.Speed, svm.HasChangeSpeed);
+
+            ColorGrading = new Option<ColorGrading>(new ColorGrading
+            {
+                Contrast = svm.Contrast,
+                Brighness = svm.Brighness,
+                Saturation = svm.Saturation,
+                Gamma = svm.Gamma,
+                GammaR = svm.GammaR,
+                GammaG = svm.GammaG,
+                GammaB = svm.GammaB,
+                GammaWeight = svm.GammaWeight,
+            }, svm.HasColorGrading);
         }
 
         public int Resolution { get; set; }
         public string ResultFolder { get; set; }
-        public Option<Background> Background { get; set; } = new Option<Background>(new Background());
-        public Option<ScreenPos> Webcam { get; set; } = new Option<ScreenPos>(new ScreenPos());
+        public Option<Background> Background { get; set; } = new Option<Background>();
+        public Option<ScreenPos> Webcam { get; set; } = new Option<ScreenPos>();
         public ScreenPos Gameplay { get; set; } = new ScreenPos();
-        public Option<TextBubble> TextBubble { get; set; } = new Option<TextBubble>(new TextBubble());
+        public Option<TextBubble> TextBubble { get; set; } = new Option<TextBubble>();
+        public Option<double> Speed { get; set; } = new Option<double>();
+        public Option<ColorGrading> ColorGrading { get; set; } = new Option<ColorGrading>();
 
     }
 
-    public class Option<T>
+    public class Option<T> where T : new()
     {
+        public Option()
+        {
+            Value = new T();
+        }
         public Option(T value)
         {
             Value = value;
+        }
+        public Option(T value, bool isEnabled)
+        {
+            Value = value;
+            IsEnabled = isEnabled;
         }
 
         public bool IsEnabled { get; set; }
@@ -84,4 +107,15 @@ namespace Skmr.ClipToTok
         public int Height { get; set; }
     }
 
+    public class ColorGrading
+    {
+        public float Contrast { get; set; }
+        public float Brighness { get; set; }
+        public float Saturation { get; set; }
+        public float Gamma { get; set; }
+        public float GammaR { get; set; }
+        public float GammaG { get; set; }
+        public float GammaB { get; set; }
+        public float GammaWeight { get; set; }
+    }
 }

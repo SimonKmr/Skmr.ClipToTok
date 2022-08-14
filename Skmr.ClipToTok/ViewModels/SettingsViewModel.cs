@@ -257,6 +257,19 @@ namespace Skmr.ClipToTok.ViewModels
                 ScreenPosWebcam.Width = loaded.Webcam.Value.Width;
                 ScreenPosWebcam.Height = loaded.Webcam.Value.Height;
 
+                HasChangeSpeed = loaded.Speed.IsEnabled;
+                Speed = loaded.Speed.Value;
+
+                HasColorGrading = loaded.ColorGrading.IsEnabled;
+                Contrast = loaded.ColorGrading.Value.Contrast;
+                Brighness = loaded.ColorGrading.Value.Brighness;
+                Saturation = loaded.ColorGrading.Value.Brighness;
+                Gamma = loaded.ColorGrading.Value.Gamma;
+                GammaR = loaded.ColorGrading.Value.GammaR;
+                GammaG = loaded.ColorGrading.Value.GammaG;
+                GammaB = loaded.ColorGrading.Value.GammaB;
+                GammaWeight = loaded.ColorGrading.Value.GammaWeight;
+
                 HasBackground = loaded.Background.IsEnabled;
                 BackgroundImage = loaded.Background.Value.Image;
             }
