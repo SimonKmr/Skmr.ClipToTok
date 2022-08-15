@@ -10,47 +10,6 @@ namespace Skmr.ClipToTok
 {
     public class Settings
     {
-        public Settings() { }
-        public Settings(SettingsViewModel svm)
-        {
-            Resolution = svm.Resolution;
-            ResultFolder = svm.ResultFolder;
-
-            Gameplay = new ScreenPos()
-            {
-                PosX = svm.ScreenPosGameplay.PosX,
-                PosY = svm.ScreenPosGameplay.PosY,
-                Width = svm.ScreenPosGameplay.Width,
-                Height = svm.ScreenPosGameplay.Height,
-            };
-
-            Webcam = new Option<ScreenPos>(new ScreenPos()
-            {
-                PosX = svm.ScreenPosWebcam.PosX,
-                PosY = svm.ScreenPosWebcam.PosY,
-                Width = svm.ScreenPosWebcam.Width,
-                Height = svm.ScreenPosWebcam.Height,
-            }, svm.HasWebcam);
-
-            Background = new Option<Background>(new Background()
-            {
-                Image = svm.BackgroundImage
-            }, svm.HasBackground);
-
-            Speed = new Option<double>(svm.Speed, svm.HasChangeSpeed);
-
-            ColorGrading = new Option<ColorGrading>(new ColorGrading
-            {
-                Contrast = svm.Contrast,
-                Brighness = svm.Brighness,
-                Saturation = svm.Saturation,
-                Gamma = svm.Gamma,
-                GammaR = svm.GammaR,
-                GammaG = svm.GammaG,
-                GammaB = svm.GammaB,
-                GammaWeight = svm.GammaWeight,
-            }, svm.HasColorGrading);
-        }
 
         public int Resolution { get; set; }
         public string ResultFolder { get; set; }

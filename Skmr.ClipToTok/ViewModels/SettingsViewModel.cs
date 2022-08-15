@@ -234,7 +234,51 @@ namespace Skmr.ClipToTok.ViewModels
         {
             using (StreamWriter sw = new StreamWriter($"Save.json"))
             {
-                var data = new Settings(this);
+                var gameplay = new ScreenPos()
+                {
+                    PosX = ScreenPosGameplay.PosX,
+                    PosY = ScreenPosGameplay.PosY,
+                    Width = ScreenPosGameplay.Width,
+                    Height = ScreenPosGameplay.Height,
+                };
+
+                var webcam = new Option<ScreenPos>(new ScreenPos()
+                {
+                    PosX = ScreenPosWebcam.PosX,
+                    PosY = ScreenPosWebcam.PosY,
+                    Width = ScreenPosWebcam.Width,
+                    Height = ScreenPosWebcam.Height,
+                }, HasWebcam);
+
+                var background = new Option<Background>(new Background()
+                {
+                    Image = BackgroundImage
+                }, HasBackground);
+
+                var speed = new Option<double>(this.Speed, HasChangeSpeed);
+
+                var colorGrading = new Option<ColorGrading>(new ColorGrading
+                {
+                    Contrast = Contrast,
+                    Brighness = Brighness,
+                    Saturation = Saturation,
+                    Gamma = Gamma,
+                    GammaR = GammaR,
+                    GammaG = GammaG,
+                    GammaB = GammaB,
+                    GammaWeight = GammaWeight,
+                }, HasColorGrading);
+
+                var data = new Settings()
+                {
+                    Resolution = Resolution,
+                    ResultFolder = ResultFolder,
+                    Webcam = webcam,
+                    Gameplay = gameplay,
+                    Background = background,
+                    Speed = speed,
+                    ColorGrading = colorGrading,
+            };
                 sw.Write(JsonConvert.SerializeObject(data));
             }
         }
