@@ -76,7 +76,7 @@ namespace Skmr.ClipToTok.WPF
                     _mediaPlayer.Play(new Media(_libVLC, new Uri(playedBackVideoSet)));
                     playedBackVideoCurrent = playedBackVideoSet;
                 }
-                else if (_mediaPlayer.IsPlaying && playedBackVideoCurrent.Equals(playedBackVideoSet))
+                else if (!_mediaPlayer.IsPlaying && playedBackVideoCurrent.Equals(playedBackVideoSet))
                 {
                     _mediaPlayer.Play();
                 }
@@ -102,7 +102,7 @@ namespace Skmr.ClipToTok.WPF
         }
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if(_mediaPlayer.Time > (long)ViewModel.Svm.TimeFrameDuration.TotalMilliseconds)
+            if(_mediaPlayer.Time > (long)ViewModel.Svm.TimeFrameDuration.TotalMilliseconds + (long)ViewModel.Svm.TimeFrameStart.TotalMilliseconds)
             {
                 _mediaPlayer.Pause();
                 (sender as DispatcherTimer).Stop();
