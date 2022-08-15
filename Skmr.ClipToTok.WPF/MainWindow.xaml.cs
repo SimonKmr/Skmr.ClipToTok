@@ -18,17 +18,16 @@ namespace Skmr.ClipToTok.WPF
     /// </summary>
     public partial class MainWindow
     {
-        private SettingsViewModel svm;
         public MainWindow()
         {
             InitializeComponent();
 
             //MainViewModel
             var vm = new MainViewModel();
-            svm = vm.Svm;
             ViewModel = vm;
-            vm.Settings.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
-            vm.Settings.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
+            vm.Svm.OnVideoChanged += Settings_OnVideoChanged;
+            vm.Svm.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
+            vm.Svm.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
 
             //Vlc Player
             videoView.Loaded += VideoView_Loaded;
@@ -42,7 +41,7 @@ namespace Skmr.ClipToTok.WPF
             });
         }
 
-
+        #region VLC - Video Player
         LibVLC _libVLC;
         MediaPlayer _mediaPlayer;
 
@@ -56,6 +55,47 @@ namespace Skmr.ClipToTok.WPF
             videoView.MediaPlayer = _mediaPlayer;
         }
 
+        private bool isPlaying = false;
+        private string playedBackVideoSet = String.Empty;
+        private string playedBackVideoCurrent = String.Empty;
+
+        private void Settings_OnVideoChanged(object sender, string str)
+        {
+            playedBackVideoSet = str;
+        }
+
+        private void Play_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(playedBackVideoSet))
+            {
+                if (!playedBackVideoCurrent.Equals(playedBackVideoSet))
+                {
+                    _mediaPlayer.Play(new Media(_libVLC, new Uri(playedBackVideoSet)));
+                    playedBackVideoCurrent = playedBackVideoSet;
+                    isPlaying = true;
+                }
+                else if (!isPlaying && playedBackVideoCurrent.Equals(playedBackVideoSet))
+                {
+                    _mediaPlayer.Play();
+                    isPlaying = true;
+                }
+                else
+                {
+                    _mediaPlayer.Pause();
+                }
+            }
+            else
+            {
+                _mediaPlayer.Stop();
+            }
+        }
+        #endregion
+
+        #region Skia - Video Part Selection
+        int xWebc;
+        int yWebc;
+        int widthWebc;
+        int heightWebc;
         private void ScreenPosWebcam_OnScreenPosChanged(int x, int y, int width, int height)
         {
             this.xWebc = x;
@@ -65,11 +105,11 @@ namespace Skmr.ClipToTok.WPF
             canvasView.InvalidateVisual();
         }
 
-        int xWebc;
-        int yWebc;
-        int widthWebc;
-        int heightWebc;
 
+        int xGamep;
+        int yGamep;
+        int widthGamep;
+        int heightGamep;
         private void ScreenPosGameplay_OnScreenPosChanged(int x, int y, int width, int height)
         {
             this.xGamep = x;
@@ -79,10 +119,6 @@ namespace Skmr.ClipToTok.WPF
             canvasView.InvalidateVisual();
         }
 
-        int xGamep;
-        int yGamep;
-        int widthGamep;
-        int heightGamep;
 
         private void SKElement_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
@@ -99,48 +135,6 @@ namespace Skmr.ClipToTok.WPF
             
             canvas.DrawRect(xWebc * x1,yWebc * y1, widthWebc * x1, heightWebc * y1, new SKPaint() { Color = new SKColor(255, 0, 0,122) });
             canvas.DrawRect(xGamep * x1, yGamep * y1, widthGamep * x1, heightGamep * y1, new SKPaint() { Color = new SKColor(0, 255, 0, 122) });
-        }
-
-
-
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            // for .NET Core you need to add UseShellExecute = true
-            // see https://docs.microsoft.com/dotnet/api/system.diagnostics.processstartinfo.useshellexecute#property-value
-            var psi = new ProcessStartInfo();
-            psi.UseShellExecute = true;
-            psi.FileName = e.Uri.AbsoluteUri;
-            Process.Start(psi);
-            e.Handled = true;
-        }
-
-        private bool isPlaying = false;
-        private string playedBackVideo = String.Empty;
-        private void Play_Click(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists(svm.VideoFile))
-            {
-                if (!playedBackVideo.Equals(svm.VideoFile))
-                {
-                    _mediaPlayer.Play(new Media(_libVLC, new Uri(svm.VideoFile)));
-                    playedBackVideo = svm.VideoFile;
-                    isPlaying = true;
-                }
-                else if(!isPlaying && playedBackVideo.Equals(svm.VideoFile))
-                {
-                    _mediaPlayer.Play();
-                    isPlaying = true;
-                }
-                else
-                {
-                    _mediaPlayer.Pause();
-                }
-            } 
-            else
-            {
-                _mediaPlayer.Stop();
-            }
-
         }
 
         private void Border_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -161,6 +155,19 @@ namespace Skmr.ClipToTok.WPF
                 canvasView.Height = height;
                 canvasView.Width = width;
             }
+        }
+        #endregion
+
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            // for .NET Core you need to add UseShellExecute = true
+            // see https://docs.microsoft.com/dotnet/api/system.diagnostics.processstartinfo.useshellexecute#property-value
+            var psi = new ProcessStartInfo();
+            psi.UseShellExecute = true;
+            psi.FileName = e.Uri.AbsoluteUri;
+            Process.Start(psi);
+            e.Handled = true;
         }
     }
 }

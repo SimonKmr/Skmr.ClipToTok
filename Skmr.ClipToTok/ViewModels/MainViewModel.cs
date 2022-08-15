@@ -18,7 +18,6 @@ namespace Skmr.ClipToTok.ViewModels
         public ReactiveCommand<Unit, IRoutableViewModel> GoHighlighter { get; }
 
 
-        public SettingsViewModel Svm { get; }
         HighlighterViewModel hvm;
 
         public MainViewModel()
@@ -31,15 +30,14 @@ namespace Skmr.ClipToTok.ViewModels
             GoHighlighter = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(hvm));
             Router.Navigate.Execute(Svm);
 
-            Settings = new SettingsViewModel();
             RenderCommand = ReactiveCommand.Create(RenderThreaded);
         }
 
-        private SettingsViewModel _Settings;
-        public SettingsViewModel Settings 
+        private SettingsViewModel _SettingsViewModel;
+        public SettingsViewModel Svm 
         { 
-            get { return _Settings; }
-            set { this.RaiseAndSetIfChanged(ref _Settings, value); } 
+            get { return _SettingsViewModel; }
+            set { this.RaiseAndSetIfChanged(ref _SettingsViewModel, value); } 
         }
 
         public ICommand RenderCommand { get; set; }
@@ -112,12 +110,12 @@ namespace Skmr.ClipToTok.ViewModels
 
 
             Medium result = new Medium(
-                Settings.ResultFolder,
+                Svm.ResultFolder,
                 DateTime.Now.Ticks.ToString(),
                 Ffmpeg.Format.Video.Mp4);
 
-            var videoFolder = Path.GetDirectoryName(Settings.Video);
-            var videoName = Path.GetFileName(Settings.Video).Split('.')[0];
+            var videoFolder = Path.GetDirectoryName(Svm.VideoFile);
+            var videoName = Path.GetFileName(Svm.VideoFile).Split('.')[0];
 
             Medium footage = new Medium(
                 videoFolder,
@@ -127,9 +125,9 @@ namespace Skmr.ClipToTok.ViewModels
 
             #region Ffmpeg - Cutting
             Medium tmp0 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
-            if (Settings.HasTimeFrame)
+            if (Svm.HasTimeFrame)
             {
-                instructions.Add(new CutVideo((Settings.TimeFrameStart, Settings.TimeFrameDuration))
+                instructions.Add(new CutVideo((Svm.TimeFrameStart, Svm.TimeFrameDuration))
                 {
                     Ffmpeg = ffmpeg,
                     Input = footage,
@@ -148,9 +146,9 @@ namespace Skmr.ClipToTok.ViewModels
                 "normalized",
                 Ffmpeg.Format.Video.Mp4);
 
-            int height1 = Settings.Resolution;
+            int height1 = Svm.Resolution;
             if (height1 % 2 != 0) height1--;
-            int width1 = (int)(((double)1920 / (double)1080) * (double)Settings.Resolution);
+            int width1 = (int)(((double)1920 / (double)1080) * (double)Svm.Resolution);
             instructions.Add(new ResizeVideo(width1, height1)
             {
                 Ffmpeg = ffmpeg,
@@ -161,9 +159,9 @@ namespace Skmr.ClipToTok.ViewModels
 
             #region Ffmpeg - Speedup
             Medium tmp1 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
-            if (Settings.HasChangeSpeed)
+            if (Svm.HasChangeSpeed)
             {
-                instructions.Add(new ChangeSpeed(Settings.Speed)
+                instructions.Add(new ChangeSpeed(Svm.Speed)
                 {
                     Ffmpeg = ffmpeg,
                     Input = ClipNormalized,
@@ -184,23 +182,23 @@ namespace Skmr.ClipToTok.ViewModels
 
             Medium tmp2 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
 
-            if (Settings.HasWebcam)
+            if (Svm.HasWebcam)
             {
                 instructions.Add(new CropVideo(
-                    Settings.ScreenPosWebcam.Width,
-                    Settings.ScreenPosWebcam.Height,
-                    Settings.ScreenPosWebcam.PosX,
-                    Settings.ScreenPosWebcam.PosY)
+                    Svm.ScreenPosWebcam.Width,
+                    Svm.ScreenPosWebcam.Height,
+                    Svm.ScreenPosWebcam.PosX,
+                    Svm.ScreenPosWebcam.PosY)
                 {
                     Ffmpeg = ffmpeg,
                     Input = tmp1,
                     Output = tmp2,
                 });
 
-                int h1 = (int)(Settings.Resolution * ((double)Settings.ScreenPosWebcam.Height / (double)Settings.ScreenPosWebcam.Width));
+                int h1 = (int)(Svm.Resolution * ((double)Svm.ScreenPosWebcam.Height / (double)Svm.ScreenPosWebcam.Width));
                 if (h1 % 2 == 1) h1--;
 
-                instructions.Add(new ResizeVideo(Settings.Resolution, h1)
+                instructions.Add(new ResizeVideo(Svm.Resolution, h1)
                 {
                     Ffmpeg = ffmpeg,
                     Input = tmp2,
@@ -220,20 +218,20 @@ namespace Skmr.ClipToTok.ViewModels
             Medium tmp3 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
 
             instructions.Add(new CropVideo(
-                Settings.ScreenPosGameplay.Width,
-                Settings.ScreenPosGameplay.Height,
-                Settings.ScreenPosGameplay.PosX,
-                Settings.ScreenPosGameplay.PosY)
+                Svm.ScreenPosGameplay.Width,
+                Svm.ScreenPosGameplay.Height,
+                Svm.ScreenPosGameplay.PosX,
+                Svm.ScreenPosGameplay.PosY)
             {
                 Ffmpeg = ffmpeg,
                 Input = tmp1,
                 Output = tmp3,
             });
 
-            int h2 = (int)((double)Settings.Resolution * ((double)Settings.ScreenPosGameplay.Height / (double)Settings.ScreenPosGameplay.Width));
+            int h2 = (int)((double)Svm.Resolution * ((double)Svm.ScreenPosGameplay.Height / (double)Svm.ScreenPosGameplay.Width));
             if (h2 % 2 == 1) h2--;
 
-            instructions.Add(new ResizeVideo(Settings.Resolution, h2)
+            instructions.Add(new ResizeVideo(Svm.Resolution, h2)
             {
                 Ffmpeg = ffmpeg,
                 Input = tmp3,
@@ -267,7 +265,7 @@ namespace Skmr.ClipToTok.ViewModels
             #region Ffmpeg - Color Grading
             Medium tmp5 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
 
-            if (Settings.HasColorGrading)
+            if (Svm.HasColorGrading)
             {
                 instructions.Add(new ColorGradeVideo()
                 {
@@ -275,14 +273,14 @@ namespace Skmr.ClipToTok.ViewModels
                     Input = tmp4,
                     Output = tmp5,
 
-                    Contrast = Settings.Contrast,
-                    Brighness = Settings.Brighness,
-                    Saturation = Settings.Saturation,
-                    Gamma = Settings.Gamma,
-                    GammaR = Settings.GammaR,
-                    GammaG = Settings.GammaG,
-                    GammaB = Settings.GammaB,
-                    GammaWeight = Settings.GammaWeight,
+                    Contrast = Svm.Contrast,
+                    Brighness = Svm.Brighness,
+                    Saturation = Svm.Saturation,
+                    Gamma = Svm.Gamma,
+                    GammaR = Svm.GammaR,
+                    GammaG = Svm.GammaG,
+                    GammaB = Svm.GammaB,
+                    GammaWeight = Svm.GammaWeight,
                 });
             }
             else
@@ -294,10 +292,10 @@ namespace Skmr.ClipToTok.ViewModels
             #region Ffmpeg - Background
             Medium tmp6 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
 
-            if (Settings.HasBackground)
+            if (Svm.HasBackground)
             {
-                var backgroundImgPath = Path.GetDirectoryName(Settings.BackgroundImage);
-                var backgroundImgFile = Path.GetFileName(Settings.BackgroundImage).Split('.')[0];
+                var backgroundImgPath = Path.GetDirectoryName(Svm.BackgroundImage);
+                var backgroundImgFile = Path.GetFileName(Svm.BackgroundImage).Split('.')[0];
 
                 instructions.Add(new BackgroundImage()
                 {

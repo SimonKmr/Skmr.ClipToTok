@@ -29,6 +29,7 @@ namespace Skmr.ClipToTok.ViewModels
             ScreenPosWebcam = new ScreenPosViewModel();
             ScreenPosGameplay = new ScreenPosViewModel();
             
+            NewCommand = ReactiveCommand.Create(New);
             SaveCommand = ReactiveCommand.Create(Save);
             LoadCommand = ReactiveCommand.Create(Load);
             //if (File.Exists(Path))
@@ -41,15 +42,6 @@ namespace Skmr.ClipToTok.ViewModels
             //    CreateJson();
             //}
         }
-
-        #region Base
-        private string _Video;
-        public string Video
-        {
-            get { return _Video; }
-            set { this.RaiseAndSetIfChanged(ref _Video, value); }
-        }
-        #endregion
 
         #region Video
         private int _Resolution = 1080;
@@ -70,7 +62,11 @@ namespace Skmr.ClipToTok.ViewModels
         public string VideoFile
         {
             get { return _VideoFile; }
-            set { this.RaiseAndSetIfChanged(ref _VideoFile, value); }
+            set 
+            {
+                OnVideoChanged(this,value);
+                this.RaiseAndSetIfChanged(ref _VideoFile, value); 
+            }
         }
         #endregion
 
@@ -226,10 +222,21 @@ namespace Skmr.ClipToTok.ViewModels
         }
         #endregion
 
+
+        //Events
+        public delegate void ScreenPosHandler(object sender, int posX, int posY, int width, int height);
+        public delegate void StringHandler(object sender, string str);
+
+        public event StringHandler OnVideoChanged = delegate { };
+
         public ICommand LoadCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand NewCommand { get; set; }
 
+        public void New()
+        {
+
+        }
         public void Save()
         {
             using (StreamWriter sw = new StreamWriter($"Save.json"))

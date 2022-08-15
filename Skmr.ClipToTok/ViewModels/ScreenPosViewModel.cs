@@ -19,7 +19,11 @@ namespace Skmr.ClipToTok.ViewModels
         public int PosX 
         { 
             get => _PosX;
-            set { this.RaiseAndSetIfChanged(ref _PosX, value); OnScreenPosChanged(PosX,PosY,Width,Height); } 
+            set 
+            { 
+                OnScreenPosChanged(PosX, PosY, Width, Height); 
+                this.RaiseAndSetIfChanged(ref _PosX, value);  
+            } 
         }
         public int PosY 
         {
