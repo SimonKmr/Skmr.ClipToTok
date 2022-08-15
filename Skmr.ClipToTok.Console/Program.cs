@@ -3,12 +3,12 @@
 //default
 MainViewModel ctt = new MainViewModel();
 ctt.OnLog += Ctt_OnLog;
-ctt.Settings.Load();
+ctt.Svm.Load();
 
 var argument = Environment.GetCommandLineArgs()[1];
 if (File.Exists(argument))
 {
-    ctt.Settings.Video = argument;
+    ctt.Svm.VideoFile = argument;
     ctt.Render();
 }
 else return;
