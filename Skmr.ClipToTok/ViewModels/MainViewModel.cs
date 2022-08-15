@@ -35,17 +35,7 @@ namespace Skmr.ClipToTok.ViewModels
         }
 
 
-
-        public ICommand RenderCommand { get; set; }
-
-        private string _Image;
-        public string Image
-        {
-            get { return _Image; }
-            set { this.RaiseAndSetIfChanged(ref _Image, value); }
-        }
-
-
+        public string _Log;
         public delegate void LogHandler(string line);
         public event LogHandler OnLog = delegate { };
         private void AddLogEntry(string line)
@@ -53,7 +43,6 @@ namespace Skmr.ClipToTok.ViewModels
             OnLog(line);
             Log += $"{DateTime.Now.ToString("hh:mm:ss.FFF")}    {line}\n";
         }
-        public string _Log;
         public string Log
         {
             get { return _Log; }
@@ -62,6 +51,7 @@ namespace Skmr.ClipToTok.ViewModels
 
         
         Thread renderThread;
+        public ICommand RenderCommand { get; set; }
         public void RenderThreaded()
         {
             if(renderThread != null)

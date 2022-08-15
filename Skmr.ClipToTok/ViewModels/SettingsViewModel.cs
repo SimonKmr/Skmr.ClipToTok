@@ -17,10 +17,6 @@ namespace Skmr.ClipToTok.ViewModels
     {
         public string? UrlPathSegment => "Settings";
         public IScreen HostScreen { get; }
-        public SettingsViewModel(IScreen? screen = null)
-        {
-            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
-        }
 
 
         public string Path { get; } = "Settings.json";
@@ -32,15 +28,6 @@ namespace Skmr.ClipToTok.ViewModels
             NewCommand = ReactiveCommand.Create(New);
             SaveCommand = ReactiveCommand.Create(Save);
             LoadCommand = ReactiveCommand.Create(Load);
-            //if (File.Exists(Path))
-            //{
-            //    LoadJson();
-            //}
-            //else
-            //{
-            //    DefaultSettings();
-            //    CreateJson();
-            //}
         }
 
         #region Video
