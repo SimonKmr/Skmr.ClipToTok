@@ -26,7 +26,6 @@ namespace Skmr.ClipToTok.WPF
         public HighlighterView()
         {
             InitializeComponent();
-            Locator.CurrentMutable.Register(() => new HighlighterView(), typeof(IViewFor<HighlighterViewModel>));
         }
     }
 }

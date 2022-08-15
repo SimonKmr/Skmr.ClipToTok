@@ -30,8 +30,6 @@ namespace Skmr.ClipToTok.WPF
             vm.Settings.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
             vm.Settings.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
 
-            //Skia
-            canvasView.SizeChanged += CanvasView_SizeChanged;
             //Vlc Player
             videoView.Loaded += VideoView_Loaded;
 
@@ -56,17 +54,6 @@ namespace Skmr.ClipToTok.WPF
             _mediaPlayer = new MediaPlayer(_libVLC);
 
             videoView.MediaPlayer = _mediaPlayer;
-        }
-
-
-        private void CanvasView_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            var element = sender as SKElement;
-            //element.Height = e.NewSize.Width * 9f / 16f;
-
-            //if hight has margin, make width the resize factor
-            //if width has margin, make height the resize factor
-
         }
 
         private void ScreenPosWebcam_OnScreenPosChanged(int x, int y, int width, int height)
