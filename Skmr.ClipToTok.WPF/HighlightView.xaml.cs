@@ -3,6 +3,7 @@ using Skmr.ClipToTok.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,6 +26,14 @@ namespace Skmr.ClipToTok.WPF
         public HighlightView()
         {
             InitializeComponent();
+
+            this.WhenActivated(d =>
+            {
+                this.Bind(ViewModel, vm => vm.DurationText, v => v.txtDuration.Content).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.Start, v => v.txtStart.Content).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.End, v => v.txtEnd.Content).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ScoreText, v => v.txtScore.Content).DisposeWith(d);
+            });
         }
     }
 }

@@ -37,15 +37,18 @@
                 </StackPanel>
             </Border>
             <Grid Height="20"/>
-            <local:HighlightView/>
-            <local:HighlightView/>
-            <local:HighlightView/>
-            <local:HighlightView/>
-            <local:HighlightView/>
-            <local:HighlightView/>
-            <local:HighlightView/>
-            <local:HighlightView/>
-            <local:HighlightView/>
+            <ItemsControl x:Name="AnalyzedHighlights">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:HighlightView ViewModel="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 </rxui:ReactiveUserControl>

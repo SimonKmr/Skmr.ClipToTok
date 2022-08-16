@@ -4,6 +4,7 @@ using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,9 +24,15 @@ namespace Skmr.ClipToTok.WPF
     /// </summary>
     public partial class HighlighterView : ReactiveUserControl<HighlighterViewModel>
     {
+        // https://www.reactiveui.net/docs/getting-started/compelling-example
         public HighlighterView()
         {
             InitializeComponent();
+
+            this.WhenActivated(d =>
+            {
+                this.OneWayBind(ViewModel, vm => vm.Highlights, v => v.AnalyzedHighlights.ItemsSource).DisposeWith(d);
+            });
         }
     }
 }

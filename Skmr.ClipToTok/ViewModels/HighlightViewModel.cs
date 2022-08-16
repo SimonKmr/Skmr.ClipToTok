@@ -9,13 +9,29 @@ namespace Skmr.ClipToTok.ViewModels
 {
     public class HighlightViewModel : ReactiveObject
     {
+        public HighlightViewModel()
+        {
+
+        }
+
+        private TimeSpan _Duration;
+        private TimeSpan _Start;
+        
+        
         public double Score { get; set; }
-        public TimeSpan Start { get; set; } = TimeSpan.FromSeconds(0);
-        public TimeSpan Duration { get; set; } = TimeSpan.FromSeconds(0);
+        public TimeSpan Start
+        {
+            get { return _Start; }
+            set { this.RaiseAndSetIfChanged(ref _Start, value); }
+        }
+        public TimeSpan Duration 
+        { 
+            get { return _Duration; } 
+            set { this.RaiseAndSetIfChanged(ref _Duration, value); } 
+        }
         public TimeSpan End { get => Start + Duration; }
 
 
-        public string TimeFrameText { get => $"{Start} - {End}"; }
         public string DurationText { get => $"{Duration.TotalSeconds} sec"; }
         public string ScoreText { get => $"{Math.Round(Score * 100)}%"; }
 
