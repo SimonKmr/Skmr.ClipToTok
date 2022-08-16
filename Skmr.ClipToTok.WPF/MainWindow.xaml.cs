@@ -27,10 +27,15 @@ namespace Skmr.ClipToTok.WPF
             //MainViewModel
             var vm = new MainViewModel();
             ViewModel = vm;
+
+            //SettingsViewModel
             vm.Svm.OnVideoChanged += Svm_OnVideoChanged;
             vm.Svm.OnTimeFrameSet += Svm_OnTimeFrameSet;
             vm.Svm.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
             vm.Svm.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
+
+            //HighlighterViewModel
+            vm.Hvm.OnHighlightSelected += Hvm_OnHighlightSelected;
 
             //Vlc Player
             videoView.Loaded += VideoView_Loaded;
@@ -43,6 +48,8 @@ namespace Skmr.ClipToTok.WPF
                 this.BindCommand(ViewModel, x => x.GoHighlighter, x => x.HighlighterTabButton).DisposeWith(disposables);
             });
         }
+
+
 
         #region VLC - Video Player
         LibVLC _libVLC;
@@ -96,6 +103,14 @@ namespace Skmr.ClipToTok.WPF
         {
             PlaySection(ViewModel.Svm.TimeFrameStart, timeFrameDuration);
         }
+        private void Hvm_OnHighlightSelected(object sender, TimeSpan start, TimeSpan duration, bool select)
+        {
+            ViewModel.Svm.TimeFrameStart = start;
+            ViewModel.Svm.TimeFrameDuration = duration;
+            ViewModel.Svm.HasTimeFrame = select;
+            PlaySection(start, duration);
+        }
+
         private void Svm_OnTimeFrameSet(object sender, TimeSpan start, TimeSpan duration)
         {
             PlaySection(start, duration);
