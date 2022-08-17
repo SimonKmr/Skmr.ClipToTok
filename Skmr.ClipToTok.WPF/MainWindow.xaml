@@ -107,11 +107,22 @@
 
 
         <Grid Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MaxWidth="300"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
             <!-- Console -->
-            <Border Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3"
+            <Border Grid.Column="0"
                 Background="#101010" CornerRadius="10">
                 <ScrollViewer >
                     <TextBlock Text="{Binding Log}" Foreground="White" />
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Column="2" 
+                Background="#101010" CornerRadius="10">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible">
                 </ScrollViewer>
             </Border>
         </Grid>
