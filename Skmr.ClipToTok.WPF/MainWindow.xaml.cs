@@ -42,8 +42,9 @@ namespace Skmr.ClipToTok.WPF
 
             //Bindings
             this.WhenActivated(disposables =>
-            {
+            {   
                 this.OneWayBind(ViewModel, x => x.Router, x => x.RoutedViewHost.Router).DisposeWith(disposables);
+                
                 this.BindCommand(ViewModel, x => x.GoSettings, x => x.SettingsTabButton).DisposeWith(disposables);
                 this.BindCommand(ViewModel, x => x.GoHighlighter, x => x.HighlighterTabButton).DisposeWith(disposables);
             });
@@ -105,10 +106,16 @@ namespace Skmr.ClipToTok.WPF
         }
         private void Hvm_OnHighlightSelected(object sender, TimeSpan start, TimeSpan duration, bool select)
         {
-            ViewModel.Svm.TimeFrameStart = start;
-            ViewModel.Svm.TimeFrameDuration = duration;
-            ViewModel.Svm.HasTimeFrame = select;
-            PlaySection(start, duration);
+            if (select)
+            {
+                ViewModel.Svm.TimeFrameStart = start;
+                ViewModel.Svm.TimeFrameDuration = duration;
+                ViewModel.Svm.HasTimeFrame = select;
+            }
+            else
+            {
+                PlaySection(start, duration);
+            }
         }
 
         private void Svm_OnTimeFrameSet(object sender, TimeSpan start, TimeSpan duration)
@@ -140,6 +147,23 @@ namespace Skmr.ClipToTok.WPF
 
                 playedBackVideoCurrent = playedBackVideoSet;
             }
+        }
+
+        public void JumpAhead_Click(object sender, RoutedEventArgs e)
+        {
+            _mediaPlayer.Time += 10000;
+        }
+        public void JumpBack_Click(object sender, RoutedEventArgs e)
+        {
+            _mediaPlayer.Time -= 10000;
+        }
+        public void JumpZero_Click(object sender, RoutedEventArgs e)
+        {
+            _mediaPlayer.Time = 0;
+        }
+        public void Mute_Click(object sender, RoutedEventArgs e)
+        {
+            _mediaPlayer.Mute = !_mediaPlayer.Mute;
         }
         #endregion
 
