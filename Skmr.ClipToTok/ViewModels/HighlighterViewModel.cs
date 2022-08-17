@@ -21,9 +21,11 @@ namespace Skmr.ClipToTok.ViewModels
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
             var disposable = _highlightSources.Connect().Bind(out _highlights).Subscribe();
 
+
+            //This is just a dummy for testing Purposes
             _highlightSources.Add(new HighlightViewModel()
             {
-                Start = TimeSpan.FromSeconds(0),
+                Start = TimeSpan.FromSeconds(4242),
                 Duration = TimeSpan.FromSeconds(50),
                 Score = .75,
             }) ;
