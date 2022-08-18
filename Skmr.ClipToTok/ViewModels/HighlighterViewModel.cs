@@ -81,7 +81,7 @@ namespace Skmr.ClipToTok.ViewModels
         public ICommand ManualCommand { get; set; }
         public TimeSpan ManualStart { get; set; } = TimeSpan.Zero;
         public TimeSpan ManualDuration { get; set; } = TimeSpan.FromSeconds(59);
-        public string ManualComment { get; set; } = "Comment";
+        public string ManualComment { get; set; } = String.Empty;
         public void ManualAdd()
         {
             AddHighlight(new HighlightViewModel()
