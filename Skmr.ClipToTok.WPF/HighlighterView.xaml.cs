@@ -32,6 +32,8 @@ namespace Skmr.ClipToTok.WPF
             this.WhenActivated(d =>
             {
                 this.OneWayBind(ViewModel, vm => vm.Highlights, v => v.AnalyzedHighlights.ItemsSource).DisposeWith(d);
+                
+                this.BindCommand(ViewModel, vm => vm.AnalyzeCommand, v => v.btnAnalyze).DisposeWith(d);
             });
         }
     }

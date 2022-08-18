@@ -63,8 +63,8 @@
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*" MaxWidth="20"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Content="Play" Height="30"/>
-                <Button Grid.Column="2" Content="Select" Height="30"/>
+                <Button Grid.Column="1" x:Name="btnPlay" Content="Play" Height="30"/>
+                <Button Grid.Column="2" x:Name="btnSelect" Content="Select" Height="30"/>
             </Grid>
 
             

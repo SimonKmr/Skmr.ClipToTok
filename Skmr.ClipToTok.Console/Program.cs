@@ -9,7 +9,7 @@ var argument = Environment.GetCommandLineArgs()[1];
 if (File.Exists(argument))
 {
     ctt.Svm.VideoFile = argument;
-    ctt.Render();
+    //ctt.Render();
 }
 else return;
 

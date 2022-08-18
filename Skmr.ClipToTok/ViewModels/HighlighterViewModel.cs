@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DynamicData;
 using System.Collections.ObjectModel;
 using DynamicData.Binding;
+using System.Windows.Input;
 
 namespace Skmr.ClipToTok.ViewModels
 {
@@ -21,46 +22,57 @@ namespace Skmr.ClipToTok.ViewModels
             HostScreen = screen ?? Locator.Current.GetService<IScreen>();
             var disposable = _highlightSources.Connect().Bind(out _highlights).Subscribe();
 
-
-            //This is just a dummy for testing Purposes
-            _highlightSources.Add(new HighlightViewModel()
-            {
-                Start = TimeSpan.FromSeconds(4242),
-                Duration = TimeSpan.FromSeconds(50),
-                Score = .75,
-            }) ;
+            AnalyzeCommand = ReactiveCommand.Create(Analyze);
         }
 
         private SourceList<HighlightViewModel> _highlightSources = new SourceList<HighlightViewModel>();
         private ReadOnlyObservableCollection<HighlightViewModel> _highlights;
-        
         
         public ReadOnlyObservableCollection<HighlightViewModel> Highlights => _highlights;
         
         
         private void AddHighlight(HighlightViewModel vm)
         {
-            vm.OnButtonPressed += Vm_OnButtonPressed;
+            vm.OnSelectPressed += Vm_OnSelectPressed;
+            vm.OnPlayPressed += Vm_OnPlayPressed;
             _highlightSources.Add(vm);
         }
 
+        private void Vm_OnSelectPressed(object sender, TimeSpan start, TimeSpan duration, bool select)
+        {
+            OnHighlightSelected(this, start, duration, select);
+        }
+        private void Vm_OnPlayPressed(object sender, TimeSpan start, TimeSpan duration, bool select)
+        {
+            
+        }
+
+
+        public ICommand AnalyzeCommand { get; set; }
         public void Analyze()
         {
+            Random random = new Random();
             //RunAnaylzer
 
             //Add ViewModels to Highlight List
+            //This is just a dummy for testing Purposes
+            AddHighlight(new HighlightViewModel()
+            {
+                Start = TimeSpan.FromSeconds(random.Next(20,4200)),
+                Duration = TimeSpan.FromSeconds(random.Next(20,135)),
+                Score = random.NextDouble(),
+            });
         }
         
         
-        private void Vm_OnButtonPressed(object sender, TimeSpan start, TimeSpan duration, bool select)
-        {
-            OnHighlightSelected(this,start, duration, select);
-        }
+
+
+
 
         public delegate void HighlightSelectedHandler(object sender, TimeSpan start, TimeSpan duration, bool select);
         public event HighlightSelectedHandler OnHighlightSelected = delegate { };
 
         
-
+        
     }
 }

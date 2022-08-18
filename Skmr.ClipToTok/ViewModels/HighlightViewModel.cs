@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Skmr.ClipToTok.ViewModels
 {
@@ -11,7 +12,8 @@ namespace Skmr.ClipToTok.ViewModels
     {
         public HighlightViewModel()
         {
-
+            PlayCommand = ReactiveCommand.Create(Play);
+            SelectCommand = ReactiveCommand.Create(Select);
         }
 
         private TimeSpan _Duration;
@@ -37,14 +39,18 @@ namespace Skmr.ClipToTok.ViewModels
 
 
         public delegate void ButtonHandler(object sender, TimeSpan start, TimeSpan duration, bool select);
-        public event ButtonHandler OnButtonPressed = delegate { };
+        public event ButtonHandler OnSelectPressed = delegate { };
+        public event ButtonHandler OnPlayPressed = delegate { };
         public void Select()
         {
-            OnButtonPressed(this, Start, Duration, true);
+            OnSelectPressed(this, Start, Duration, true);
         }
         public void Play()
         {
-            OnButtonPressed(this, Start, Duration, false);
+            OnPlayPressed(this, Start, Duration, false);
         }
+
+        public ICommand PlayCommand { get; set; }
+        public ICommand SelectCommand { get; set; }
     }
 }

@@ -27,6 +27,7 @@
                         <Label Grid.Column="0" Foreground="White" FontSize="15" Content="SampleAnalyzer" />
                     </Grid>
                     <Button Content="Analyze"
+                            x:Name="btnAnalyze"
                             Width="200"
                             Height="30"
                             Grid.Column="1"

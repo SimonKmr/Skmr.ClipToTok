@@ -33,6 +33,9 @@ namespace Skmr.ClipToTok.WPF
                 this.Bind(ViewModel, vm => vm.Start, v => v.txtStart.Content).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.End, v => v.txtEnd.Content).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.ScoreText, v => v.txtScore.Content).DisposeWith(d);
+
+                this.BindCommand(ViewModel, vm => vm.PlayCommand, v => v.btnPlay).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.SelectCommand, v => v.btnSelect).DisposeWith(d);
             });
         }
     }
