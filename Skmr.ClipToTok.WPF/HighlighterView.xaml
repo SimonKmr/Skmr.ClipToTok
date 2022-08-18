@@ -9,7 +9,7 @@
              xmlns:vm="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
              x:TypeArguments="vm:HighlighterViewModel"
              xmlns:rxui="http://reactiveui.net"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignWidth="400">
     <Grid>
 
         <StackPanel>
@@ -24,19 +24,107 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Foreground="White" FontSize="15" Content="SampleAnalyzer" />
+                        <Label Grid.Column="0" Foreground="White" FontSize="15" Content="File" />
                     </Grid>
-                    <Button Content="Analyze"
-                            x:Name="btnAnalyze"
-                            Width="200"
-                            Height="30"
-                            Grid.Column="1"
-                            Grid.ColumnSpan="2"
-                            Grid.Row="2"
-                            Margin="5"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
 
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="5"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0" Grid.Column="1" x:Name="btnNew" Margin="5"  Height="30" Content="New"/>
+                        <Button Grid.Row="0" Grid.Column="2" x:Name="btnSave" Margin="5"  Height="30" Content="Save"/>
+                        <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="btnAnalyze" Margin="5" Height="30" Content="Analyze"/>
+                    </Grid>
                 </StackPanel>
             </Border>
+
+            <Border Margin="2" 
+                BorderBrush="#909090"
+                BorderThickness="1"
+                CornerRadius="5">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Manual" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="5"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Label Grid.Column="1" Grid.Row="0" Foreground="White" Content="Start"/>
+                        <Label Grid.Column="2" Grid.Row="0" Foreground="White" Content="Duration"/>
+                        <Label Grid.Column="3" Grid.Row="0" Foreground="White" Content="Comment"/>
+                        
+                        <TextBox Grid.Column="1" Grid.Row="1" Margin="1" Height="25" x:Name="txtManualStart"/>
+                        <TextBox Grid.Column="2" Grid.Row="1" Margin="2" Height="25" x:Name="txtManualDuration"/>
+                        <TextBox Grid.Column="3" Grid.Row="1" Margin="2" Height="25" x:Name="txtManualComment"/>
+                        <Button Grid.Column="4" Grid.Row="1" Height="30" x:Name="btnManual" Margin="5" Content="Add"/>
+                        
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Margin="2" 
+                BorderBrush="#909090"
+                BorderThickness="1"
+                CornerRadius="5">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Import" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="5"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="1" Grid.Row="0" Foreground="White" Content="Path"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" Margin="1" Height="25" x:Name="txtLoadPath"/>
+                        <Border  Grid.Column="2" Margin="5" Grid.Row="1" CornerRadius="5" Background="#202020" Drop="Load_Border_Drop" AllowDrop="True"/>
+                        <Button Grid.Column="3" Grid.Row="1" Height="30" x:Name="btnLoad" Margin="5" Content="Open"/>
+
+                    </Grid>
+                </StackPanel>
+            </Border>
+
             <Grid Height="20"/>
             <ItemsControl x:Name="AnalyzedHighlights">
                 <ItemsControl.ItemsPanel>

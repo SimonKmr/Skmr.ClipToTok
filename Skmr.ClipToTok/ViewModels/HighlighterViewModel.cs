@@ -23,6 +23,8 @@ namespace Skmr.ClipToTok.ViewModels
             var disposable = _highlightSources.Connect().Bind(out _highlights).Subscribe();
 
             AnalyzeCommand = ReactiveCommand.Create(Analyze);
+            NewCommand = ReactiveCommand.Create(Clear);
+            ManualCommand = ReactiveCommand.Create(ManualAdd);
         }
 
         private SourceList<HighlightViewModel> _highlightSources = new SourceList<HighlightViewModel>();
@@ -49,13 +51,20 @@ namespace Skmr.ClipToTok.ViewModels
 
 
         public ICommand AnalyzeCommand { get; set; }
+        public ICommand NewCommand { get; set; }
+        public ICommand LoadCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
         public void Analyze()
         {
-            Random random = new Random();
+
             //RunAnaylzer
 
             //Add ViewModels to Highlight List
+            
+            
+            
             //This is just a dummy for testing Purposes
+            Random random = new Random();
             AddHighlight(new HighlightViewModel()
             {
                 Start = TimeSpan.FromSeconds(random.Next(20,4200)),
@@ -63,10 +72,25 @@ namespace Skmr.ClipToTok.ViewModels
                 Score = random.NextDouble(),
             });
         }
-        
-        
+        public void Clear()
+        {
+            _highlightSources.Clear();
+        }
 
 
+        public ICommand ManualCommand { get; set; }
+        public TimeSpan ManualStart { get; set; } = TimeSpan.Zero;
+        public TimeSpan ManualDuration { get; set; } = TimeSpan.FromSeconds(59);
+        public string ManualComment { get; set; } = "Comment";
+        public void ManualAdd()
+        {
+            AddHighlight(new HighlightViewModel()
+            {
+                Start = ManualStart,
+                Duration = ManualDuration,
+                Score = 1,
+            });
+        }
 
 
         public delegate void HighlightSelectedHandler(object sender, TimeSpan start, TimeSpan duration, bool select);

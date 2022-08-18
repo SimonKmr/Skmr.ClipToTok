@@ -31,10 +31,20 @@ namespace Skmr.ClipToTok.WPF
 
             this.WhenActivated(d =>
             {
+                this.Bind(ViewModel, vm => vm.ManualStart, v => v.txtManualStart.Text);
+                this.Bind(ViewModel, vm => vm.ManualDuration, v => v.txtManualDuration.Text);
+                this.Bind(ViewModel, vm => vm.ManualComment, v => v.txtManualComment.Text);
                 this.OneWayBind(ViewModel, vm => vm.Highlights, v => v.AnalyzedHighlights.ItemsSource).DisposeWith(d);
                 
                 this.BindCommand(ViewModel, vm => vm.AnalyzeCommand, v => v.btnAnalyze).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.NewCommand, v => v.btnNew).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.ManualCommand, v => v.btnManual).DisposeWith(d);
             });
+        }
+
+        private void Load_Border_Drop(object sender, DragEventArgs e)
+        {
+            txtLoadPath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
         }
     }
 }
