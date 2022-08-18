@@ -67,10 +67,10 @@ namespace Skmr.ClipToTok.ViewModels
             Random random = new Random();
             AddHighlight(new HighlightViewModel()
             {
-                Start = TimeSpan.FromSeconds(random.Next(20,4200)),
-                Duration = TimeSpan.FromSeconds(random.Next(20,135)),
-                Score = random.NextDouble(),
-            });
+                Start = TimeSpan.FromSeconds(random.Next(20, 4200)),
+                Duration = TimeSpan.FromSeconds(random.Next(20, 135)),
+                Comment = "Sample"
+            }) ;
         }
         public void Clear()
         {
@@ -88,7 +88,7 @@ namespace Skmr.ClipToTok.ViewModels
             {
                 Start = ManualStart,
                 Duration = ManualDuration,
-                Score = 1,
+                Comment = ManualComment,
             });
         }
 

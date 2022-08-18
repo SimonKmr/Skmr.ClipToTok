@@ -46,7 +46,7 @@
                 <Label Grid.Row="2" Grid.ColumnSpan="3" Foreground="White" FontSize="15" x:Name="txtDuration" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Grid>
 
-            <Label x:Name="txtScore" 
+            <Label x:Name="txtComment" 
 
                    Grid.Row="1" 
                    Grid.Column="3" 

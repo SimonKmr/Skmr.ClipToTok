@@ -20,7 +20,6 @@ namespace Skmr.ClipToTok.ViewModels
         private TimeSpan _Start;
         
         
-        public double Score { get; set; }
         public TimeSpan Start
         {
             get { return _Start; }
@@ -32,10 +31,10 @@ namespace Skmr.ClipToTok.ViewModels
             set { this.RaiseAndSetIfChanged(ref _Duration, value); } 
         }
         public TimeSpan End { get => Start + Duration; }
+        public string Comment { get; set; }
 
 
         public string DurationText { get => $"{Duration.TotalSeconds} sec"; }
-        public string ScoreText { get => $"{Math.Round(Score * 100)}%"; }
 
 
         public delegate void ButtonHandler(object sender, TimeSpan start, TimeSpan duration, bool select);
