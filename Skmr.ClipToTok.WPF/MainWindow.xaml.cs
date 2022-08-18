@@ -149,6 +149,7 @@ namespace Skmr.ClipToTok.WPF
             }
         }
 
+        
         public void JumpAhead_Click(object sender, RoutedEventArgs e)
         {
             _mediaPlayer.Time += 10000;

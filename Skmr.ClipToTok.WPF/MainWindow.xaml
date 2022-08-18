@@ -28,8 +28,7 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="150"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
@@ -53,12 +52,6 @@
 
             </ScrollViewer>
         </Border>
-        <!-- Buttons -->
-
-        <StackPanel Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Orientation="Horizontal">
-            <Button Command="{Binding RenderCommand}" Margin="5" Width="150" Content="Render"/>
-
-        </StackPanel>
 
         <!-- Preview Frame -->
         <Grid Grid.Row="1" Grid.Column="4">
