@@ -44,7 +44,7 @@ namespace Skmr.ClipToTok.ViewModels
         }
         private void Vm_OnPlayPressed(object sender, TimeSpan start, TimeSpan duration, bool select)
         {
-            
+            OnHighlightSelected(this, start, duration, select);
         }
 
 
