@@ -84,6 +84,8 @@ namespace Skmr.ClipToTok.WPF
 
                 this.BindCommand(ViewModel, vm => vm.LoadCommand, v => v.btnLoad).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.SaveCommand, v => v.btnSave).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.RenderCommand, v => v.btnRender).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.NewCommand, v => v.btnNew).DisposeWith(d);
             });
         }
 

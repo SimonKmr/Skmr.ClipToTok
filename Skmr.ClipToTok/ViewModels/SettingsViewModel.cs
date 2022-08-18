@@ -226,38 +226,39 @@ namespace Skmr.ClipToTok.ViewModels
         public ICommand LoadCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand NewCommand { get; set; }
+        public ICommand RenderCommand { get; set; }
 
         public void New()
         {
-            //Resolution = loaded.Resolution;
-            //ResultFolder = loaded.ResultFolder;
+            Resolution = 1080;
+            ResultFolder = String.Empty;
 
-            //ScreenPosGameplay.PosX = loaded.Gameplay.PosX;
-            //ScreenPosGameplay.PosY = loaded.Gameplay.PosY;
-            //ScreenPosGameplay.Width = loaded.Gameplay.Width;
-            //ScreenPosGameplay.Height = loaded.Gameplay.Height;
+            ScreenPosGameplay.PosX = 0;
+            ScreenPosGameplay.PosY = 0;
+            ScreenPosGameplay.Width = 0;
+            ScreenPosGameplay.Height = 0;
 
-            //HasWebcam = loaded.Webcam.IsEnabled;
-            //ScreenPosWebcam.PosX = loaded.Webcam.Value.PosX;
-            //ScreenPosWebcam.PosY = loaded.Webcam.Value.PosY;
-            //ScreenPosWebcam.Width = loaded.Webcam.Value.Width;
-            //ScreenPosWebcam.Height = loaded.Webcam.Value.Height;
+            HasWebcam = false;
+            ScreenPosWebcam.PosX = 0;
+            ScreenPosWebcam.PosY = 0;
+            ScreenPosWebcam.Width = 0;
+            ScreenPosWebcam.Height = 0;
 
-            //HasChangeSpeed = loaded.Speed.IsEnabled;
-            //Speed = loaded.Speed.Value;
+            HasChangeSpeed = false;
+            Speed = 1;
 
-            //HasColorGrading = loaded.ColorGrading.IsEnabled;
-            //Contrast = loaded.ColorGrading.Value.Contrast;
-            //Brighness = loaded.ColorGrading.Value.Brighness;
-            //Saturation = loaded.ColorGrading.Value.Brighness;
-            //Gamma = loaded.ColorGrading.Value.Gamma;
-            //GammaR = loaded.ColorGrading.Value.GammaR;
-            //GammaG = loaded.ColorGrading.Value.GammaG;
-            //GammaB = loaded.ColorGrading.Value.GammaB;
-            //GammaWeight = loaded.ColorGrading.Value.GammaWeight;
+            HasColorGrading = false;
+            Contrast = 1;
+            Brighness = 0;
+            Saturation = 1;
+            Gamma = 1;
+            GammaR = 1;
+            GammaG = 1;
+            GammaB = 1;
+            GammaWeight = 1;
 
-            //HasBackground = loaded.Background.IsEnabled;
-            //BackgroundImage = loaded.Background.Value.Image;
+            HasBackground = false;
+            BackgroundImage = String.Empty;
         }
         public void Save()
         {
@@ -353,7 +354,7 @@ namespace Skmr.ClipToTok.ViewModels
         public event RenderEventHandler OnRenderEvent = delegate { };
 
         Thread renderThread;
-        public ICommand RenderCommand { get; set; }
+        
         public void RenderThreaded()
         {
             if (renderThread != null)

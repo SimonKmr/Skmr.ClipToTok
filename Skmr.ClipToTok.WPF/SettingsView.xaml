@@ -49,10 +49,10 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="5"/>
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="0" Grid.Column="1" x:Name="btnNew" Command="{Binding NewCommand}" Margin="5"  Height="30" Content="New"/>
-                        <Button Grid.Row="0" Grid.Column="2" x:Name="btnSave" Command="{Binding SaveCommand}" Margin="5"  Height="30" Content="Save"/>
-                        <Button Grid.Row="0" Grid.Column="3" x:Name="btnLoad" Command="{Binding LoadCommand}" Margin="5"  Height="30" Content="Load"/>
-                        <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Command="{Binding RenderCommand}" Margin="5" Height="30" Content="Render"/>
+                        <Button Grid.Row="0" Grid.Column="1" x:Name="btnNew" Margin="5"  Height="30" Content="New"/>
+                        <Button Grid.Row="0" Grid.Column="2" x:Name="btnSave" Margin="5"  Height="30" Content="Save"/>
+                        <Button Grid.Row="0" Grid.Column="3" x:Name="btnLoad" Margin="5"  Height="30" Content="Load"/>
+                        <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="btnRender" Margin="5" Height="30" Content="Render"/>
                     </Grid>
                 </StackPanel>
             </Border>
