@@ -34,8 +34,8 @@
 
         <!-- Tab Menu-->
         <StackPanel Grid.Row="0" Grid.RowSpan="7" Background="#101010" Orientation="Vertical">
-            <Button Content="Settings" Width="50" Height="50" x:Name="SettingsTabButton" />
-            <Button Content="Highlights" Width="50" Height="50" x:Name="HighlighterTabButton" />
+            <Button Content="Toks" Width="50" Height="50" x:Name="SettingsTabButton" />
+            <Button Content="Analyze" Width="50" Height="50" x:Name="HighlighterTabButton" />
             <Button Content="Github" Width="50" Height="50" />
             <Button Content="Shop" Width="50" Height="50" />
         </StackPanel>
