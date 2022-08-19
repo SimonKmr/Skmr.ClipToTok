@@ -10,65 +10,96 @@
              x:TypeArguments="vm:HighlightViewModel"
              xmlns:rxui="http://reactiveui.net"
              d:DesignWidth="300">
-                
-    <Border Margin="2" BorderBrush="#909090" BorderThickness="1" CornerRadius="5">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="5"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="5"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Row="1" Grid.Column="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+
+    <Border Margin="2" BorderBrush="#909090" BorderThickness="1" CornerRadius="5" SizeChanged="Border_SizeChanged">
+        <StackPanel>
+            <!-- Heading -->
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="1" Grid.Column="0" Foreground="White" FontSize="15" x:Name="txtStart" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <Label Grid.Row="1" Grid.Column="1" Foreground="White" FontSize="10" Content="-" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <Label Grid.Row="1" Grid.Column="2" Foreground="White" FontSize="15" x:Name="txtEnd" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <Label Grid.Row="2" Grid.ColumnSpan="3" Foreground="White" FontSize="15" x:Name="txtDuration" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <Label Foreground="White" FontSize="15" x:Name="txtTitle" />
             </Grid>
 
-            <Label x:Name="txtComment" 
-
-                   Grid.Row="1" 
-                   Grid.Column="1" 
-                   Foreground="White" 
-                   FontSize="20"
-                   FontWeight="Bold"
-                   VerticalAlignment="Center" 
-                   HorizontalAlignment="Center" />
-
-            <Grid Grid.Row="3" Grid.ColumnSpan="5">
+            <!-- Body -->
+            <Grid x:Name="grdBody">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*" MaxWidth="20"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" x:Name="btnPlay" Content="Play" Height="30"/>
-                <Button Grid.Column="2" x:Name="btnSelect" Content="Select" Height="30"/>
+                
+                <!-- Image -->
+                <Image x:Name="imgPreview" Grid.Column="1" Width="200" Margin="5"/>
+
+                <!-- Text Info -->
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="7"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Time Stamps -->
+                    <Grid Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="1" Grid.Column="0" Padding="0" Foreground="White" FontSize="12" x:Name="txtStart" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Label Grid.Row="1" Grid.Column="2" Padding="0" Foreground="White" FontSize="12" Content="-" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Label Grid.Row="1" Grid.Column="4" Padding="0" Foreground="White" FontSize="12" x:Name="txtEnd" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <Label Grid.Row="2" Grid.ColumnSpan="6" Padding="0" Foreground="White" FontSize="12" x:Name="txtDuration" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Grid>
+
+                    <!-- Buttons -->
+                    <Grid Grid.Row="2" Grid.ColumnSpan="5" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="btnPlay"
+                            Grid.Row="0" 
+                            Grid.Column="0"  
+                            Content="Play" 
+                            Margin="3" 
+                            Height="30"/>
+
+                        <Button x:Name="btnSelect" 
+                            Grid.Row="0" 
+                            Grid.Column="1" 
+                            Content="Select" 
+                            Margin="3" 
+                            Height="30"/>
+
+                        <Button x:Name="btnEdit" 
+                            Grid.Row="1" 
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2" 
+                            Margin="3" 
+                            Content="Edit" 
+                            Height="30"/>
+                    </Grid>
+                </Grid>
             </Grid>
-
-            
-        </Grid>
+        </StackPanel>
     </Border>
-
 </rxui:ReactiveUserControl>

@@ -32,11 +32,27 @@ namespace Skmr.ClipToTok.WPF
                 this.Bind(ViewModel, vm => vm.DurationText, v => v.txtDuration.Content).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.Start, v => v.txtStart.Content).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.End, v => v.txtEnd.Content).DisposeWith(d);
-                this.Bind(ViewModel, vm => vm.Comment, v => v.txtComment.Content).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.Comment, v => v.txtTitle.Content).DisposeWith(d);
 
                 this.BindCommand(ViewModel, vm => vm.PlayCommand, v => v.btnPlay).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.SelectCommand, v => v.btnSelect).DisposeWith(d);
             });
+
+            imgPreview.Source = new BitmapImage(new Uri(@"C:\Users\darkf\OneDrive\Bilder\Screenshot_1.png"));
+        }
+
+        private void Border_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width < 420)
+            {
+                grdBody.ColumnDefinitions[1].Width = new GridLength(0, GridUnitType.Pixel);
+                grdBody.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Pixel);
+            }
+            else
+            {
+                grdBody.ColumnDefinitions[1].Width = new GridLength(210, GridUnitType.Pixel);
+                grdBody.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+            }
         }
     }
 }
