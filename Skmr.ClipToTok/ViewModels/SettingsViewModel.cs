@@ -7,6 +7,7 @@ using Skmr.Editor;
 using static Skmr.Editor.Ffmpeg;
 using Skmr.Editor.Instructions.Interfaces;
 using System.IO;
+using Skmr.ClipToTok.Utility;
 
 namespace Skmr.ClipToTok.ViewModels
 {
@@ -264,51 +265,7 @@ namespace Skmr.ClipToTok.ViewModels
         {
             using (StreamWriter sw = new StreamWriter($"Save.json"))
             {
-                var gameplay = new ScreenPos()
-                {
-                    PosX = ScreenPosGameplay.PosX,
-                    PosY = ScreenPosGameplay.PosY,
-                    Width = ScreenPosGameplay.Width,
-                    Height = ScreenPosGameplay.Height,
-                };
-
-                var webcam = new Option<ScreenPos>(new ScreenPos()
-                {
-                    PosX = ScreenPosWebcam.PosX,
-                    PosY = ScreenPosWebcam.PosY,
-                    Width = ScreenPosWebcam.Width,
-                    Height = ScreenPosWebcam.Height,
-                }, HasWebcam);
-
-                var background = new Option<Background>(new Background()
-                {
-                    Image = BackgroundImage
-                }, HasBackground);
-
-                var speed = new Option<double>(this.Speed, HasChangeSpeed);
-
-                var colorGrading = new Option<ColorGrading>(new ColorGrading
-                {
-                    Contrast = Contrast,
-                    Brighness = Brighness,
-                    Saturation = Saturation,
-                    Gamma = Gamma,
-                    GammaR = GammaR,
-                    GammaG = GammaG,
-                    GammaB = GammaB,
-                    GammaWeight = GammaWeight,
-                }, HasColorGrading);
-
-                var data = new Settings()
-                {
-                    Resolution = Resolution,
-                    ResultFolder = ResultFolder,
-                    Webcam = webcam,
-                    Gameplay = gameplay,
-                    Background = background,
-                    Speed = speed,
-                    ColorGrading = colorGrading,
-            };
+                var data = this.ToSettings();
                 sw.Write(JsonConvert.SerializeObject(data));
             }
         }
@@ -317,35 +274,7 @@ namespace Skmr.ClipToTok.ViewModels
             using (StreamReader sr = new StreamReader($"Save.json"))
             {
                 Settings loaded = JsonConvert.DeserializeObject<Settings>(sr.ReadToEnd());
-                Resolution = loaded.Resolution;
-                ResultFolder = loaded.ResultFolder;
-                
-                ScreenPosGameplay.PosX = loaded.Gameplay.PosX;
-                ScreenPosGameplay.PosY = loaded.Gameplay.PosY;
-                ScreenPosGameplay.Width = loaded.Gameplay.Width;
-                ScreenPosGameplay.Height = loaded.Gameplay.Height;
-                
-                HasWebcam = loaded.Webcam.IsEnabled;
-                ScreenPosWebcam.PosX = loaded.Webcam.Value.PosX;
-                ScreenPosWebcam.PosY = loaded.Webcam.Value.PosY;
-                ScreenPosWebcam.Width = loaded.Webcam.Value.Width;
-                ScreenPosWebcam.Height = loaded.Webcam.Value.Height;
-
-                HasChangeSpeed = loaded.Speed.IsEnabled;
-                Speed = loaded.Speed.Value;
-
-                HasColorGrading = loaded.ColorGrading.IsEnabled;
-                Contrast = loaded.ColorGrading.Value.Contrast;
-                Brighness = loaded.ColorGrading.Value.Brighness;
-                Saturation = loaded.ColorGrading.Value.Brighness;
-                Gamma = loaded.ColorGrading.Value.Gamma;
-                GammaR = loaded.ColorGrading.Value.GammaR;
-                GammaG = loaded.ColorGrading.Value.GammaG;
-                GammaB = loaded.ColorGrading.Value.GammaB;
-                GammaWeight = loaded.ColorGrading.Value.GammaWeight;
-
-                HasBackground = loaded.Background.IsEnabled;
-                BackgroundImage = loaded.Background.Value.Image;
+                loaded.LoadInto(this);
             }
         }
 

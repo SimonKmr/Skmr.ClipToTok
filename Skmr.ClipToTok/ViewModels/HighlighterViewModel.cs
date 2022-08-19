@@ -125,7 +125,9 @@ namespace Skmr.ClipToTok.ViewModels
                     var highlightArr = JsonConvert.DeserializeObject<Highlight[]>(sr.ReadToEnd());
                     for(int i = 0; i < highlightArr.Length; i++)
                     {
-                        _highlightSources.Add(highlightArr[i].ToHighlightViewModel());
+                        var o = new HighlightViewModel();
+                        highlightArr[i].LoadInto(o);
+                        _highlightSources.Add(o);
                     }
                 }
                 return;
