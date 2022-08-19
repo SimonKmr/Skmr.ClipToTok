@@ -9,6 +9,8 @@ using DynamicData;
 using System.Collections.ObjectModel;
 using DynamicData.Binding;
 using System.Windows.Input;
+using Skmr.ClipToTok.Utility;
+using Newtonsoft.Json;
 
 namespace Skmr.ClipToTok.ViewModels
 {
@@ -25,6 +27,9 @@ namespace Skmr.ClipToTok.ViewModels
             AnalyzeCommand = ReactiveCommand.Create(Analyze);
             NewCommand = ReactiveCommand.Create(Clear);
             ManualCommand = ReactiveCommand.Create(ManualAdd);
+            
+            SaveCommand = ReactiveCommand.Create(Save);
+            ImportCommand = ReactiveCommand.Create(Import);
         }
 
         private SourceList<HighlightViewModel> _highlightSources = new SourceList<HighlightViewModel>();
@@ -52,8 +57,7 @@ namespace Skmr.ClipToTok.ViewModels
 
         public ICommand AnalyzeCommand { get; set; }
         public ICommand NewCommand { get; set; }
-        public ICommand LoadCommand { get; set; }
-        public ICommand SaveCommand { get; set; }
+        public ICommand ImportCommand { get; set; }
         public void Analyze()
         {
 
@@ -93,10 +97,53 @@ namespace Skmr.ClipToTok.ViewModels
         }
 
 
+        public ICommand SaveCommand { get; set; }
+        public void Save()
+        {
+            List<Highlight> highlights = new List<Highlight>();
+            for(int i = 0; i < _highlightSources.Count; i++)
+            {
+                highlights.Add(Highlights[i].ToHighlight());
+            }
+            var highlightsArr = highlights.ToArray();
+
+            var json = JsonConvert.SerializeObject(highlightsArr);
+            using(var sw = new StreamWriter("highlights.json"))
+            {
+                sw.Write(json);
+            }
+        }
+        public void Import()
+        {
+            string file = "";
+            if (!File.Exists(file)) return;
+
+            if (file.EndsWith(".json"))
+            {
+                using (StreamReader sr = new StreamReader(file))
+                {
+                    var highlightArr = JsonConvert.DeserializeObject<Highlight[]>(sr.ReadToEnd());
+                    for(int i = 0; i < highlightArr.Length; i++)
+                    {
+                        _highlightSources.Add(highlightArr[i].ToHighlightViewModel());
+                    }
+                }
+                return;
+            }
+            else if (file.EndsWith(".txt"))
+            {
+                throw new NotImplementedException();
+            }
+            else if (file.EndsWith(".svg"))
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+
         public delegate void HighlightSelectedHandler(object sender, TimeSpan start, TimeSpan duration, bool select);
         public event HighlightSelectedHandler OnHighlightSelected = delegate { };
-
-        
         
     }
 }
