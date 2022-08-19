@@ -104,5 +104,15 @@ namespace Skmr.ClipToTok.Utility
             vm.Duration = highlight.Duration;
             vm.Comment = highlight.Comment;
         }
+
+        public static ViewModels.HighlightViewModel ToHighlightViewModel(this Highlight highlight)
+        {
+            return new ViewModels.HighlightViewModel()
+            {
+                Start = highlight.Start,
+                Duration = highlight.Duration,
+                Comment = highlight.Comment,
+            };
+        }
     }
 }
