@@ -115,7 +115,7 @@ namespace Skmr.ClipToTok.ViewModels
         }
         public void Import()
         {
-            string file = "";
+            string file = @"C:\Users\darkf\Desktop\sample.txt";
             if (!File.Exists(file)) return;
 
             if (file.EndsWith(".json"))
@@ -134,11 +134,28 @@ namespace Skmr.ClipToTok.ViewModels
             }
             else if (file.EndsWith(".txt"))
             {
-                throw new NotImplementedException();
+                using (StreamReader sr = new StreamReader(file))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        var o = new Highlight();
+                        o.FromTxt(sr.ReadLine());
+                        _highlightSources.Add(o.ToHighlightViewModel());
+                    }
+                }
+                    
             }
             else if (file.EndsWith(".csv"))
             {
-                throw new NotImplementedException();
+                using (StreamReader sr = new StreamReader(file))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        var o = new Highlight();
+                        o.FromCsv(sr.ReadLine());
+                        _highlightSources.Add(o.ToHighlightViewModel());
+                    }
+                }
             }
         }
 
