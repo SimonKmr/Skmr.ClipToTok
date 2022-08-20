@@ -9,7 +9,7 @@
              xmlns:vm="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
              x:TypeArguments="vm:HighlightViewModel"
              xmlns:rxui="http://reactiveui.net"
-             d:DesignWidth="300">
+             d:DesignWidth="500">
 
     <Border Margin="2" BorderBrush="#909090" BorderThickness="1" CornerRadius="5" SizeChanged="Border_SizeChanged">
         <StackPanel>
