@@ -61,7 +61,7 @@ namespace Skmr.ClipToTok.ViewModels
             HasTimeFrame = true;
             TimeFrameStart = start;
             TimeFrameDuration = duration;
-            OnTimeFrameSet(this, start, duration);
+            OnTimeFrameSet(this, start, duration); //unsure if i even want this
         }
 
         private bool _HasTimeFrame;
@@ -71,18 +71,30 @@ namespace Skmr.ClipToTok.ViewModels
             set { this.RaiseAndSetIfChanged(ref _HasTimeFrame, value); }
         }
 
+
+        public delegate void TimeFrameChangedHandler(object sender, TimeSpan start, TimeSpan duration);
+        public event TimeFrameChangedHandler TimeFrameChanged;
+
         private TimeSpan _TimeFrameStart;
         public TimeSpan TimeFrameStart
         {
             get { return _TimeFrameStart; }
-            set { this.RaiseAndSetIfChanged(ref _TimeFrameStart, value); }
+            set 
+            { 
+                this.RaiseAndSetIfChanged(ref _TimeFrameStart, value);
+                TimeFrameChanged(this, TimeFrameStart, TimeFrameDuration);
+            }
         }
 
         private TimeSpan _TimeFrameEnd;
         public TimeSpan TimeFrameDuration
         {
             get { return _TimeFrameEnd; }
-            set { this.RaiseAndSetIfChanged(ref _TimeFrameEnd, value); }
+            set 
+            { 
+                this.RaiseAndSetIfChanged(ref _TimeFrameEnd, value);
+                TimeFrameChanged(this, TimeFrameStart, TimeFrameDuration);
+            }
         }
         #endregion
 

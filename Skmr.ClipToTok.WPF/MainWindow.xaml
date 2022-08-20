@@ -9,10 +9,6 @@
         x:TypeArguments="vm:MainViewModel"
         xmlns:rxui="http://reactiveui.net" 
         xmlns:reactiveui="http://reactiveui.net"
-        
-        xmlns:lvs="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
-        xmlns:skia="clr-namespace:SkiaSharp.Views.WPF;assembly=SkiaSharp.Views.WPF"
-
         mc:Ignorable="d"
         Title="Clip2Tok" Height="900" Width="1600">
     <Grid Background="#202020">
@@ -54,47 +50,7 @@
         </Border>
 
         <!-- Preview Frame -->
-        <Grid Grid.Row="1" Grid.Column="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="5"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-            
-            <Border Grid.Row="0" SizeChanged="Border_SizeChanged" x:Name="previewFrame"
-                Background="#101010" CornerRadius="10" Padding="20">
-                <Grid>
-                    <lvs:VideoView x:Name="videoView">
-                        <skia:SKElement x:Name="canvasView" PaintSurface="SKElement_PaintSurface" IgnorePixelScaling="True" Width="100" Height="100"/>
-                    </lvs:VideoView>
-                </Grid>
-            </Border>
-
-            <Border Grid.Row="2" Background="#101010" CornerRadius="10" Padding="0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Button Grid.Column="1" Margin="5" Width="50" Content="← 10 sec" Click="JumpBack_Click"/>
-                    <Button Grid.Column="2" Margin="5" Width="50" Content="↻" Click="JumpZero_Click"/>
-                    <Button Grid.Column="3" Margin="5" Width="50" Content="▶⏸" Click="Play_Click"/>
-                    <Button Grid.Column="4" Margin="5" Width="50" Content="🕪" Click="Mute_Click"/>
-                    <Button Grid.Column="5" Margin="5" Width="50" Content="10 sec →" Click="JumpAhead_Click"/>
-                    <Button Grid.Column="6" Margin="5" Width="50" Content="Section" Click="PlaySection_Click"/>
-                </Grid>
-            </Border>
-        </Grid>
-
-
-
+        <local:PlayerView x:Name="playerPreview" Grid.Row="1" Grid.Column="4"/>
 
         <Grid Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" >
             <Grid.ColumnDefinitions>

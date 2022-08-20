@@ -1,0 +1,56 @@
+﻿<rxui:ReactiveUserControl 
+             x:Class="Skmr.ClipToTok.WPF.PlayerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Skmr.ClipToTok.WPF"
+             
+             xmlns:vm="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
+             x:TypeArguments="vm:PlayerViewModel"
+             xmlns:rxui="http://reactiveui.net"
+             
+             mc:Ignorable="d" 
+             xmlns:lvs="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.WPF;assembly=SkiaSharp.Views.WPF"
+    
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" SizeChanged="Border_SizeChanged" x:Name="previewFrame"
+                Background="#101010" CornerRadius="10" Padding="20">
+            <Grid>
+                <lvs:VideoView x:Name="videoView">
+                    <skia:SKElement x:Name="canvasView" PaintSurface="SKElement_PaintSurface" IgnorePixelScaling="True" Width="100" Height="100"/>
+                </lvs:VideoView>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Background="#101010" CornerRadius="10" Padding="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnJumpBack" Grid.Column="1" Margin="5" Width="50" Content="← 10 sec"/>
+                <Button x:Name="btnJumpToStart" Grid.Column="2" Margin="5" Width="50" Content="↻"/>
+                <Button x:Name="btnPlay" Grid.Column="3" Margin="5" Width="50" Content="▶⏸"/>
+                <Button x:Name="btnMute" Grid.Column="4" Margin="5" Width="50" Content="🕪"/>
+                <Button x:Name="btnJumpAhead" Grid.Column="5" Margin="5" Width="50"/>
+                <Button x:Name="btnPlaySelection" Grid.Column="6" Margin="5" Width="50" Content="Section"/>
+            </Grid>
+        </Border>
+    </Grid>
+</rxui:ReactiveUserControl>
