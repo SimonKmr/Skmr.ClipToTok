@@ -36,6 +36,8 @@ namespace Skmr.ClipToTok.ViewModels
         {
             _libVLC = new LibVLC();
             MediaPlayer = new MediaPlayer(_libVLC);
+            MediaPlayer.TimeChanged += MediaPlayer_TimeChanged;
+            MediaPlayer.EndReached += MediaPlayer_EndReached;
 
             PlayCommand = ReactiveCommand.Create(PlayVideo);
             PlaySelectionCommand = ReactiveCommand.Create(PlaySection);
@@ -45,6 +47,25 @@ namespace Skmr.ClipToTok.ViewModels
             MuteCommand = ReactiveCommand.Create(() => MediaPlayer.Mute = !MediaPlayer.Mute);
         }
 
+
+
+
+        #region Current Time Notifier
+        //https://www.reactiveui.net/reactive-extensions/creating/creating
+        //Needs work
+        private TimeSpan _CurrentTime;
+        public TimeSpan CurrentTime 
+        { 
+            get { return _CurrentTime; } 
+            set { this.RaiseAndSetIfChanged(ref _CurrentTime, value); } 
+        }
+        private void MediaPlayer_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
+        {
+            CurrentTime = TimeSpan.FromSeconds(e.Time);
+        }
+        #endregion
+
+
         public ICommand PlayCommand { get; set; }
         public ICommand PlaySelectionCommand { get; set; }
         public ICommand JumpAheadCommand { get; set; }
@@ -53,6 +74,31 @@ namespace Skmr.ClipToTok.ViewModels
         public ICommand MuteCommand { get; set; }
 
         
+
+
+        //Time Skipping
+        private void JumpRelative(int seconds)
+        {
+            if (Time.TotalSeconds + seconds < 0) Time = TimeSpan.Zero;
+            else Time += TimeSpan.FromSeconds(seconds);
+
+            if (!MediaPlayer.IsPlaying)
+            {
+                MediaPlayer.NextFrame();
+            }
+        }
+        private void JumpAbsolute(int seconds)
+        {
+            if (seconds < 0) Time = TimeSpan.Zero;
+            else Time = TimeSpan.FromSeconds(seconds);
+            if (!MediaPlayer.IsPlaying)
+            {
+                
+                MediaPlayer.NextFrame();
+            }
+        }
+
+
         //Default Playback
         private string playedBackVideoCurrent = String.Empty;
         private TimeSpan timeFrameDuration;
@@ -79,32 +125,10 @@ namespace Skmr.ClipToTok.ViewModels
                 MediaPlayer.Pause();
             }
         }
-
-        
-        //Time Skipping
-        private void JumpRelative(int seconds)
+        private void MediaPlayer_EndReached(object? sender, EventArgs e)
         {
-            if (Time.TotalSeconds + seconds < 0) Time = TimeSpan.Zero;
-            else Time += TimeSpan.FromSeconds(seconds);
-
-            if (!MediaPlayer.IsPlaying)
-            {
-                MediaPlayer.NextFrame();
-            }
+            playedBackVideoCurrent = String.Empty;
         }
-        private void JumpAbsolute(int seconds)
-        {
-            if (seconds < 0) Time = TimeSpan.Zero;
-            else Time = TimeSpan.FromSeconds(seconds);
-            if (!MediaPlayer.IsPlaying)
-            {
-                
-                MediaPlayer.NextFrame();
-            }
-        }
-
-
-        
 
         //TimeFrame Playback
         public TimeSpan Start { get; set; }
