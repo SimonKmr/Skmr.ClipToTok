@@ -73,7 +73,7 @@ namespace Skmr.ClipToTok.ViewModels
             {
                 Start = TimeSpan.FromSeconds(random.Next(20, 4200)),
                 Duration = TimeSpan.FromSeconds(random.Next(20, 135)),
-                Comment = "Sample"
+                Title = "Sample"
             }) ;
         }
         public void Clear()
@@ -92,7 +92,7 @@ namespace Skmr.ClipToTok.ViewModels
             {
                 Start = ManualStart,
                 Duration = ManualDuration,
-                Comment = ManualComment,
+                Title = ManualComment,
             });
         }
 

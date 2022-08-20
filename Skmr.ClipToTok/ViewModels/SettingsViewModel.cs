@@ -56,14 +56,6 @@ namespace Skmr.ClipToTok.ViewModels
 
         #region TimeFrame
 
-        public void SetTimeFrame(TimeSpan start, TimeSpan duration)
-        {
-            HasTimeFrame = true;
-            TimeFrameStart = start;
-            TimeFrameDuration = duration;
-            OnTimeFrameSet(this, start, duration); //unsure if i even want this
-        }
-
         private bool _HasTimeFrame;
         public bool HasTimeFrame
         {
@@ -230,11 +222,11 @@ namespace Skmr.ClipToTok.ViewModels
 
         //Events
         public delegate void ScreenPosHandler(object sender, int posX, int posY, int width, int height);
+        public delegate void RenderEventHandler(object sender, string e);
         public delegate void StringHandler(object sender, string str);
-        public delegate void TimeFrameHandler(object sender, TimeSpan start, TimeSpan duration);
 
+        public event RenderEventHandler OnRenderEvent = delegate { };
         public event StringHandler OnVideoChanged = delegate { };
-        public event TimeFrameHandler OnTimeFrameSet = delegate { };
 
         public ICommand LoadCommand { get; set; }
         public ICommand SaveCommand { get; set; }
@@ -291,8 +283,8 @@ namespace Skmr.ClipToTok.ViewModels
         }
 
 
-        public delegate void RenderEventHandler(object sender, string e);
-        public event RenderEventHandler OnRenderEvent = delegate { };
+        
+        
 
         Thread renderThread;
         

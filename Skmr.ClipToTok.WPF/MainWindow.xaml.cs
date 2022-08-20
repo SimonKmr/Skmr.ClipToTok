@@ -31,17 +31,6 @@ namespace Skmr.ClipToTok.WPF
             var player = new PlayerViewModel();
             playerPreview.ViewModel = player;
 
-            ////SettingsViewModel
-            //vm.Svm.OnVideoChanged += Svm_OnVideoChanged;
-            //vm.Svm.OnTimeFrameSet += Svm_OnTimeFrameSet;
-            //vm.Svm.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
-            //vm.Svm.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
-
-            ////HighlighterViewModel
-            //vm.Hvm.OnHighlightSelected += Hvm_OnHighlightSelected;
-
-            
-
             //Bindings
             this.WhenActivated(disposables =>
             {   
@@ -52,12 +41,6 @@ namespace Skmr.ClipToTok.WPF
                 this.BindCommand(ViewModel, x => x.GoHighlighter, x => x.HighlighterTabButton).DisposeWith(disposables);
             });
         }
-
-
-
-        
-
-        
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {

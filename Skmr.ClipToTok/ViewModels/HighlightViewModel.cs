@@ -13,13 +13,15 @@ namespace Skmr.ClipToTok.ViewModels
         public HighlightViewModel()
         {
             PlayCommand = ReactiveCommand.Create(Play);
+            EditCommand = ReactiveCommand.Create(Edit);
             SelectCommand = ReactiveCommand.Create(Select);
         }
 
         private TimeSpan _Duration;
         private TimeSpan _Start;
-        
-        
+
+        public string Title { get; set; }
+        public string ImgPath { get; set; }
         public TimeSpan Start
         {
             get { return _Start; }
@@ -31,7 +33,7 @@ namespace Skmr.ClipToTok.ViewModels
             set { this.RaiseAndSetIfChanged(ref _Duration, value); } 
         }
         public TimeSpan End { get => Start + Duration; }
-        public string Comment { get; set; }
+        
 
 
         public string DurationText { get => $"{Duration.TotalSeconds} sec"; }
@@ -48,8 +50,13 @@ namespace Skmr.ClipToTok.ViewModels
         {
             OnPlayPressed(this, Start, Duration, false);
         }
+        public void Edit()
+        {
+
+        }
 
         public ICommand PlayCommand { get; set; }
+        public ICommand EditCommand { get; set; }
         public ICommand SelectCommand { get; set; }
     }
 }
