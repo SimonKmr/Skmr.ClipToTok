@@ -43,10 +43,5 @@ namespace Skmr.ClipToTok.WPF
                 this.BindCommand(ViewModel, vm => vm.ImportCommand, v => v.btnImport).DisposeWith(d);
             });
         }
-
-        private void Load_Border_Drop(object sender, DragEventArgs e)
-        {
-            txtLoadPath.Text = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-        }
     }
 }

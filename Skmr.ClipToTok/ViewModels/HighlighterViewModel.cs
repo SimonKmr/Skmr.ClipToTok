@@ -11,6 +11,7 @@ using DynamicData.Binding;
 using System.Windows.Input;
 using Skmr.ClipToTok.Utility;
 using Newtonsoft.Json;
+using System.Reactive.Linq;
 
 namespace Skmr.ClipToTok.ViewModels
 {
@@ -28,8 +29,8 @@ namespace Skmr.ClipToTok.ViewModels
             NewCommand = ReactiveCommand.Create(Clear);
             ManualCommand = ReactiveCommand.Create(ManualAdd);
             
-            SaveCommand = ReactiveCommand.Create(Save);
-            ImportCommand = ReactiveCommand.Create(Import);
+            SaveCommand = ReactiveCommand.Create(SaveAsync);
+            ImportCommand = ReactiveCommand.Create(ImportAsync);
         }
 
         private SourceList<HighlightViewModel> _highlightSources = new SourceList<HighlightViewModel>();
@@ -98,8 +99,10 @@ namespace Skmr.ClipToTok.ViewModels
 
 
         public ICommand SaveCommand { get; set; }
-        public void Save()
+        public async Task SaveAsync()
         {
+            var dialogResult = await Interactions.SaveFileDialog.Handle(String.Empty);
+
             List<Highlight> highlights = new List<Highlight>();
             for(int i = 0; i < _highlightSources.Count; i++)
             {
@@ -113,9 +116,9 @@ namespace Skmr.ClipToTok.ViewModels
                 sw.Write(json);
             }
         }
-        public void Import()
+        public async Task ImportAsync()
         {
-            string file = @"C:\Users\darkf\Desktop\sample.txt";
+            var file = await Interactions.OpenFileDialog.Handle(String.Empty);
             if (!File.Exists(file)) return;
 
             if (file.EndsWith(".json"))
@@ -159,10 +162,7 @@ namespace Skmr.ClipToTok.ViewModels
             }
         }
 
-
-
         public delegate void HighlightSelectedHandler(object sender, TimeSpan start, TimeSpan duration, bool select);
         public event HighlightSelectedHandler OnHighlightSelected = delegate { };
-        
     }
 }

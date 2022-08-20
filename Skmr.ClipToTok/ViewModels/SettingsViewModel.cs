@@ -8,6 +8,7 @@ using static Skmr.Editor.Ffmpeg;
 using Skmr.Editor.Instructions.Interfaces;
 using System.IO;
 using Skmr.ClipToTok.Utility;
+using System.Reactive.Linq;
 
 namespace Skmr.ClipToTok.ViewModels
 {
@@ -22,8 +23,8 @@ namespace Skmr.ClipToTok.ViewModels
             ScreenPosGameplay = new ScreenPosViewModel();
             
             NewCommand = ReactiveCommand.Create(New);
-            SaveCommand = ReactiveCommand.Create(Save);
-            LoadCommand = ReactiveCommand.Create(Load);
+            SaveCommand = ReactiveCommand.Create(SaveAsync);
+            LoadCommand = ReactiveCommand.Create(LoadAsync);
             RenderCommand = ReactiveCommand.Create(RenderThreaded);
         }
 
@@ -228,10 +229,12 @@ namespace Skmr.ClipToTok.ViewModels
         public event RenderEventHandler OnRenderEvent = delegate { };
         public event StringHandler OnVideoChanged = delegate { };
 
+
         public ICommand LoadCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand NewCommand { get; set; }
         public ICommand RenderCommand { get; set; }
+
 
         public void New()
         {
@@ -265,17 +268,21 @@ namespace Skmr.ClipToTok.ViewModels
             HasBackground = false;
             BackgroundImage = String.Empty;
         }
-        public void Save()
+        public async Task SaveAsync()
         {
-            using (StreamWriter sw = new StreamWriter($"Save.json"))
+            var dialogResult = await Interactions.SaveFileDialog.Handle(String.Empty);
+
+            using (StreamWriter sw = new StreamWriter(dialogResult))
             {
                 var data = this.ToSettings();
                 sw.Write(JsonConvert.SerializeObject(data));
             }
         }
-        public void Load()
+        public async Task LoadAsync()
         {
-            using (StreamReader sr = new StreamReader($"Save.json"))
+            var dialogResult = await Interactions.OpenFileDialog.Handle(String.Empty);
+
+            using (StreamReader sr = new StreamReader(dialogResult))
             {
                 Settings loaded = JsonConvert.DeserializeObject<Settings>(sr.ReadToEnd());
                 loaded.LoadInto(this);

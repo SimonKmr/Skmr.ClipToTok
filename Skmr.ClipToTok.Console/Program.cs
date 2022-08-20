@@ -3,7 +3,7 @@
 //default
 MainViewModel ctt = new MainViewModel();
 ctt.OnLog += Ctt_OnLog;
-ctt.Svm.Load();
+ctt.Svm.LoadAsync();
 
 var argument = Environment.GetCommandLineArgs()[1];
 if (File.Exists(argument))

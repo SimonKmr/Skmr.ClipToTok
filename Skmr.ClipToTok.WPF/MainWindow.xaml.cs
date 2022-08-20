@@ -1,8 +1,10 @@
 ﻿using LibVLCSharp.Shared;
+using Microsoft.Win32;
 using ReactiveUI;
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
 using SkiaSharp.Views.WPF;
+using Skmr.ClipToTok.Utility;
 using Skmr.ClipToTok.ViewModels;
 using System;
 using System.Diagnostics;
@@ -40,6 +42,38 @@ namespace Skmr.ClipToTok.WPF
                 this.BindCommand(ViewModel, x => x.GoSettings, x => x.SettingsTabButton).DisposeWith(disposables);
                 this.BindCommand(ViewModel, x => x.GoHighlighter, x => x.HighlighterTabButton).DisposeWith(disposables);
             });
+
+            Interactions.OpenFileDialog.RegisterHandler(
+                async interaction =>
+                {
+                    OpenFileDialog fileDialog = new OpenFileDialog();
+                    fileDialog.Filter = "json file (*.json)|*.json|text file (*.txt)|*.txt";
+                    var result = fileDialog.ShowDialog();
+                    if(result == true)
+                    {
+                        interaction.SetOutput(fileDialog.FileName);
+                    }
+                    else
+                    {
+                        interaction.SetOutput(String.Empty);
+                    }
+                });
+
+            Interactions.SaveFileDialog.RegisterHandler(
+                async interaction =>
+                {
+                    SaveFileDialog fileDialog = new SaveFileDialog();
+                    fileDialog.Filter = "json file (*.json)|*.json";
+                    var result = fileDialog.ShowDialog();
+                    if (result == true)
+                    {
+                        interaction.SetOutput(fileDialog.FileName);
+                    }
+                    else
+                    {
+                        interaction.SetOutput(String.Empty);
+                    }
+                });
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
