@@ -55,12 +55,12 @@ namespace Skmr.ClipToTok.ViewModels
             //https://stackoverflow.com/questions/34906839/how-do-i-implement-a-countdown-timer-using-reactiveui
             var currentTime = 
                 Observable
-                .Interval(TimeSpan.FromMilliseconds(1000))
+                .Interval(TimeSpan.FromMilliseconds(100))
                 .Select(x => MediaPlayer.Time)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(
                     onNext: x => CurrentTime = new TimeSpan(
-                        (TimeSpan.FromMilliseconds(x).Ticks / (TimeSpan.TicksPerSecond/2))* (TimeSpan.TicksPerSecond / 2)),
+                        (TimeSpan.FromMilliseconds(x).Ticks / (TimeSpan.TicksPerSecond))* (TimeSpan.TicksPerSecond)),
                     onCompleted: () => { this.CurrentTime = TimeSpan.Zero; });
 
         }
