@@ -12,6 +12,7 @@
     <PackageReference Include="LibVLCSharp" Version="3.6.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="ReactiveUI" Version="18.0.7" />
+    <PackageReference Include="ReactiveUI.Fody" Version="18.0.7" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
   </ItemGroup>
