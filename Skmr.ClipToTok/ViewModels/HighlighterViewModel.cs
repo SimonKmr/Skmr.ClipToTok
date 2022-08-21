@@ -43,7 +43,14 @@ namespace Skmr.ClipToTok.ViewModels
         {
             vm.OnSelectPressed += Vm_OnSelectPressed;
             vm.OnPlayPressed += Vm_OnPlayPressed;
+            vm.DeleteRequest += Vm_DeleteRequest;
             _highlightSources.Add(vm);
+        }
+
+        private void Vm_DeleteRequest(object sender, EventArgs e)
+        {
+            var s = sender as HighlightViewModel;
+            _highlightSources.Remove(s);
         }
 
         private void Vm_OnSelectPressed(object sender, TimeSpan start, TimeSpan duration, bool select)

@@ -1,0 +1,120 @@
+﻿<rxui:ReactiveWindow 
+        x:Class="Skmr.ClipToTok.WPF.ExtendedHighlightView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Skmr.ClipToTok.WPF"
+        xmlns:rxui="http://reactiveui.net"
+        x:TypeArguments="vm:HighlightViewModel"
+        xmlns:vm="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
+        mc:Ignorable="d"
+        Title="ExtendedHighlightView" Height="720" Width="400"
+        WindowStartupLocation="CenterScreen">
+    <ScrollViewer Background="#101010">
+        <Grid  MaxWidth="600" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <Label Foreground="White" FontSize="50" x:Name="lbTitle" />
+                <Label Foreground="White" FontSize="20" Content="Timestamp" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" 
+                           Grid.Column="0" 
+                           Foreground="White" 
+                           FontSize="12" 
+                           x:Name="lbStart" />
+                    <Label Grid.Row="0" 
+                           Grid.Column="1" 
+                           Foreground="White" 
+                           FontSize="12" 
+                           Content="-" />
+                    <Label Grid.Row="0" 
+                           Grid.Column="2" 
+                           Foreground="White" 
+                           FontSize="12" 
+                           x:Name="lbEnd" />
+                    <Label Grid.Row="0" 
+                           Grid.Column="3" 
+                           Foreground="White" 
+                           FontSize="12" 
+                           Content=":" />
+                    <Label Grid.Row="0" 
+                           Grid.Column="4"
+                           Foreground="White" 
+                           FontSize="12" 
+                           x:Name="lbDuration" 
+                           HorizontalAlignment="Center"/>
+                </Grid>
+                <Label Foreground="White" FontSize="20" Content="Score" />
+                <Grid>
+                    <Label Foreground="White" 
+                           FontSize="12"
+                           x:Name="lbScore"/>
+                </Grid>
+                <Label Foreground="White" FontSize="20" Content="Description"/>
+                <Label Foreground="White" 
+                       FontSize="12">
+                    <AccessText TextWrapping="WrapWithOverflow" x:Name="atDescription"/>
+                </Label>
+                <Label Foreground="White" FontSize="20" Content="Image"/>
+
+                <Image Source="C:\Users\darkf\OneDrive\Bilder\Screenshot_1.png" />
+                <Label Foreground="White" FontSize="20" Content="Settings"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Foreground="White" FontSize="12" Content="Title"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtTitle"/>
+                    <Label Grid.Row="2" Grid.Column="0" Foreground="White" FontSize="12" Content="Start Time"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtStart"/>
+                    <Label Grid.Row="4" Grid.Column="0" Foreground="White" FontSize="12" Content="Duration"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtDuration"/>
+                    <Label Grid.Row="6" Grid.Column="0" Foreground="White" FontSize="12" Content="Score"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" x:Name="txtScore"/>
+                    <Label Grid.Row="8" Grid.Column="0" Foreground="White" FontSize="12" Content="Description"/>
+                    <TextBox Grid.Row="8" Grid.Column="1" x:Name="txtDescription"/>
+                    <Label Grid.Row="10" Grid.Column="0" Foreground="White" FontSize="12" Content="Image"/>
+                    <TextBox Grid.Row="10" Grid.Column="1" x:Name="txtImage"/>
+                    <Button Grid.Row="12" Grid.ColumnSpan="2" x:Name="btnDelete" Content="Delete" Height="30"/>
+                    <Button Grid.Row="14" Grid.ColumnSpan="2" x:Name="btnSave" Content="Save" Height="30"/>
+                </Grid>
+            </StackPanel>
+   
+        </Grid>
+    </ScrollViewer>
+</rxui:ReactiveWindow>
