@@ -118,7 +118,7 @@ namespace Skmr.ClipToTok.ViewModels
             var highlightsArr = highlights.ToArray();
 
             var json = JsonConvert.SerializeObject(highlightsArr);
-            using(var sw = new StreamWriter("highlights.json"))
+            using(var sw = new StreamWriter(dialogResult))
             {
                 sw.Write(json);
             }
@@ -135,38 +135,26 @@ namespace Skmr.ClipToTok.ViewModels
                     var highlightArr = JsonConvert.DeserializeObject<Highlight[]>(sr.ReadToEnd());
                     for(int i = 0; i < highlightArr.Length; i++)
                     {
-                        var o = new HighlightViewModel();
-                        highlightArr[i].LoadInto(o);
-                        _highlightSources.Add(o);
+                        _highlightSources.Add(highlightArr[i].ToHighlightViewModel());
                     }
                 }
                 return;
             }
             else if (file.EndsWith(".txt"))
-            {
                 using (StreamReader sr = new StreamReader(file))
-                {
                     while (!sr.EndOfStream)
-                    {
-                        var o = new Highlight();
-                        o.FromTxt(sr.ReadLine());
-                        _highlightSources.Add(o.ToHighlightViewModel());
-                    }
-                }
-                    
-            }
+                        _highlightSources.Add(
+                            Parser.CreateHighlightFromTxt(sr.ReadLine())
+                            .ToHighlightViewModel());
+
+
             else if (file.EndsWith(".csv"))
-            {
                 using (StreamReader sr = new StreamReader(file))
-                {
                     while (!sr.EndOfStream)
-                    {
-                        var o = new Highlight();
-                        o.FromCsv(sr.ReadLine());
-                        _highlightSources.Add(o.ToHighlightViewModel());
-                    }
-                }
-            }
+                        _highlightSources.Add(
+                            Parser.CreateHighlightFromCsv(sr.ReadLine())
+                            .ToHighlightViewModel());
+
         }
 
         public delegate void HighlightSelectedHandler(object sender, TimeSpan start, TimeSpan duration, bool select);

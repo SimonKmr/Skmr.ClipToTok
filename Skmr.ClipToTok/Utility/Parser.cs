@@ -17,6 +17,20 @@ namespace Skmr.ClipToTok.Utility
             => Parse(highlight, str, ',');
 
 
+        public static Highlight CreateHighlightFromCsv(string line)
+        {
+            var h = new Highlight();
+            h.FromCsv(line);
+            return h;
+        }
+
+        public static Highlight CreateHighlightFromTxt(string line)
+        {
+            var h = new Highlight();
+            h.FromTxt(line);
+            return h;
+        }
+
         private static void Parse(this Highlight highlight,string str, char seperator)
         {
             StringBuilder sb = new StringBuilder();
