@@ -8,9 +8,9 @@
         xmlns:vm="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
         x:TypeArguments="vm:MainViewModel"
         xmlns:rxui="http://reactiveui.net" 
-        xmlns:reactiveui="http://reactiveui.net"
         mc:Ignorable="d"
-        Title="Clip2Tok" Height="900" Width="1600">
+        Title="Clip2Tok" Height="900" Width="1600"
+        WindowStartupLocation="CenterScreen">
     <Grid Background="#202020">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
