@@ -35,7 +35,7 @@ namespace Skmr.ClipToTok.Utility
                 int.Parse(matches[0].Groups[3].Value));
 
             highlight.Duration = TimeSpan.FromSeconds(int.Parse(matches[0].Groups[4].Value));
-            highlight.Comment = matches[0].Groups[5].Value;
+            highlight.Title = matches[0].Groups[5].Value;
         }
     }
 }
