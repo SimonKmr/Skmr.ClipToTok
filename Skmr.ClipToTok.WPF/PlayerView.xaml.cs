@@ -3,22 +3,8 @@ using ReactiveUI;
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
 using Skmr.ClipToTok.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reactive.Disposables;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace Skmr.ClipToTok.WPF
 {
@@ -33,13 +19,12 @@ namespace Skmr.ClipToTok.WPF
 
             //Vlc Player
             videoView.Loaded += VideoView_Loaded;
-            //Drawing
-
 
             //Bindings
             this.WhenActivated(disposables =>
             {
                 this.OneWayBind(ViewModel, vm => vm.MediaPlayer, v => v.videoView.MediaPlayer).DisposeWith(disposables);
+                this.OneWayBind(ViewModel, vm => vm.CurrentTime, v => v.lbCurrentTime.Content).DisposeWith(disposables);
 
                 this.BindCommand(ViewModel, vm => vm.PlayCommand, v => v.btnPlay).DisposeWith(disposables);
                 this.BindCommand(ViewModel, vm => vm.MuteCommand, v => v.btnMute).DisposeWith(disposables);

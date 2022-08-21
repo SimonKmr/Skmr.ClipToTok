@@ -1,5 +1,11 @@
 ﻿using LibVLCSharp.Shared;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using Skmr.ClipToTok.Utility;
+using System.ComponentModel;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Timers;
 using System.Windows.Input;
 
@@ -36,7 +42,6 @@ namespace Skmr.ClipToTok.ViewModels
         {
             _libVLC = new LibVLC();
             MediaPlayer = new MediaPlayer(_libVLC);
-            MediaPlayer.TimeChanged += MediaPlayer_TimeChanged;
             MediaPlayer.EndReached += MediaPlayer_EndReached;
 
             PlayCommand = ReactiveCommand.Create(PlayVideo);
@@ -45,26 +50,34 @@ namespace Skmr.ClipToTok.ViewModels
             JumpBackCommand = ReactiveCommand.Create(() => JumpRelative(-10));
             JumpToStartCommand = ReactiveCommand.Create(() => JumpAbsolute(0));
             MuteCommand = ReactiveCommand.Create(() => MediaPlayer.Mute = !MediaPlayer.Mute);
+
+            //This man is my hero: ASanch
+            //https://stackoverflow.com/questions/34906839/how-do-i-implement-a-countdown-timer-using-reactiveui
+            var currentTime = 
+                Observable
+                .Interval(TimeSpan.FromMilliseconds(1000))
+                .Select(x => MediaPlayer.Time)
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Subscribe(
+                    onNext: x => CurrentTime = new TimeSpan(
+                        (TimeSpan.FromMilliseconds(x).Ticks / (TimeSpan.TicksPerSecond/2))* (TimeSpan.TicksPerSecond / 2)),
+                    onCompleted: () => { this.CurrentTime = TimeSpan.Zero; });
+
         }
 
 
 
 
         #region Current Time Notifier
-        //https://www.reactiveui.net/reactive-extensions/creating/creating
-        //Needs work
-        private TimeSpan _CurrentTime;
-        public TimeSpan CurrentTime 
-        { 
-            get { return _CurrentTime; } 
-            set { this.RaiseAndSetIfChanged(ref _CurrentTime, value); } 
-        }
-        private void MediaPlayer_TimeChanged(object? sender, MediaPlayerTimeChangedEventArgs e)
+        [Reactive]
+        public TimeSpan CurrentTime { get; set; }
+        public void UpdateCurrentTime()
         {
-            CurrentTime = TimeSpan.FromSeconds(e.Time);
+
         }
         #endregion
-
+        public ICommand CurrentTimeCommand { get; }
+        
 
         public ICommand PlayCommand { get; set; }
         public ICommand PlaySelectionCommand { get; set; }

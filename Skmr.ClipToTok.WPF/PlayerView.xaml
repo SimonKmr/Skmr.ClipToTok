@@ -41,6 +41,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -50,6 +51,7 @@
                 <Button x:Name="btnMute" Grid.Column="4" Margin="5" Width="50" Content="🕪"/>
                 <Button x:Name="btnJumpAhead" Grid.Column="5" Margin="5" Width="50" Content="10 sec →"/>
                 <Button x:Name="btnPlaySelection" Grid.Column="6" Margin="5" Width="50" Content="Section"/>
+                <Label x:Name="lbCurrentTime" Grid.Column="7" Margin="5" Foreground="White" VerticalAlignment="Center"/>
             </Grid>
         </Border>
     </Grid>
