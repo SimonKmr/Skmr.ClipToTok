@@ -25,6 +25,7 @@ namespace Skmr.ClipToTok.WPF
     {
         public HighlightView()
         {
+
             InitializeComponent();
 
             this.WhenActivated(d =>
@@ -38,16 +39,19 @@ namespace Skmr.ClipToTok.WPF
                 this.BindCommand(ViewModel, vm => vm.SelectCommand, v => v.btnSelect).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.EditCommand, v => v.btnEdit).DisposeWith(d);
 
-                ViewModel.NewWindowRequest += ViewModel_NewWindowRequest;
+                ViewModel.RegisterWindow(ViewModel_NewWindowRequest);
             });
             
             imgPreview.Source = new BitmapImage(new Uri(@"C:\Users\darkf\OneDrive\Bilder\Screenshot_1.png"));
         }
 
+
         private void ViewModel_NewWindowRequest(object sender, EventArgs e)
         {
-            var window = new ExtendedHighlightView();
-            window.ViewModel = sender as HighlightViewModel;
+            ExtendedHighlightView window = new ExtendedHighlightView()
+            {
+                ViewModel = this.ViewModel,
+            };
             window.Show();
         }
 

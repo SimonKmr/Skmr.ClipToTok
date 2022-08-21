@@ -119,9 +119,17 @@ namespace Skmr.ClipToTok.ViewModels
         public ICommand DeleteCommand { get; set; }
 
         public delegate void WindowHandler(object sender, EventArgs args);
-        public event WindowHandler NewWindowRequest;
-        public event WindowHandler DeleteRequest;
+        private event WindowHandler NewWindowRequest = delegate { };
+        public event WindowHandler DeleteRequest = delegate { };
 
-
+        private bool isWindowRegistered = false;
+        public void RegisterWindow(WindowHandler window)
+        {
+            if(!isWindowRegistered && NewWindowRequest.GetInvocationList().Length > 0)
+            {
+                NewWindowRequest += window;
+                isWindowRegistered = true;
+            }
+        }
     }
 }
