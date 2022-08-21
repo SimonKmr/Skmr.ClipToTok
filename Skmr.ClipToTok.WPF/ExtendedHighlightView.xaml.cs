@@ -10,7 +10,6 @@ namespace Skmr.ClipToTok.WPF
     {
         public ExtendedHighlightView()
         {
-            ViewModel = new HighlightViewModel();
             InitializeComponent();
 
             this.WhenActivated(d =>
@@ -30,13 +29,6 @@ namespace Skmr.ClipToTok.WPF
 
                 this.BindCommand(ViewModel, vm => vm.DeleteCommand, v => v.btnDelete);
             });
-        }
-
-        internal void ParseHighlightViewModel(HighlightViewModel vm)
-        {
-            ViewModel.Title = vm.Title;
-            ViewModel.Duration = vm.Duration;
-            ViewModel.Start = vm.Start;
         }
     }
 }

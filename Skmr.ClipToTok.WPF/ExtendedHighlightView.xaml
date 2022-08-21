@@ -111,7 +111,6 @@
                     <Label Grid.Row="10" Grid.Column="0" Foreground="White" FontSize="12" Content="Image"/>
                     <TextBox Grid.Row="10" Grid.Column="1" x:Name="txtImage"/>
                     <Button Grid.Row="12" Grid.ColumnSpan="2" x:Name="btnDelete" Content="Delete" Height="30"/>
-                    <Button Grid.Row="14" Grid.ColumnSpan="2" x:Name="btnSave" Content="Save" Height="30"/>
                 </Grid>
             </StackPanel>
    
