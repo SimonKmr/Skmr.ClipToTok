@@ -9,6 +9,7 @@ using Skmr.Editor.Instructions.Interfaces;
 using System.IO;
 using Skmr.ClipToTok.Utility;
 using System.Reactive.Linq;
+using ReactiveUI.Fody.Helpers;
 
 namespace Skmr.ClipToTok.ViewModels
 {
@@ -29,186 +30,83 @@ namespace Skmr.ClipToTok.ViewModels
         }
 
         #region Video
-        private int _Resolution = 1080;
-        public int Resolution
-        {
-            get { return _Resolution; }
-            set { this.RaiseAndSetIfChanged(ref _Resolution, value); }
-        }
+        [Reactive]
+        public int Resolution { get; set; } = 1080;
         
-        private string _ResultFolder;
-        public string ResultFolder
-        {
-            get { return _ResultFolder; }
-            set { this.RaiseAndSetIfChanged(ref _ResultFolder, value); }
-        }
+        [Reactive]
+        public string ResultFolder { get; set; }
 
-        private string _VideoFile;
-        public string VideoFile
-        {
-            get { return _VideoFile; }
-            set 
-            {
-                OnVideoChanged(this,value);
-                this.RaiseAndSetIfChanged(ref _VideoFile, value); 
-            }
-        }
+        [Reactive]
+        public string VideoFile { get; set; }
         #endregion
 
         #region TimeFrame
 
-        private bool _HasTimeFrame;
-        public bool HasTimeFrame
-        {
-            get { return _HasTimeFrame; }
-            set { this.RaiseAndSetIfChanged(ref _HasTimeFrame, value); }
-        }
+        [Reactive]
+        public bool HasTimeFrame { get; set; }
 
+        [Reactive]
+        public TimeSpan TimeFrameStart { get; set; }
 
-        public delegate void TimeFrameChangedHandler(object sender, TimeSpan start, TimeSpan duration);
-        public event TimeFrameChangedHandler TimeFrameChanged;
-
-        private TimeSpan _TimeFrameStart;
-        public TimeSpan TimeFrameStart
-        {
-            get { return _TimeFrameStart; }
-            set 
-            { 
-                this.RaiseAndSetIfChanged(ref _TimeFrameStart, value);
-                TimeFrameChanged(this, TimeFrameStart, TimeFrameDuration);
-            }
-        }
-
-        private TimeSpan _TimeFrameEnd;
-        public TimeSpan TimeFrameDuration
-        {
-            get { return _TimeFrameEnd; }
-            set 
-            { 
-                this.RaiseAndSetIfChanged(ref _TimeFrameEnd, value);
-                TimeFrameChanged(this, TimeFrameStart, TimeFrameDuration);
-            }
-        }
+        [Reactive]
+        public TimeSpan TimeFrameDuration { get; set; }
         #endregion
 
         #region Background
-        private bool _HasBackground;
-        public bool HasBackground
-        {
-            get { return _HasBackground; }
-            set { this.RaiseAndSetIfChanged(ref _HasBackground, value); }
-        }
+        [Reactive]
+        public bool HasBackground { get; set; }
 
-        private string _BackgroundImage;
-        public string BackgroundImage
-        {
-            get { return _BackgroundImage; }
-            set { this.RaiseAndSetIfChanged(ref _BackgroundImage, value); }
-        }
+        [Reactive]
+        public string BackgroundImage { get; set; }
         #endregion
 
         #region Webcam
-        private bool _HasWebcam;
-        public bool HasWebcam
-        {
-            get { return _HasWebcam; }
-            set { this.RaiseAndSetIfChanged(ref _HasWebcam, value); }
-        }
-        
-        private ScreenPosViewModel _ScreenPosWebcam;
-        public ScreenPosViewModel ScreenPosWebcam 
-        { 
-            get { return _ScreenPosWebcam; }
-            set { this.RaiseAndSetIfChanged(ref _ScreenPosWebcam, value); }
-        }
+        [Reactive]
+        public bool HasWebcam { get; set; }
+
+        [Reactive]
+        public ScreenPosViewModel ScreenPosWebcam { get; set; }
         #endregion
 
         #region ColorGrading
-        private bool _HasColorGrading;
-        public bool HasColorGrading
-        {
-            get { return _HasColorGrading; }
-            set { this.RaiseAndSetIfChanged(ref _HasColorGrading, value); }
-        }
+        [Reactive]
+        public bool HasColorGrading { get; set; }
 
-        
-        
-        
-        private float _Contrast = 1;
-        public float Contrast
-        {
-            get { return _Contrast; }
-            set { this.RaiseAndSetIfChanged(ref _Contrast, value); }
-        }
-        
-        private float _Brighness = 0;
-        public float Brighness
-        {
-            get { return _Brighness; }
-            set { this.RaiseAndSetIfChanged(ref _Brighness, value); }
-        }
-        
-        private float _Saturation = 1;
-        public float Saturation
-        {
-            get { return _Saturation; }
-            set { this.RaiseAndSetIfChanged(ref _Saturation, value); }
-        }
 
-        
-        private float _Gamma = 1;
-        public float Gamma
-        {
-            get { return _Gamma; }
-            set { this.RaiseAndSetIfChanged(ref _Gamma, value); }
-        }
 
-        private float _GammaR = 1f;
-        public float GammaR
-        {
-            get { return _GammaR; }
-            set { this.RaiseAndSetIfChanged(ref _GammaR, value); }
-        }
 
-        private float _GammaG = 1f;
-        public float GammaG
-        {
-            get { return _GammaG; }
-            set { this.RaiseAndSetIfChanged(ref _GammaG, value); }
-        }
+        [Reactive]
+        public float Contrast { get; set; } = 1;
 
-        private float _GammaB = 1f;
-        public float GammaB
-        {
-            get { return _GammaB; }
-            set { this.RaiseAndSetIfChanged(ref _GammaB, value); }
-        }
-        
-        private float _GammaWeight = 1f;
-        public float GammaWeight
-        {
-            get { return _GammaWeight; }
-            set { this.RaiseAndSetIfChanged(ref _GammaWeight, value); }
-        }
+        [Reactive]
+        public float Brighness { get; set; } = 0;
+
+        [Reactive]
+        public float Saturation { get; set; } = 1;
+
+
+        [Reactive]
+        public float Gamma { get; set; } = 1;
+
+        [Reactive]
+        public float GammaR { get; set; } = 1f;
+
+        [Reactive]
+        public float GammaG { get; set; } = 1f;
+
+        [Reactive]
+        public float GammaB { get; set; } = 1f;
+
+        [Reactive]
+        public float GammaWeight { get; set; } = 1f;
         #endregion
 
         #region ChangeSpeed
-        private bool _HasChangeSpeed;
-        public bool HasChangeSpeed
-        {
-            get { return _HasChangeSpeed; }
-            set { this.RaiseAndSetIfChanged(ref _HasChangeSpeed, value); }
-        }
+        [Reactive]
+        public bool HasChangeSpeed { get; set; }
 
-
-
-
-        private double _Speed = 1;
-        public double Speed
-        {
-            get { return _Speed; }
-            set { this.RaiseAndSetIfChanged(ref _Speed, value); }
-        }
+        [Reactive]
+        public double Speed { get; set; } = 1;
         #endregion
 
         #region Gameplay
@@ -227,7 +125,6 @@ namespace Skmr.ClipToTok.ViewModels
         public delegate void StringHandler(object sender, string str);
 
         public event RenderEventHandler OnRenderEvent = delegate { };
-        public event StringHandler OnVideoChanged = delegate { };
 
 
         public ICommand LoadCommand { get; set; }
@@ -616,7 +513,7 @@ namespace Skmr.ClipToTok.ViewModels
                 OnRenderEvent(this, i.Output.Path);
                 i.Execute();
             }
-            OnRenderEvent(this, "Rendering finished!");
+             OnRenderEvent(this, "Rendering finished!");
             tdm.Clear();
             #endregion
         }
