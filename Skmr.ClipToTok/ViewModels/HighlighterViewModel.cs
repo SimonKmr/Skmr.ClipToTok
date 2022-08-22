@@ -28,6 +28,7 @@ namespace Skmr.ClipToTok.ViewModels
             AnalyzeCommand = ReactiveCommand.Create(Analyze);
             NewCommand = ReactiveCommand.Create(Clear);
             ManualCommand = ReactiveCommand.Create(ManualAdd);
+            ManualQuickCommand = ReactiveCommand.Create(ManualQuickAdd);
             
             SaveCommand = ReactiveCommand.Create(SaveAsync);
             ImportCommand = ReactiveCommand.Create(ImportAsync);
@@ -91,6 +92,7 @@ namespace Skmr.ClipToTok.ViewModels
 
 
         public ICommand ManualCommand { get; set; }
+        public ICommand ManualQuickCommand { get; set; }
         public TimeSpan ManualStart { get; set; } = TimeSpan.Zero;
         public TimeSpan ManualDuration { get; set; } = TimeSpan.FromSeconds(59);
         public string ManualComment { get; set; } = String.Empty;
@@ -101,6 +103,16 @@ namespace Skmr.ClipToTok.ViewModels
                 Start = ManualStart,
                 Duration = ManualDuration,
                 Title = ManualComment,
+            });
+        }
+
+        public void ManualQuickAdd()
+        {
+            AddHighlight(new HighlightViewModel()
+            {
+                Start = TimeSpan.FromMilliseconds(ViewModelBus.PlayerViewModel.MediaPlayer.Time).Floor(),
+                Duration = TimeSpan.FromSeconds(59),
+                Title = String.Empty,
             });
         }
 

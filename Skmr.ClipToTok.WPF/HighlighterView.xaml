@@ -72,6 +72,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="5"/>
                         </Grid.RowDefinitions>
                         
@@ -83,7 +85,9 @@
                         <TextBox Grid.Column="2" Grid.Row="1" Margin="2" Height="25" x:Name="txtManualDuration"/>
                         <TextBox Grid.Column="3" Grid.Row="1" Margin="2" Height="25" x:Name="txtManualComment"/>
                         <Button Grid.Column="4" Grid.Row="1" Height="30" x:Name="btnManual" Margin="5" Content="Add"/>
-                        
+
+                        <Button Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Height="30" x:Name="btnManualQuick" Content="Quick"/>
+
                     </Grid>
                 </StackPanel>
             </Border>

@@ -8,6 +8,7 @@ using static Skmr.Editor.Ffmpeg;
 using SkiaSharp;
 using System.Reactive;
 using Splat;
+using Skmr.ClipToTok.Utility;
 
 namespace Skmr.ClipToTok.ViewModels
 {
@@ -40,6 +41,8 @@ namespace Skmr.ClipToTok.ViewModels
             GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(Svm));
             GoHighlighter = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(Hvm));
             Router.Navigate.Execute(Svm);
+
+            ViewModelBus.PlayerViewModel = Pvm;
         }
 
         private void ScreenPosWebcam_OnScreenPosChanged(int x, int y, int width, int height)
