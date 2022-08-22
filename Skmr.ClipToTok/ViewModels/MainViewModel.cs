@@ -30,8 +30,6 @@ namespace Skmr.ClipToTok.ViewModels
             Pvm = new PlayerViewModel();
 
             Svm.OnRenderEvent += Svm_OnRenderEvent;
-            Svm.OnVideoChanged += Svm_OnVideoChanged;
-            Svm.TimeFrameChanged += Svm_TimeFrameChanged;
             Svm.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
             Svm.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
 
@@ -43,6 +41,7 @@ namespace Skmr.ClipToTok.ViewModels
             Router.Navigate.Execute(Svm);
 
             ViewModelBus.PlayerViewModel = Pvm;
+            ViewModelBus.SettingsViewModel = Svm;
         }
 
         private void ScreenPosWebcam_OnScreenPosChanged(int x, int y, int width, int height)
@@ -53,17 +52,6 @@ namespace Skmr.ClipToTok.ViewModels
         private void ScreenPosGameplay_OnScreenPosChanged(int x, int y, int width, int height)
         {
             Pvm.Webcam.Set(x, y, width, height);
-        }
-
-        private void Svm_TimeFrameChanged(object sender, TimeSpan start, TimeSpan duration)
-        {
-            Pvm.Start = start;
-            Pvm.Duration = duration;
-        }
-
-        private void Svm_OnVideoChanged(object sender, string str)
-        {
-            Pvm.VideoFile = str;
         }
 
         private void Svm_OnRenderEvent(object sender, string e)

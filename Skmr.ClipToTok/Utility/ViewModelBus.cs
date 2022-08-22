@@ -10,5 +10,6 @@ namespace Skmr.ClipToTok.Utility
     public static class ViewModelBus
     {
         public static PlayerViewModel PlayerViewModel { get; set; }
+        public static SettingsViewModel SettingsViewModel { get; set; }
     }
 }
