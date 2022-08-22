@@ -10,5 +10,8 @@ namespace Skmr.ClipToTok.Utility
     {
         public static TimeSpan Floor(this TimeSpan timeSpan)
             => new TimeSpan((timeSpan.Ticks / (TimeSpan.TicksPerSecond)) * (TimeSpan.TicksPerSecond));
+
+        public static long ToMediaPlayerTime(this TimeSpan timeSpan)
+            => (long) timeSpan.TotalMilliseconds;
     }
 }
