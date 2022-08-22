@@ -59,10 +59,8 @@ namespace Skmr.ClipToTok.ViewModels
                 .Select(x => MediaPlayer.Time)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(
-                    onNext: x => CurrentTime = new TimeSpan(
-                        (TimeSpan.FromMilliseconds(x).Ticks / (TimeSpan.TicksPerSecond))* (TimeSpan.TicksPerSecond)),
+                    onNext: x => CurrentTime = TimeSpan.FromMilliseconds(x).Floor(),
                     onCompleted: () => { this.CurrentTime = TimeSpan.Zero; });
-
         }
 
 
@@ -114,7 +112,7 @@ namespace Skmr.ClipToTok.ViewModels
 
         //Default Playback
         private string playedBackVideoCurrent = String.Empty;
-        private TimeSpan timeFrameDuration;
+
         private void PlayVideo()
         {
             if (File.Exists(VideoFile))
@@ -144,6 +142,9 @@ namespace Skmr.ClipToTok.ViewModels
         }
 
         //TimeFrame Playback
+        private TimeSpan timeFrameDuration;
+        private TimeSpan timeFrameStart;
+
         public TimeSpan Start { get; set; }
         public TimeSpan Duration { get; set; }
         private void PlaySection()
@@ -158,6 +159,8 @@ namespace Skmr.ClipToTok.ViewModels
                 MediaPlayer.Time = (long)start.TotalMilliseconds;
 
                 timeFrameDuration = duration;
+                timeFrameStart = start;
+
                 var timer = new System.Timers.Timer(100);
                 timer.Elapsed += Timer_Elapsed;
                 timer.AutoReset = true;
@@ -168,7 +171,7 @@ namespace Skmr.ClipToTok.ViewModels
         }
         private void Timer_Elapsed(object sender, EventArgs e)
         {
-            if (MediaPlayer.Time > (long)Duration.TotalMilliseconds + (long)Start.TotalMilliseconds)
+            if (MediaPlayer.Time > (long)timeFrameDuration.TotalMilliseconds + (long)timeFrameStart.TotalMilliseconds)
             {
                 MediaPlayer.Pause();
                 (sender as System.Timers.Timer).Enabled = false;
