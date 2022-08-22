@@ -21,17 +21,17 @@ namespace Skmr.ClipToTok.WPF
             videoView.Loaded += VideoView_Loaded;
 
             //Bindings
-            this.WhenActivated(disposables =>
+            this.WhenActivated(d =>
             {
-                this.OneWayBind(ViewModel, vm => vm.MediaPlayer, v => v.videoView.MediaPlayer).DisposeWith(disposables);
-                this.OneWayBind(ViewModel, vm => vm.CurrentTime, v => v.lbCurrentTime.Content).DisposeWith(disposables);
+                this.OneWayBind(ViewModel, vm => vm.MediaPlayer, v => v.videoView.MediaPlayer).DisposeWith(d);
+                this.OneWayBind(ViewModel, vm => vm.CurrentTime, v => v.lbCurrentTime.Content).DisposeWith(d);
 
-                this.BindCommand(ViewModel, vm => vm.PlayCommand, v => v.btnPlay).DisposeWith(disposables);
-                this.BindCommand(ViewModel, vm => vm.MuteCommand, v => v.btnMute).DisposeWith(disposables);
-                this.BindCommand(ViewModel, vm => vm.JumpAheadCommand, v => v.btnJumpAhead).DisposeWith(disposables);
-                this.BindCommand(ViewModel, vm => vm.JumpBackCommand, v => v.btnJumpBack).DisposeWith(disposables);
-                this.BindCommand(ViewModel, vm => vm.JumpToStartCommand, v => v.btnJumpToStart).DisposeWith(disposables);
-                this.BindCommand(ViewModel, vm => vm.PlaySelectionCommand, v => v.btnPlaySelection).DisposeWith(disposables);
+                this.BindCommand(ViewModel, vm => vm.PlayCommand, v => v.btnPlay).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.MuteCommand, v => v.btnMute).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.JumpAheadCommand, v => v.btnJumpAhead).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.JumpBackCommand, v => v.btnJumpBack).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.JumpToStartCommand, v => v.btnJumpToStart).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.PlaySelectionCommand, v => v.btnPlaySelection).DisposeWith(d);
 
                 ViewModel.Webcam.OnScreenPosChanged += Webcam_OnScreenPosChanged;
                 ViewModel.Gameplay.OnScreenPosChanged += Gameplay_OnScreenPosChanged;

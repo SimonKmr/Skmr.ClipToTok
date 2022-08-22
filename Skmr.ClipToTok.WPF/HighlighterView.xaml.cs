@@ -31,9 +31,9 @@ namespace Skmr.ClipToTok.WPF
 
             this.WhenActivated(d =>
             {
-                this.Bind(ViewModel, vm => vm.ManualStart, v => v.txtManualStart.Text);
-                this.Bind(ViewModel, vm => vm.ManualDuration, v => v.txtManualDuration.Text);
-                this.Bind(ViewModel, vm => vm.ManualComment, v => v.txtManualComment.Text);
+                this.Bind(ViewModel, vm => vm.ManualStart, v => v.txtManualStart.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ManualDuration, v => v.txtManualDuration.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.ManualComment, v => v.txtManualComment.Text).DisposeWith(d);
                 this.OneWayBind(ViewModel, vm => vm.Highlights, v => v.AnalyzedHighlights.ItemsSource).DisposeWith(d);
                 
                 this.BindCommand(ViewModel, vm => vm.AnalyzeCommand, v => v.btnAnalyze).DisposeWith(d);
