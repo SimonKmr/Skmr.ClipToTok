@@ -14,27 +14,6 @@ namespace Skmr.ClipToTok.ViewModels
     public class PlayerViewModel : ReactiveObject
     {
         public MediaPlayer MediaPlayer { get; set; }
-        //public string VideoFile { get; set; }
-        public bool HasTimeFrame { get; set; }
-
-
-
-        private TimeSpan _time;
-        public TimeSpan Time 
-        {
-            get
-            {
-                _time = TimeSpan.FromMilliseconds(MediaPlayer.Time);
-                return _time;
-            } 
-            set
-            {
-                _time = value;
-                MediaPlayer.Time = (long) _time.TotalMilliseconds;
-                this.RaiseAndSetIfChanged(ref _time, value); 
-            }
-        }
-
 
         LibVLC _libVLC;
 
@@ -69,13 +48,8 @@ namespace Skmr.ClipToTok.ViewModels
         #region Current Time Notifier
         [Reactive]
         public TimeSpan CurrentTime { get; set; }
-        public void UpdateCurrentTime()
-        {
-
-        }
-        #endregion
         public ICommand CurrentTimeCommand { get; }
-        
+        #endregion
 
         public ICommand PlayCommand { get; set; }
         public ICommand PlaySelectionCommand { get; set; }
@@ -90,23 +64,17 @@ namespace Skmr.ClipToTok.ViewModels
         //Time Skipping
         private void JumpRelative(int seconds)
         {
-            if (Time.TotalSeconds + seconds < 0) Time = TimeSpan.Zero;
-            else Time += TimeSpan.FromSeconds(seconds);
+            if (MediaPlayer.Time + seconds * 1000 < 0) MediaPlayer.Time = 0;
+            else MediaPlayer.Time += seconds * 1000;
 
-            if (!MediaPlayer.IsPlaying)
-            {
-                MediaPlayer.NextFrame();
-            }
+            if (!MediaPlayer.IsPlaying) MediaPlayer.NextFrame();
         }
         private void JumpAbsolute(int seconds)
         {
-            if (seconds < 0) Time = TimeSpan.Zero;
-            else Time = TimeSpan.FromSeconds(seconds);
-            if (!MediaPlayer.IsPlaying)
-            {
-                
-                MediaPlayer.NextFrame();
-            }
+            if (seconds < 0) MediaPlayer.Time = 0;
+            else MediaPlayer.Time = seconds * 1000;
+            
+            if (!MediaPlayer.IsPlaying) MediaPlayer.NextFrame();
         }
 
 
