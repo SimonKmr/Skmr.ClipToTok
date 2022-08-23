@@ -147,7 +147,7 @@ namespace Skmr.ClipToTok.ViewModels
                     var highlightArr = JsonConvert.DeserializeObject<Highlight[]>(sr.ReadToEnd());
                     for(int i = 0; i < highlightArr.Length; i++)
                     {
-                        _highlightSources.Add(highlightArr[i].ToHighlightViewModel());
+                        AddHighlight(highlightArr[i].ToHighlightViewModel());
                     }
                 }
                 return;
@@ -155,7 +155,7 @@ namespace Skmr.ClipToTok.ViewModels
             else if (file.EndsWith(".txt"))
                 using (StreamReader sr = new StreamReader(file))
                     while (!sr.EndOfStream)
-                        _highlightSources.Add(
+                        AddHighlight(
                             Parser.CreateHighlightFromTxt(sr.ReadLine())
                             .ToHighlightViewModel());
 
@@ -163,7 +163,7 @@ namespace Skmr.ClipToTok.ViewModels
             else if (file.EndsWith(".csv"))
                 using (StreamReader sr = new StreamReader(file))
                     while (!sr.EndOfStream)
-                        _highlightSources.Add(
+                        AddHighlight(
                             Parser.CreateHighlightFromCsv(sr.ReadLine())
                             .ToHighlightViewModel());
 
