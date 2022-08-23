@@ -19,6 +19,14 @@ namespace Skmr.ClipToTok.ViewModels
             EditCommand = ReactiveCommand.Create(Edit);
             SelectCommand = ReactiveCommand.Create(Select);
             DeleteCommand = ReactiveCommand.Create(Delete);
+
+            durationText = this.WhenAnyValue(x => x.Duration)
+                .Select(x => $"{Duration.TotalSeconds} sec")
+                .ToProperty(this, x => x.DurationText);
+
+            end = this.WhenAnyValue(x => x.Start, x => x.Duration)
+                .Select(x => Start + Duration)
+                .ToProperty(this, x => x.End);
         }
 
 
@@ -34,63 +42,17 @@ namespace Skmr.ClipToTok.ViewModels
         public string Creator { get; set; }
         [Reactive]
         public DateTime CreationTime { get; set; }
+        [Reactive]
+        public TimeSpan Start { get; set; }
+        [Reactive]
+        public TimeSpan Duration { get; set; }
 
 
-        private TimeSpan _Start;
-        public TimeSpan Start
-        {
-            get
-            {
-                return _Start;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _Start, value);
-                End = Start + Duration;
-            }
-        }
+        readonly ObservableAsPropertyHelper<TimeSpan> end;
+        public TimeSpan End => end.Value;
 
-        private TimeSpan _Duration;
-        public TimeSpan Duration
-        {
-            get
-            {
-                return _Duration;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _Duration, value);
-                End = Start + Duration;
-                DurationText = $"{Duration.TotalSeconds} sec";
-
-            }
-        }
-
-        private TimeSpan _End;
-        public TimeSpan End
-        {
-            get
-            {
-                return _End;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _End, value);
-            }
-        }
-
-        private string _DurationText = $"0 sec";
-        public string DurationText
-        {
-            get
-            {
-                return _DurationText;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _DurationText, value);
-            }
-        }
+        readonly ObservableAsPropertyHelper<string> durationText;
+        public string DurationText => durationText.Value;
 
 
         public delegate void ButtonHandler(object sender, TimeSpan start, TimeSpan duration, bool select);
