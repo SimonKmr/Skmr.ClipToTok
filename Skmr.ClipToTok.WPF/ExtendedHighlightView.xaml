@@ -74,7 +74,7 @@
                 </Label>
                 <Label Foreground="White" FontSize="20" Content="Image"/>
 
-                <Image Source="C:\Users\darkf\OneDrive\Bilder\Screenshot_1.png" />
+                <Image />
                 <Label Foreground="White" FontSize="20" Content="Settings"/>
                 <Grid>
                     <Grid.RowDefinitions>

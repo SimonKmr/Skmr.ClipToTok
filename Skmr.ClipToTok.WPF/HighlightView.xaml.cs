@@ -42,7 +42,7 @@ namespace Skmr.ClipToTok.WPF
                 ViewModel.RegisterWindow(ViewModel_NewWindowRequest);
             });
             
-            imgPreview.Source = new BitmapImage(new Uri(@"C:\Users\darkf\OneDrive\Bilder\Screenshot_1.png"));
+            //imgPreview.Source = new BitmapImage(new Uri(@"C:\Users\darkf\OneDrive\Bilder\Screenshot_1.png"));
         }
 
 

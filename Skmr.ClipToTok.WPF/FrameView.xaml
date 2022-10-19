@@ -1,0 +1,106 @@
+﻿<rxui:ReactiveUserControl 
+             x:Class="Skmr.ClipToTok.WPF.FrameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Skmr.ClipToTok.WPF"
+             mc:Ignorable="d"
+             xmlns:vm="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
+             x:TypeArguments="vm:FrameViewModel"
+             xmlns:rxui="http://reactiveui.net"
+             d:DesignWidth="400">
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <Style TargetType="Border" x:Key="OptionPanel">
+                    <Setter Property="Margin" Value="2" />
+                    <Setter Property="BorderBrush" Value="#909090" />
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Border Style="{StaticResource OptionPanel}">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Foreground="White" FontSize="15" Content="Frame" />
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="1" Content="XPos" Foreground="White"/>
+                    <Slider Grid.Row="0" Grid.Column="2" x:Name="slPosX" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtPosX" Margin="2"/>
+
+                    <Label Grid.Row="1" Grid.Column="1" Content="YPos" Foreground="White"/>
+                    <Slider Grid.Row="1" Grid.Column="2" x:Name="slPosY" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtPosY" Margin="2"/>
+
+                    <Label Grid.Row="2" Grid.Column="1" Content="Width" Foreground="White"/>
+                    <Slider Grid.Row="2" Grid.Column="2" x:Name="slWidth" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtWidth" Margin="2"/>
+
+                    <Label Grid.Row="3" Grid.Column="1" Content="Height" Foreground="White"/>
+                    <Slider Grid.Row="3" Grid.Column="2" x:Name="slHeight" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="3" Grid.Column="3" x:Name="txtHeight" Margin="2"/>
+
+                    <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Red" Grid.Column="1" Foreground="White"/>
+                        <TextBox Grid.Column="2" Width="50" x:Name="txtRed"/>
+                        <Label Content="Green" Grid.Column="4" Foreground="White"/>
+                        <TextBox  Grid.Column="5" Width="50" x:Name="txtGreen"/>
+                        <Label Content="Blue" Grid.Column="7"  Foreground="White"/>
+                        <TextBox  Grid.Column="8" Width="50" x:Name="txtBlue"/>
+                        <Label Content="Alpha" Grid.Column="10"  Foreground="White"/>
+                        <TextBox  Grid.Column="11" Width="50" x:Name="txtAlpha"/>
+                    </Grid>
+
+                    <Button Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Content="Attributes" x:Name="btnAttributes" Height="30" Margin="5"/>
+                    <Button Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" Content="Remove" x:Name="btnRemove" Height="30" Margin="5"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</rxui:ReactiveUserControl>

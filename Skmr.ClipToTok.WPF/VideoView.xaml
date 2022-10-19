@@ -1,0 +1,72 @@
+﻿<rxui:ReactiveUserControl x:Class="Skmr.ClipToTok.WPF.VideoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Skmr.ClipToTok.WPF"
+             mc:Ignorable="d" 
+             xmlns:rxui="http://reactiveui.net"
+             xmlns:vm ="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
+             x:TypeArguments="vm:VideoViewModel"
+             d:DesignWidth="400">
+
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Foreground="White" FontSize="15" Content="Video" />
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="1" Content="Path" Foreground="White"/>
+            <TextBox Grid.Row="0" Grid.Column="2" Margin="2" x:Name="txtSourceVideo"/>
+            <Border Grid.Row="0" Grid.Column="3" CornerRadius="5" Background="#202020" Drop="SourceVideo_Drop" AllowDrop="True"/>
+        </Grid>
+        <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="btnAttributes" Margin="15,10" Height="30" Content="Attributes"/>
+        <!-- Frames -->
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Frames" />
+
+            </Grid>
+            <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="btnAddFrame" Margin="15,10" Height="30" Content="Add Frame"/>
+        </StackPanel>
+
+
+        <!-- Frame -->
+        <ItemsControl x:Name="icScreenPositions">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <local:FrameView ViewModel="{Binding}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</rxui:ReactiveUserControl>

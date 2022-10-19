@@ -1,0 +1,82 @@
+﻿<rxui:ReactiveWindow 
+    x:Class="Skmr.ClipToTok.WPF.ExtendedFrameView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:Skmr.ClipToTok.WPF"
+    xmlns:rxui="http://reactiveui.net"
+    x:TypeArguments="vm:FrameViewModel"
+    xmlns:vm="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
+    mc:Ignorable="d" 
+    Title="ExtendedFrameView" Height="720" Width="400"
+    d:DesignHeight="720" d:DesignWidth="400">
+    <ScrollViewer Background="#101010">
+        <StackPanel MaxWidth="600" >
+            <!-- Color Grading -->
+            <StackPanel Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Foreground="White" FontSize="15" Content="Color Grading" />
+                    <CheckBox Grid.Column="1" VerticalAlignment="Center" x:Name="cbColorGrading"/>
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="1" Content="Contrast" Foreground="White"/>
+                    <Slider Grid.Row="0" Grid.Column="2" x:Name="slContrast" Minimum="-1000" Maximum="1000" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtContrast" Margin="2"/>
+
+                    <Label Grid.Row="1" Grid.Column="1" Content="Brightness" Foreground="White"/>
+                    <Slider Grid.Row="1" Grid.Column="2" x:Name="slBrightness" Minimum="-1" Maximum="1" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="txtBrightness" Margin="2"/>
+
+                    <Label Grid.Row="2" Grid.Column="1" Content="Saturation" Foreground="White"/>
+                    <Slider Grid.Row="2" Grid.Column="2" x:Name="slSaturation" Maximum="3" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" x:Name="txtSaturation" Margin="2"/>
+
+                    <Label Grid.Row="3" Grid.Column="1" Content="Gamma" Foreground="White"/>
+                    <Slider Grid.Row="3" Grid.Column="2" x:Name="slGamma" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="3" Grid.Column="3" x:Name="txtGamma" Margin="2"/>
+
+                    <Label Grid.Row="4" Grid.Column="1" Content="Gamma (Red)" Foreground="White"/>
+                    <Slider Grid.Row="4" Grid.Column="2" x:Name="slGammaR" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="4" Grid.Column="3" x:Name="txtGammaR" Margin="2"/>
+
+                    <Label Grid.Row="5" Grid.Column="1" Content="Gamma (Green)" Foreground="White"/>
+                    <Slider Grid.Row="5" Grid.Column="2" x:Name="slGammaG" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="5" Grid.Column="3" x:Name="txtGammaG" Margin="2"/>
+
+                    <Label Grid.Row="6" Grid.Column="1" Content="Gamma (Blue)" Foreground="White"/>
+                    <Slider Grid.Row="6" Grid.Column="2" x:Name="slGammaB" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="6" Grid.Column="3" x:Name="txtGammaB" Margin="2"/>
+
+                    <Label Grid.Row="7" Grid.Column="1" Content="Gamma Weight" Foreground="White"/>
+                    <Slider Grid.Row="7" Grid.Column="2" x:Name="slGammaWeight" Minimum="0.1" Maximum="1" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="7" Grid.Column="3" x:Name="txtGammaWeight" Margin="2"/>
+                </Grid>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</rxui:ReactiveWindow>

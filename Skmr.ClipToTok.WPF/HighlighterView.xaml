@@ -9,7 +9,7 @@
              xmlns:vm="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
              x:TypeArguments="vm:HighlighterViewModel"
              xmlns:rxui="http://reactiveui.net"
-             d:DesignWidth="400">
+             d:DesignWidth="400" >
     <Grid>
 
         <StackPanel>
@@ -125,7 +125,7 @@
             </Border>
 
             <Grid Height="20"/>
-            <ItemsControl x:Name="AnalyzedHighlights">
+            <ItemsControl x:Name="icAnalyzedHighlights">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel/>

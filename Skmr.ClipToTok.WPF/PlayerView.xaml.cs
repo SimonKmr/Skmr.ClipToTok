@@ -2,6 +2,7 @@
 using ReactiveUI;
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
+using Skmr.ClipToTok.Utility;
 using Skmr.ClipToTok.ViewModels;
 using System.Reactive.Disposables;
 using System.Windows;
@@ -17,9 +18,11 @@ namespace Skmr.ClipToTok.WPF
         {
             InitializeComponent();
 
+            
+
             //Vlc Player
             videoView.Loaded += VideoView_Loaded;
-
+            
             //Bindings
             this.WhenActivated(d =>
             {
@@ -33,19 +36,21 @@ namespace Skmr.ClipToTok.WPF
                 this.BindCommand(ViewModel, vm => vm.JumpToStartCommand, v => v.btnJumpToStart).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.PlaySelectionCommand, v => v.btnPlaySelection).DisposeWith(d);
 
-                ViewModel.Webcam.OnScreenPosChanged += Webcam_OnScreenPosChanged;
-                ViewModel.Gameplay.OnScreenPosChanged += Gameplay_OnScreenPosChanged;
+                ViewModelBus.SettingsViewModel.Video.OnFramesChanged += SettingsViewModel_OnFramesChanged;
             });
         }
 
-        private void Gameplay_OnScreenPosChanged(int x, int y, int width, int height)
+        private void SettingsViewModel_OnFramesChanged(object sender, System.EventArgs e)
         {
-            DrawGameplayArea(x, y, width, height);
+            var s = sender as VideoViewModel;
+            var sp = new FrameViewModel[s.ScreenPositions.Count];
+            s.ScreenPositions.CopyTo(sp, 0);
+            DrawArea(sp);
         }
 
-        private void Webcam_OnScreenPosChanged(int x, int y, int width, int height)
+        private void OnScreenPosChanged(int x, int y, int width, int height)
         {
-            DrawWebcamArea(x, y, width, height);
+
         }
 
         void VideoView_Loaded(object sender, RoutedEventArgs e)
@@ -74,30 +79,10 @@ namespace Skmr.ClipToTok.WPF
         }
 
         #region Skia - Video Part Selection
-        int xWebc;
-        int yWebc;
-        int widthWebc;
-        int heightWebc;
-
-        int xGamep;
-        int yGamep;
-        int widthGamep;
-        int heightGamep;
-        public void DrawGameplayArea(int x, int y, int width, int height)
+        FrameViewModel[] _areas;
+        public void DrawArea(FrameViewModel[] areas)
         {
-            this.xGamep = x;
-            this.yGamep = y;
-            this.widthGamep = width;
-            this.heightGamep = height;
-            canvasView.InvalidateVisual();
-        }
-
-        public void DrawWebcamArea(int x, int y, int width, int height)
-        {
-            this.xWebc = x;
-            this.yWebc = y;
-            this.widthWebc = width;
-            this.heightWebc = height;
+            _areas = areas;
             canvasView.InvalidateVisual();
         }
 
@@ -115,8 +100,15 @@ namespace Skmr.ClipToTok.WPF
             canvas.Clear(SKColor.FromHsv(0, 0, 0, 0));
             canvas.DrawBitmap(dbm, new SKPoint(0, 0));
 
-            canvas.DrawRect(xWebc * x1, yWebc * y1, widthWebc * x1, heightWebc * y1, new SKPaint() { Color = new SKColor(255, 0, 0, 122) });
-            canvas.DrawRect(xGamep * x1, yGamep * y1, widthGamep * x1, heightGamep * y1, new SKPaint() { Color = new SKColor(0, 255, 0, 122) });
+            if(_areas != null)
+            {
+                foreach(var area in _areas)
+                {
+                    canvas.DrawRect(area.PosX * x1, area.PosY * y1, area.Width * x1, area.Height * y1, new SKPaint() { Color = new SKColor(area.Red, area.Green, area.Blue, area.Alpha) });
+                }
+            }
+
+
         }
         #endregion
     }
