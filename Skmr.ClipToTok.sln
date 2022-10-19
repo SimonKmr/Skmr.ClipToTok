@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skmr.ClipToTok.Console", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Skmr.ClipToTok.WPF", "Skmr.ClipToTok.WPF\Skmr.ClipToTok.WPF.csproj", "{16A265FA-D5D3-4DCE-B7E5-CB2D745F15E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skmr.ClipToTok.Avalonia", "Skmr.ClipToTok.Avalonia\Skmr.ClipToTok.Avalonia.csproj", "{4D05DFC3-8663-47A1-BE5F-1D71536C87FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{16A265FA-D5D3-4DCE-B7E5-CB2D745F15E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16A265FA-D5D3-4DCE-B7E5-CB2D745F15E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16A265FA-D5D3-4DCE-B7E5-CB2D745F15E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D05DFC3-8663-47A1-BE5F-1D71536C87FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D05DFC3-8663-47A1-BE5F-1D71536C87FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D05DFC3-8663-47A1-BE5F-1D71536C87FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D05DFC3-8663-47A1-BE5F-1D71536C87FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
