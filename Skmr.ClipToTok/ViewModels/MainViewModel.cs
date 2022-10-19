@@ -12,46 +12,40 @@ using Skmr.ClipToTok.Utility;
 
 namespace Skmr.ClipToTok.ViewModels
 {
-    public class MainViewModel : ReactiveObject
+    public class MainViewModel : ReactiveObject, IActivatableViewModel
     {
+        public ViewModelActivator Activator { get; }
         public RoutingState Router { get; }
         public ReactiveCommand<Unit, IRoutableViewModel> GoSettings { get; }
         public ReactiveCommand<Unit, IRoutableViewModel> GoHighlighter { get; }
 
 
-        public HighlighterViewModel Hvm { get; }
-        public SettingsViewModel Svm { get; }
-        public PlayerViewModel Pvm { get; }
+        public HighlighterViewModel HighlighterViewModel { get; }
+        public ProjectViewModel ProjectViewModel { get; }
+        public PlayerViewModel PlayerViewModel { get; }
+        public VideoViewModel VideoViewModel { get; }
 
         public MainViewModel()
         {
-            Svm = new SettingsViewModel();
-            Hvm = new HighlighterViewModel();
-            Pvm = new PlayerViewModel();
+            Activator = new ViewModelActivator();
 
-            Svm.OnRenderEvent += Svm_OnRenderEvent;
-            Svm.ScreenPosGameplay.OnScreenPosChanged += ScreenPosGameplay_OnScreenPosChanged;
-            Svm.ScreenPosWebcam.OnScreenPosChanged += ScreenPosWebcam_OnScreenPosChanged;
+            VideoViewModel = new VideoViewModel();
+            ProjectViewModel = new ProjectViewModel();
+            HighlighterViewModel = new HighlighterViewModel();
+            PlayerViewModel = new PlayerViewModel();
 
-            Hvm.OnHighlightSelected += Hvm_OnHighlightSelected;
+            ProjectViewModel.OnRenderEvent += Svm_OnRenderEvent;
+
+            HighlighterViewModel.OnHighlightSelected += Hvm_OnHighlightSelected;
 
             Router = new RoutingState();
-            GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(Svm));
-            GoHighlighter = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(Hvm));
-            Router.Navigate.Execute(Svm);
+            GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(ProjectViewModel));
+            GoHighlighter = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(HighlighterViewModel));
+            Router.Navigate.Execute(ProjectViewModel);
 
-            ViewModelBus.PlayerViewModel = Pvm;
-            ViewModelBus.SettingsViewModel = Svm;
-        }
-
-        private void ScreenPosWebcam_OnScreenPosChanged(int x, int y, int width, int height)
-        {
-            Pvm.Gameplay.Set(x,y, width, height);
-        }
-
-        private void ScreenPosGameplay_OnScreenPosChanged(int x, int y, int width, int height)
-        {
-            Pvm.Webcam.Set(x, y, width, height);
+            ViewModelBus.PlayerViewModel = PlayerViewModel;
+            ViewModelBus.SettingsViewModel = ProjectViewModel;
+            ViewModelBus.VideoViewModel = VideoViewModel;
         }
 
         private void Svm_OnRenderEvent(object sender, string e)
@@ -78,13 +72,13 @@ namespace Skmr.ClipToTok.ViewModels
         {
             if (select)
             {
-                Svm.TimeFrameStart = start;
-                Svm.TimeFrameDuration = duration;
-                Svm.HasTimeFrame = select;
+                VideoViewModel.TimeFrameStart = start;
+                VideoViewModel.TimeFrameDuration = duration;
+                VideoViewModel.HasTimeFrame = select;
             }
             else
             {
-                Pvm.PlaySection(start, duration);
+                PlayerViewModel.PlaySection(start, duration);
             }
         }
     }

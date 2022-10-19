@@ -125,7 +125,7 @@ namespace Skmr.ClipToTok.ViewModels
             List<Highlight> highlights = new List<Highlight>();
             for(int i = 0; i < _highlightSources.Count; i++)
             {
-                highlights.Add(Highlights[i].ToHighlight());
+                //highlights.Add(Highlights[i].ToHighlight());
             }
             var highlightsArr = highlights.ToArray();
 
@@ -137,35 +137,35 @@ namespace Skmr.ClipToTok.ViewModels
         }
         public async Task ImportAsync()
         {
-            var file = await Interactions.OpenFileDialog.Handle(String.Empty);
-            if (!File.Exists(file)) return;
+            //var file = await Interactions.OpenFileDialog.Handle(String.Empty);
+            //if (!File.Exists(file)) return;
 
-            if (file.EndsWith(".json"))
-            {
-                using (StreamReader sr = new StreamReader(file))
-                {
-                    var highlightArr = JsonConvert.DeserializeObject<Highlight[]>(sr.ReadToEnd());
-                    for(int i = 0; i < highlightArr.Length; i++)
-                    {
-                        AddHighlight(highlightArr[i].ToHighlightViewModel());
-                    }
-                }
-                return;
-            }
-            else if (file.EndsWith(".txt"))
-                using (StreamReader sr = new StreamReader(file))
-                    while (!sr.EndOfStream)
-                        AddHighlight(
-                            Parser.CreateHighlightFromTxt(sr.ReadLine())
-                            .ToHighlightViewModel());
+            //if (file.EndsWith(".json"))
+            //{
+            //    using (StreamReader sr = new StreamReader(file))
+            //    {
+            //        var highlightArr = JsonConvert.DeserializeObject<Highlight[]>(sr.ReadToEnd());
+            //        for(int i = 0; i < highlightArr.Length; i++)
+            //        {
+            //            AddHighlight(highlightArr[i].ToHighlightViewModel());
+            //        }
+            //    }
+            //    return;
+            //}
+            //else if (file.EndsWith(".txt"))
+            //    using (StreamReader sr = new StreamReader(file))
+            //        while (!sr.EndOfStream)
+            //            AddHighlight(
+            //                Parser.CreateHighlightFromTxt(sr.ReadLine())
+            //                .ToHighlightViewModel());
 
 
-            else if (file.EndsWith(".csv"))
-                using (StreamReader sr = new StreamReader(file))
-                    while (!sr.EndOfStream)
-                        AddHighlight(
-                            Parser.CreateHighlightFromCsv(sr.ReadLine())
-                            .ToHighlightViewModel());
+            //else if (file.EndsWith(".csv"))
+            //    using (StreamReader sr = new StreamReader(file))
+            //        while (!sr.EndOfStream)
+            //            AddHighlight(
+            //                Parser.CreateHighlightFromCsv(sr.ReadLine())
+            //                .ToHighlightViewModel());
 
         }
 

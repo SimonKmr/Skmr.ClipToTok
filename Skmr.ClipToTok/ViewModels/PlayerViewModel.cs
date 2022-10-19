@@ -13,17 +13,16 @@ namespace Skmr.ClipToTok.ViewModels
 {
     public class PlayerViewModel : ReactiveObject
     {
-        public MediaPlayer MediaPlayer { get; set; }
+        private readonly LibVLC _libVLC = new LibVLC();
+        public MediaPlayer MediaPlayer { get; }
 
-        LibVLC _libVLC;
 
         public PlayerViewModel()
         {
-            _libVLC = new LibVLC();
             MediaPlayer = new MediaPlayer(_libVLC);
             MediaPlayer.EndReached += MediaPlayer_EndReached;
 
-            PlayCommand = ReactiveCommand.Create(PlayVideo);
+            PlayCommand = ReactiveCommand.Create(PlayVideo); //PlayVideo
             PlaySelectionCommand = ReactiveCommand.Create(PlaySection);
             JumpAheadCommand = ReactiveCommand.Create(() => JumpRelative(10));
             JumpBackCommand = ReactiveCommand.Create(() => JumpRelative(-10));
@@ -43,6 +42,11 @@ namespace Skmr.ClipToTok.ViewModels
         }
 
 
+        public void Dispose()
+        {
+            MediaPlayer?.Dispose();
+            _libVLC?.Dispose();
+        }
 
 
         #region Current Time Notifier
@@ -83,7 +87,7 @@ namespace Skmr.ClipToTok.ViewModels
 
         private void PlayVideo()
         {
-            var videoFile = ViewModelBus.SettingsViewModel.VideoFile;
+            var videoFile = ViewModelBus.SettingsViewModel.Video.VideoFile;
             if (File.Exists(videoFile))
             {
                 if (!playedBackVideoCurrent.Equals(videoFile))
@@ -117,12 +121,12 @@ namespace Skmr.ClipToTok.ViewModels
         private void PlaySection()
         {
             PlaySection(
-                ViewModelBus.SettingsViewModel.TimeFrameStart, 
-                ViewModelBus.SettingsViewModel.TimeFrameDuration);
+                ViewModelBus.VideoViewModel.TimeFrameStart, 
+                ViewModelBus.VideoViewModel.TimeFrameDuration);
         }
         public void PlaySection(TimeSpan start, TimeSpan duration)
         {
-            var videoFile = ViewModelBus.SettingsViewModel.VideoFile;
+            var videoFile = ViewModelBus.SettingsViewModel.Video.VideoFile;
             if (File.Exists(videoFile))
             {
                 MediaPlayer.Play(new Media(_libVLC, new Uri(videoFile)));
@@ -147,11 +151,5 @@ namespace Skmr.ClipToTok.ViewModels
                 (sender as System.Timers.Timer).Enabled = false;
             }
         }
-
-
-
-        //Overlay Drawing
-        public ScreenPosViewModel Gameplay { get; set; } = new ScreenPosViewModel();
-        public ScreenPosViewModel Webcam { get; set; } = new ScreenPosViewModel();
     }
 }
