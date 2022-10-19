@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+             x:Class="Skmr.ClipToTok.Avalonia.Views.VideoView"
+             xmlns:v="clr-namespace:Skmr.ClipToTok.Avalonia.Views;assembly=Skmr.ClipToTok.Avalonia">
+  <StackPanel>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Label Classes="h1" Content="Video" />
+    </Grid>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="10"/>
+        <ColumnDefinition Width="100"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="50"/>
+        <ColumnDefinition Width="10"/>
+      </Grid.ColumnDefinitions>
+
+      <Label Grid.Row="0" Grid.Column="1" Content="Path"/>
+      <TextBox Grid.Row="0" Grid.Column="2" Margin="2" Name="txtSourceVideo"/>
+      <Border Grid.Row="0" Grid.Column="3" CornerRadius="5" Background="#202020" 
+              DragDrop.AllowDrop="True" Name="dpSourceVideo"/>
+      <!-- Drop="SourceVideo_Drop" AllowDrop="True" -->
+    </Grid>
+    <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="btnAttributes" Margin="15,10" Content="Attributes"/>
+    <!-- Frames -->
+    <StackPanel>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Grid.ColumnSpan="2" Classes="h1" Content="Frames" />
+      </Grid>
+      <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="btnAddFrame" Margin="15,10" Content="Add Frame"/>
+    </StackPanel>
+
+
+    <!-- Frame -->
+    <ItemsControl Name="icScreenPositions">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel/>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <v:FrameView/>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </StackPanel>
+</UserControl>

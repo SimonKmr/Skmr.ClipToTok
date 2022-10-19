@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vlc="clr-namespace:LibVLCSharp.Avalonia;assembly=LibVLCSharp.Avalonia"
+             xmlns:vm="clr-namespace:Skmr.ClipToTok.ViewModels;assembly=Skmr.ClipToTok"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Skmr.ClipToTok.Avalonia.Views.PlayerView">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="5"/>
+      <RowDefinition Height="50"/>
+    </Grid.RowDefinitions>
+
+    <!-- SizeChanged="Border_SizeChanged" -->
+    <Border Grid.Row="0" x:Name="previewFrame" Classes="panel" Padding="20">
+      <Grid>
+        <vlc:VideoView Name="videoView"/>
+          <!-- 
+          <skia:SKElement x:Name="canvasView" PaintSurface="SKElement_PaintSurface" IgnorePixelScaling="True" Width="100" Height="100"/>
+          -->
+      </Grid>
+    </Border>
+    <Border Grid.Row="2" Classes="panel" Padding="0">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Name="btnJumpBack" Grid.Column="1" Margin="5" Width="50" Content="← 10 sec"/>
+        <Button Name="btnRestart" Grid.Column="2" Margin="5" Width="50" Content="↻"/>
+        <Button Name="btnPlay" Grid.Column="3" Margin="5" Width="50" Content="▶⏸"/>
+        <Button Name="btnMute" Grid.Column="4" Margin="5" Width="50" Content="🕪"/>
+        <Button Name="btnJumpAhead" Grid.Column="5" Margin="5" Width="50" Content="10 sec →"/>
+        <Button Name="btnPlaySelection" Grid.Column="6" Margin="5" Width="50" Content="Section"/>
+        <Label Name="lbCurrentTime" Grid.Column="7" Margin="5" VerticalAlignment="Center"/>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

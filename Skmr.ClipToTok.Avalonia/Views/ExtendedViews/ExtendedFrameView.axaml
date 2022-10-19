@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="400" Height="600"
+        x:Class="Skmr.ClipToTok.Avalonia.Views.ExtendedViews.ExtendedFrameView"
+        WindowStartupLocation="CenterScreen"
+        Title="ExtendedFrameView">
+  <ScrollViewer Background="#101010">
+    <StackPanel MaxWidth="600" >
+      <!-- Color Grading -->
+      <StackPanel Margin="0,0,0,20">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Label Grid.Column="0" Classes="h1" Content="Color Grading" />
+          <CheckBox Grid.Column="1" VerticalAlignment="Center" Name="cbColorGrading"/>
+        </Grid>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="10"/>
+          </Grid.ColumnDefinitions>
+
+          <Label Grid.Row="0" Grid.Column="1" Content="Contrast" Foreground="White"/>
+          <Slider Grid.Row="0" Grid.Column="2" Name="slContrast" Minimum="-1000" Maximum="1000" TickFrequency="1" IsSnapToTickEnabled="True"/>
+          <TextBox Grid.Row="0" Grid.Column="3" Name="txtContrast" Margin="2"/>
+
+          <Label Grid.Row="1" Grid.Column="1" Content="Brightness" Foreground="White"/>
+          <Slider Grid.Row="1" Grid.Column="2" Name="slBrightness" Minimum="-1" Maximum="1" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+          <TextBox Grid.Row="1" Grid.Column="3" Name="txtBrightness" Margin="2"/>
+
+          <Label Grid.Row="2" Grid.Column="1" Content="Saturation" Foreground="White"/>
+          <Slider Grid.Row="2" Grid.Column="2" Name="slSaturation" Maximum="3" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+          <TextBox Grid.Row="2" Grid.Column="3" Name="txtSaturation" Margin="2"/>
+
+          <Label Grid.Row="3" Grid.Column="1" Content="Gamma" Foreground="White"/>
+          <Slider Grid.Row="3" Grid.Column="2" Name="slGamma" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+          <TextBox Grid.Row="3" Grid.Column="3" Name="txtGamma" Margin="2"/>
+
+          <Label Grid.Row="4" Grid.Column="1" Content="Gamma (Red)" Foreground="White"/>
+          <Slider Grid.Row="4" Grid.Column="2" Name="slGammaR" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+          <TextBox Grid.Row="4" Grid.Column="3" Name="txtGammaR" Margin="2"/>
+
+          <Label Grid.Row="5" Grid.Column="1" Content="Gamma (Green)" Foreground="White"/>
+          <Slider Grid.Row="5" Grid.Column="2" Name="slGammaG" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+          <TextBox Grid.Row="5" Grid.Column="3" Name="txtGammaG" Margin="2"/>
+
+          <Label Grid.Row="6" Grid.Column="1" Content="Gamma (Blue)" Foreground="White"/>
+          <Slider Grid.Row="6" Grid.Column="2" Name="slGammaB" Minimum="0.1" Maximum="10" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+          <TextBox Grid.Row="6" Grid.Column="3" Name="txtGammaB" Margin="2"/>
+
+          <Label Grid.Row="7" Grid.Column="1" Content="Gamma Weight" Foreground="White"/>
+          <Slider Grid.Row="7" Grid.Column="2" Name="slGammaWeight" Minimum="0.1" Maximum="1" TickFrequency=".1" IsSnapToTickEnabled="True"/>
+          <TextBox Grid.Row="7" Grid.Column="3" Name="txtGammaWeight" Margin="2"/>
+        </Grid>
+      </StackPanel>
+
+    </StackPanel>
+  </ScrollViewer>
+</Window>

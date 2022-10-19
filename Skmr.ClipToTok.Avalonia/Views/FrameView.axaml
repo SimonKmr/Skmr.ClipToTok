@@ -1,0 +1,103 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Skmr.ClipToTok.Avalonia.Views.FrameView">
+    <Grid>
+      <!--
+        <Grid.Resources>
+            <ResourceDictionary>
+                <Style TargetType="Border" x:Key="OptionPanel">
+                    <Setter Property="Margin" Value="2" />
+                    <Setter Property="BorderBrush" Value="#909090" />
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </ResourceDictionary>
+        </Grid.Resources>
+        Style="{StaticResource OptionPanel}"
+        -->
+        <Border>
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Classes="h1" Content="Frame" />
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="1" Content="XPos"/>
+                    <Slider Grid.Row="0" Grid.Column="2" Name="slPosX" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" Name="txtPosX"/>
+
+                    <Label Grid.Row="1" Grid.Column="1" Content="YPos"/>
+                    <Slider Grid.Row="1" Grid.Column="2" Name="slPosY" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" Name="txtPosY"/>
+
+                    <Label Grid.Row="2" Grid.Column="1" Content="Width"/>
+                    <Slider Grid.Row="2" Grid.Column="2" Name="slWidth" Maximum="1920" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" Name="txtWidth" Margin="2" Height ="30"/>
+
+                    <Label Grid.Row="3" Grid.Column="1" Content="Height"/>
+                    <Slider Grid.Row="3" Grid.Column="2" Name="slHeight" Maximum="1080" TickFrequency="10" IsSnapToTickEnabled="True"/>
+                    <TextBox Grid.Row="3" Grid.Column="3" Name="txtHeight"/>
+
+                    <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Red" Grid.Column="1"/>
+                        <TextBox Grid.Column="2" Width="50" x:Name="txtRed"/>
+                        <Label Content="Green" Grid.Column="4"/>
+                        <TextBox  Grid.Column="5" Width="50" x:Name="txtGreen"/>
+                        <Label Content="Blue" Grid.Column="7"/>
+                        <TextBox  Grid.Column="8" Width="50" x:Name="txtBlue"/>
+                        <Label Content="Alpha" Grid.Column="10"/>
+                        <TextBox  Grid.Column="11" Width="50" x:Name="txtAlpha"/>
+                    </Grid>
+
+                    <Button Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Content="Attributes" Name="btnAttributes" Margin="5"/>
+                    <Button Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" Content="Remove" Name="btnRemove" Margin="5"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
