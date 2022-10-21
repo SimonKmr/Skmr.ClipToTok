@@ -48,7 +48,7 @@
 
         <!-- Video -->
         <Border Classes="op">
-          <v:VideoView Name="vvVideo" DataContext="{Binding Video, Mode=OneWay} "/>
+          <v:VideoView Name="vvVideo"/>
         </Border>
 
 

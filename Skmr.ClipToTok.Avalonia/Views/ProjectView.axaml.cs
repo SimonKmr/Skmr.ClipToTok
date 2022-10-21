@@ -43,8 +43,7 @@ namespace Skmr.ClipToTok.Avalonia.Views
                 this.Bind(ViewModel, vm => vm.Renderer.Resolution, v => v.ResolutionTextBox.Text).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.Renderer.BackgroundImage, v => v.BackgroundImageTextBox.Text).DisposeWith(d);
                 this.Bind(ViewModel, vm => vm.Renderer.HasBackground, v => v.BackgroundImageCheckBox.IsChecked).DisposeWith(d);
-
-                this.OneWayBind(ViewModel, vm => vm.Video, v => v.VideoView.DataContext).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.Video, v => v.VideoView.ViewModel).DisposeWith(d);
             });
             ResultDropPanel.AddHandler(DragDrop.DropEvent, DropResult);
             BackgroundImageDropPanel.AddHandler(DragDrop.DropEvent, DropBackground);

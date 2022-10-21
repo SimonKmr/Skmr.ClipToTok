@@ -7,11 +7,6 @@
              xmlns:v="clr-namespace:Skmr.ClipToTok.Avalonia.Views;assembly=Skmr.ClipToTok.Avalonia"
              xmlns:vm="using:Skmr.ClipToTok.ViewModels"
              xmlns:vlc="clr-namespace:LibVLCSharp.Avalonia;assembly=LibVLCSharp.Avalonia">
-
-  <Design.DataContext>
-    <vm:MainViewModel/>
-  </Design.DataContext>
-  
   <Grid Grid.Row="1" Grid.Column="2">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" MinWidth="300" MaxWidth="600"/>

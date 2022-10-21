@@ -36,7 +36,7 @@ namespace Skmr.ClipToTok.Avalonia.Views
 
         private void LoadedEventManager_Loaded(object? sender, EventArgs e)
         {
-            ViewModel!.AttributesWindow?.RegisterHandler(DoShowAttributesWindow);
+            ViewModel!.AttributesWindow!.RegisterHandler(DoShowAttributesWindow);
         }
 
         private async Task DoShowAttributesWindow(InteractionContext<VideoViewModel, object?> interaction)
