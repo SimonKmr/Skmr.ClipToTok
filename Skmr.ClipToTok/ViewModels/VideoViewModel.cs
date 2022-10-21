@@ -27,10 +27,7 @@ namespace Skmr.ClipToTok.ViewModels
             });
         }
 
-        #region Video
-        [Reactive]
-        public string VideoFile { get; set; }
-        #endregion
+
 
         #region Frames
         public ICommand AddFrameCommand { get; set; }
@@ -39,12 +36,22 @@ namespace Skmr.ClipToTok.ViewModels
         private ReadOnlyObservableCollection<FrameViewModel> _screenPositions;
         public event EventHandler OnFramesChanged = delegate { };
 
+        public void AddFrame(FrameViewModel frame)
+        {
+            _screenPositionsSources.Add(frame);
+            frame.OnScreenPosChanged += Spvm_OnScreenPosChanged;
+            frame.OnRemoveRequest += Spvm_OnRemoveRequest;
+        }
         public void AddFrame()
         {
             var spvm = new FrameViewModel();
             _screenPositionsSources.Add(spvm);
             spvm.OnScreenPosChanged += Spvm_OnScreenPosChanged;
             spvm.OnRemoveRequest += Spvm_OnRemoveRequest;
+        }
+        public void ClearFrames()
+        {
+            _screenPositionsSources.Clear();
         }
 
         private void Spvm_OnScreenPosChanged(int x, int y, int width, int height)
@@ -57,6 +64,11 @@ namespace Skmr.ClipToTok.ViewModels
             var s = sender as FrameViewModel;
             _screenPositionsSources.Remove(s);
         }
+        #endregion
+
+        #region Video
+        [Reactive]
+        public string VideoFile { get; set; }
         #endregion
 
         #region TimeFrame
