@@ -38,11 +38,11 @@ namespace Skmr.ClipToTok.Avalonia.Views
                 this.BindCommand(ViewModel, vm => vm.SaveCommand, v => v.SaveButton).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.LoadCommand, v => v.LoadButton).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.NewCommand, v => v.NewButton).DisposeWith(d);
-                this.BindCommand(ViewModel, vm => vm.RenderCommand, v => v.RenderButton).DisposeWith(d);
-                this.Bind(ViewModel, vm => vm.ResultFolder, v => v.ResultFolderTextBox.Text).DisposeWith(d);
-                this.Bind(ViewModel, vm => vm.Resolution, v => v.ResolutionTextBox.Text).DisposeWith(d);
-                this.Bind(ViewModel, vm => vm.BackgroundImage, v => v.BackgroundImageTextBox.Text).DisposeWith(d);
-                this.Bind(ViewModel, vm => vm.HasBackground, v => v.BackgroundImageCheckBox.IsChecked).DisposeWith(d);
+                this.BindCommand(ViewModel, vm => vm.Renderer.RenderCommand, v => v.RenderButton).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.Renderer.ResultFolder, v => v.ResultFolderTextBox.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.Renderer.Resolution, v => v.ResolutionTextBox.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.Renderer.BackgroundImage, v => v.BackgroundImageTextBox.Text).DisposeWith(d);
+                this.Bind(ViewModel, vm => vm.Renderer.HasBackground, v => v.BackgroundImageCheckBox.IsChecked).DisposeWith(d);
 
                 this.OneWayBind(ViewModel, vm => vm.Video, v => v.VideoView.DataContext).DisposeWith(d);
             });

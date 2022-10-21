@@ -10,8 +10,7 @@
         x:Class="Skmr.ClipToTok.Avalonia.Views.MainWindow"
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Skmr.ClipToTok.Avalonia">
-
+        Title="Skmr Editor">
   <Design.DataContext>
     <vm:MainViewModel/>
   </Design.DataContext>
@@ -19,63 +18,30 @@
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="100"/>
       <ColumnDefinition Width="20"/>
-      <ColumnDefinition Width="*" MinWidth="300" MaxWidth="600"/>
-      <ColumnDefinition Width="10" />
-      <ColumnDefinition Width="2*"/>
+      <ColumnDefinition Width="*"/>
       <ColumnDefinition Width="20" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="20"/>
-      <RowDefinition Height="2*"/>
-      <RowDefinition Height="10"/>
-      <RowDefinition Height="200"/>
+      <RowDefinition Height="*"/>
       <RowDefinition Height="20"/>
     </Grid.RowDefinitions>
 
-    <!-- Tab Menu-->
+    <!--Menu-->
     <StackPanel Grid.Row="0" Grid.RowSpan="7" Background="#101010" Orientation="Vertical">
       <Button Content="Toks" x:Name="SettingsTabButton" />
       <Button Content="Analyze" x:Name="HighlighterTabButton" />
       <Button Content="Github"/>
       <Button Content="Shop"/>
     </StackPanel>
-
-    <!-- Options -->
-    <Border Grid.Column="2" Grid.Row="1" Classes="panel">
-        <Grid>
-          <v:ProjectView Name="projectView" DataContext="{Binding Pvm}"/>
-          <!--
+    
+    <v:ClipToTokView Grid.Column="2" Grid.Row="1" Name="clipToTok"/>
+    <!--
           <rxui:RoutedViewHost
               x:Name="RoutedViewHost"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"/>
               -->
-        </Grid>
-    </Border>
-
-    <!-- Preview Frame -->
-    <v:PlayerView Name="playerView" Grid.Row="1" Grid.Column="4"/>
-
-
-    
-    <Grid Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" >
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" MaxWidth="300"/>
-        <ColumnDefinition Width="10"/>
-        <ColumnDefinition Width="3*"/>
-      </Grid.ColumnDefinitions>
-      <!-- Console -->
-      <Border Grid.Column="0" Classes="panel">
-        <ScrollViewer >
-          <TextBlock Text="{Binding Log}"  />
-        </ScrollViewer>
-      </Border>
-
-      <Border Grid.Column="2" Classes="panel">
-        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible">
-        </ScrollViewer>
-      </Border>
-    </Grid>
   </Grid>
 
 </Window>
