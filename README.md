@@ -15,11 +15,7 @@ This makes use of the FFmpeg Executable to allow quick performance while maintai
 	- Background
 
 ### Planned Features
-- WPF UI
-	- Save File Dialogue
 - Core
-	- SpeedUp
-	- Colorgrading
 	- Intro / Outro
 	- Overlay
 	- Convert Image Editor to Skia
