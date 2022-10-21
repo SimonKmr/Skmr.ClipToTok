@@ -14,7 +14,7 @@ namespace Skmr.ClipToTok.ViewModels
 {
     public class VideoViewModel : ReactiveObject
     {
-        public Interaction<VideoViewModel, object?>? AttributesWindow { get; }
+        public Interaction<VideoViewModel, object?> AttributesWindow { get; }
         public ICommand OpenAttributesCommand { get; set; }
         public VideoViewModel()
         {

@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
+using Avalonia.Threading;
 using ReactiveUI;
 using Skmr.ClipToTok.Avalonia.Utils;
 using Skmr.ClipToTok.Avalonia.Views.ExtendedViews;
@@ -23,20 +24,24 @@ namespace Skmr.ClipToTok.Avalonia.Views
         public VideoView()
         {
             InitializeComponent();
-            LoadedEventManager.Loaded += LoadedEventManager_Loaded;
             this.WhenActivated(d =>
             {
                 this.Bind(ViewModel, vm => vm.VideoFile, v => v.SourceVideoTextBox.Text).DisposeWith(d);
                 this.OneWayBind(ViewModel, vm => vm.ScreenPositions, v => v.FrameItemsControl.Items).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.AddFrameCommand, v => v.AddFrameButton).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.OpenAttributesCommand, v => v.AttributeButton).DisposeWith(d);
+                LoadedEventManager.Loaded += LoadedEventManager_Loaded;
             });
             SourceVideoDropPanel.AddHandler(DragDrop.DropEvent, Drop);
         }
 
         private void LoadedEventManager_Loaded(object? sender, EventArgs e)
         {
-            ViewModel!.AttributesWindow!.RegisterHandler(DoShowAttributesWindow);
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                ViewModel!.AttributesWindow.RegisterHandler(DoShowAttributesWindow);
+            });
+
         }
 
         private async Task DoShowAttributesWindow(InteractionContext<VideoViewModel, object?> interaction)

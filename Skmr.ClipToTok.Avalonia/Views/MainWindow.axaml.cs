@@ -32,10 +32,7 @@ namespace Skmr.ClipToTok.Avalonia.Views
         {
             Task.Run(async () =>
             {
-                await Task.Delay(1000);
                 LoadedEventManager.Fire();
-
-
             });
         }
     }
