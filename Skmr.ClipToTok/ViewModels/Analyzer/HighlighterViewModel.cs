@@ -15,14 +15,13 @@ using System.Reactive.Linq;
 
 namespace Skmr.ClipToTok.ViewModels.Analyzer
 {
-    public class HighlighterViewModel : ReactiveObject, IRoutableViewModel
+    public class HighlighterViewModel : ReactiveObject
     {
-        public string? UrlPathSegment => "Highlighter";
-        public IScreen HostScreen { get; }
 
-        public HighlighterViewModel(IScreen screen = null)
+
+        public HighlighterViewModel()
         {
-            HostScreen = screen ?? Locator.Current.GetService<IScreen>();
+
             var disposable = _highlightSources.Connect().Bind(out _highlights).Subscribe();
 
             AnalyzeCommand = ReactiveCommand.Create(Analyze);

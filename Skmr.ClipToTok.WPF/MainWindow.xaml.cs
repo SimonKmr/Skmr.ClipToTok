@@ -41,7 +41,7 @@ namespace Skmr.ClipToTok.WPF
                 this.OneWayBind(ViewModel, x => x.Router, x => x.RoutedViewHost.Router).DisposeWith(disposables);
                 this.OneWayBind(ViewModel, x => x.PlayerViewModel, x => x.playerPreview.ViewModel).DisposeWith(disposables);
                 
-                this.BindCommand(ViewModel, x => x.GoSettings, x => x.SettingsTabButton).DisposeWith(disposables);
+                this.BindCommand(ViewModel, x => x.GoClipToTok, x => x.SettingsTabButton).DisposeWith(disposables);
                 this.BindCommand(ViewModel, x => x.GoHighlighter, x => x.HighlighterTabButton).DisposeWith(disposables);
             });
 

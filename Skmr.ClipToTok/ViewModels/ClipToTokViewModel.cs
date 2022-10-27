@@ -14,40 +14,29 @@ using Skmr.ClipToTok.ViewModels.ClipToTok;
 
 namespace Skmr.ClipToTok.ViewModels
 {
-    public class ClipToTokViewModel : ReactiveObject, IActivatableViewModel
+    public class ClipToTokViewModel : ReactiveObject, IRoutableViewModel
     {
-        public ViewModelActivator Activator { get; }
-        public RoutingState Router { get; }
-        public ReactiveCommand<Unit, IRoutableViewModel> GoSettings { get; }
-        public ReactiveCommand<Unit, IRoutableViewModel> GoHighlighter { get; }
-
-
-        public HighlighterViewModel HighlighterViewModel { get; }
         public ProjectViewModel ProjectViewModel { get; }
         public PlayerViewModel PlayerViewModel { get; }
-        public VideoViewModel VideoViewModel { get; }
 
-        public ClipToTokViewModel()
+        public string? UrlPathSegment => "ClipToTok";
+        public IScreen HostScreen { get; }
+
+
+
+
+        public ClipToTokViewModel(IScreen screen = null)
         {
-            Activator = new ViewModelActivator();
+            HostScreen = screen;
 
-            VideoViewModel = new VideoViewModel();
             ProjectViewModel = new ProjectViewModel();
-            HighlighterViewModel = new HighlighterViewModel();
             PlayerViewModel = new PlayerViewModel();
 
             ProjectViewModel.Renderer.OnRenderEvent += Svm_OnRenderEvent;
 
-            HighlighterViewModel.OnHighlightSelected += Hvm_OnHighlightSelected;
-
-            Router = new RoutingState();
-            GoSettings = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(ProjectViewModel));
-            GoHighlighter = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(HighlighterViewModel));
-            Router.Navigate.Execute(ProjectViewModel);
 
             ViewModelBus.PlayerViewModel = PlayerViewModel;
             ViewModelBus.SettingsViewModel = ProjectViewModel;
-            ViewModelBus.VideoViewModel = VideoViewModel;
         }
 
         private void Svm_OnRenderEvent(object sender, string e)
@@ -70,13 +59,14 @@ namespace Skmr.ClipToTok.ViewModels
         }
 
 
+
         private void Hvm_OnHighlightSelected(object sender, TimeSpan start, TimeSpan duration, bool select)
         {
             if (select)
             {
-                VideoViewModel.TimeFrameStart = start;
-                VideoViewModel.TimeFrameDuration = duration;
-                VideoViewModel.HasTimeFrame = select;
+                //VideoViewModel.TimeFrameStart = start;
+                //VideoViewModel.TimeFrameDuration = duration;
+                //VideoViewModel.HasTimeFrame = select;
             }
             else
             {

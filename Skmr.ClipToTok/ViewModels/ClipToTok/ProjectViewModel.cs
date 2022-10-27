@@ -16,12 +16,8 @@ using Skmr.ClipToTok.Model;
 
 namespace Skmr.ClipToTok.ViewModels.ClipToTok
 {
-    public class ProjectViewModel : ReactiveObject, IRoutableViewModel
+    public class ProjectViewModel : ReactiveObject
     {
-        public string? UrlPathSegment => "Settings";
-        public IScreen HostScreen { get; }
-
-
         [Reactive]
         public VideoViewModel Video { get; set; }
         [Reactive]
@@ -35,6 +31,8 @@ namespace Skmr.ClipToTok.ViewModels.ClipToTok
 
             Renderer = new RendererViewModel();
             Video = new VideoViewModel();
+
+            ViewModelBus.VideoViewModel = Video;
         }
 
         public ICommand LoadCommand { get; set; }
