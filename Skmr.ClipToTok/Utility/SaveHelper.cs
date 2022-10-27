@@ -114,7 +114,17 @@ namespace Skmr.ClipToTok.Utility
 
         public static void Reset(this ProjectViewModel vm)
         {
-            
+            vm.Video.VideoFile = String.Empty;
+            vm.Video.HasChangeSpeed = false;
+            vm.Video.HasTimeFrame = false;
+            vm.Video.Speed = 1;
+            vm.Video.TimeFrameStart = new TimeSpan();
+            vm.Video.TimeFrameDuration = new TimeSpan();
+            vm.Video.ClearFrames();
+            vm.Renderer.HasBackground = false;
+            vm.Renderer.BackgroundImage = String.Empty;
+            vm.Renderer.Resolution = 1080;
+            vm.Renderer.ResultFolder = String.Empty;
         }
     }
 }

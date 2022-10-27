@@ -43,7 +43,7 @@ namespace Skmr.ClipToTok.ViewModels
 
         public void New()
         {
-
+            this.Reset();
         }
         public async Task SaveAsync()
         {
