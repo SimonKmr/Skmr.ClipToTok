@@ -31,8 +31,6 @@ namespace Skmr.ClipToTok.WPF
                 this.Bind(ViewModel, vm => vm.VideoFile, v => v.txtSourceVideo.Text).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.AddFrameCommand, v => v.btnAddFrame).DisposeWith(d);
                 this.BindCommand(ViewModel, vm => vm.OpenAttributesCommand, v => v.btnAttributes).DisposeWith(d);
-
-                ViewModel.RegisterWindow(NewWindowRequest);
             });
             InitializeComponent();
         }
