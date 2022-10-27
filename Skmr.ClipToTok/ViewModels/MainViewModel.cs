@@ -12,6 +12,8 @@ namespace Skmr.ClipToTok.ViewModels
     {
         [Reactive]
         public ClipToTokViewModel ClipToTok { get; set; }
+        [Reactive]
+        public AnalyzerViewModel Analyzer { get; set; }
 
         public MainViewModel()
         {

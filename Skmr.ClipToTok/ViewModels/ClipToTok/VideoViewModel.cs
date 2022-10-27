@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Skmr.ClipToTok.ViewModels
+namespace Skmr.ClipToTok.ViewModels.ClipToTok
 {
     public class VideoViewModel : ReactiveObject
     {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Skmr.ClipToTok.ViewModels
+namespace Skmr.ClipToTok.ViewModels.Analyzer
 {
     public class HighlightViewModel : ReactiveObject
     {
@@ -68,7 +68,7 @@ namespace Skmr.ClipToTok.ViewModels
         }
         public void Edit()
         {
-            NewWindowRequest(this,new EventArgs());
+            NewWindowRequest(this, new EventArgs());
         }
         public void Delete()
         {
@@ -86,7 +86,7 @@ namespace Skmr.ClipToTok.ViewModels
         private bool isWindowRegistered = false;
         public void RegisterWindow(EventHandler window)
         {
-            if(!isWindowRegistered && NewWindowRequest.GetInvocationList().Length > 0)
+            if (!isWindowRegistered && NewWindowRequest.GetInvocationList().Length > 0)
             {
                 NewWindowRequest += window;
                 isWindowRegistered = true;

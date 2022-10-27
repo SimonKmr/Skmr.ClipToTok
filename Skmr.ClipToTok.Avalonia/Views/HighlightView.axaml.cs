@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.ReactiveUI;
-using Skmr.ClipToTok.ViewModels;
+using Skmr.ClipToTok.ViewModels.Analyzer;
 
 namespace Skmr.ClipToTok.Avalonia.Views
 {

@@ -14,7 +14,7 @@ using DynamicData;
 using System.Collections.ObjectModel;
 using Skmr.ClipToTok.Model;
 
-namespace Skmr.ClipToTok.ViewModels
+namespace Skmr.ClipToTok.ViewModels.ClipToTok
 {
     public class ProjectViewModel : ReactiveObject, IRoutableViewModel
     {
@@ -47,7 +47,7 @@ namespace Skmr.ClipToTok.ViewModels
         }
         public async Task SaveAsync()
         {
-            var dialogResult = await Interactions.SaveFileDialog.Handle(String.Empty);
+            var dialogResult = await Interactions.SaveFileDialog.Handle(string.Empty);
 
             using (StreamWriter sw = new StreamWriter(dialogResult))
             {
@@ -56,7 +56,7 @@ namespace Skmr.ClipToTok.ViewModels
         }
         public async Task LoadAsync()
         {
-            var dialogResult = await Interactions.OpenFileDialog.Handle(String.Empty);
+            var dialogResult = await Interactions.OpenFileDialog.Handle(string.Empty);
 
             using (StreamReader sr = new StreamReader(dialogResult))
             {

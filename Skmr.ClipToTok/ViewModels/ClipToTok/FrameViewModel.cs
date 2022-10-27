@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Skmr.ClipToTok.ViewModels
+namespace Skmr.ClipToTok.ViewModels.ClipToTok
 {
     public class FrameViewModel : ReactiveObject
     {
@@ -49,38 +49,40 @@ namespace Skmr.ClipToTok.ViewModels
         private int _PosY = 0;
         private int _Width = 0;
         private int _Height = 0;
-        public int PosX 
-        { 
+        public int PosX
+        {
             get => _PosX;
-            set 
-            { 
-                this.RaiseAndSetIfChanged(ref _PosX, value);  
-                OnScreenPosChanged(PosX, PosY, Width, Height); 
-            } 
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _PosX, value);
+                OnScreenPosChanged(PosX, PosY, Width, Height);
+            }
         }
-        public int PosY 
+        public int PosY
         {
             get => _PosY;
-            set 
-            { 
+            set
+            {
                 this.RaiseAndSetIfChanged(ref _PosY, value);
                 OnScreenPosChanged(PosX, PosY, Width, Height);
             }
         }
-        public int Width 
+        public int Width
         {
             get => _Width;
-            set { this.RaiseAndSetIfChanged(ref _Width, value); 
-                OnScreenPosChanged(PosX, PosY, Width, Height); 
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _Width, value);
+                OnScreenPosChanged(PosX, PosY, Width, Height);
             }
         }
-        public int Height 
+        public int Height
         {
             get => _Height;
-            set 
-            { 
-                this.RaiseAndSetIfChanged(ref _Height, value); 
-                OnScreenPosChanged(PosX, PosY, Width, Height); 
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _Height, value);
+                OnScreenPosChanged(PosX, PosY, Width, Height);
             }
         }
 

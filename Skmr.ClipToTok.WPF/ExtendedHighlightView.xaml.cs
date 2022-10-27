@@ -1,5 +1,5 @@
 ﻿using ReactiveUI;
-using Skmr.ClipToTok.ViewModels;
+using Skmr.ClipToTok.ViewModels.Analyzer;
 using System.Reactive.Disposables;
 
 namespace Skmr.ClipToTok.WPF

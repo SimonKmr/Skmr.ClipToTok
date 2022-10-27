@@ -9,6 +9,8 @@ using SkiaSharp;
 using System.Reactive;
 using Splat;
 using Skmr.ClipToTok.Utility;
+using Skmr.ClipToTok.ViewModels.Analyzer;
+using Skmr.ClipToTok.ViewModels.ClipToTok;
 
 namespace Skmr.ClipToTok.ViewModels
 {

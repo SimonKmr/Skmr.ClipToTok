@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ReactiveUI;
-using Skmr.ClipToTok.ViewModels;
+using Skmr.ClipToTok.ViewModels.ClipToTok;
 
 namespace Skmr.ClipToTok.WPF
 {

@@ -13,7 +13,7 @@ using Skmr.ClipToTok.Utility;
 using Newtonsoft.Json;
 using System.Reactive.Linq;
 
-namespace Skmr.ClipToTok.ViewModels
+namespace Skmr.ClipToTok.ViewModels.Analyzer
 {
     public class HighlighterViewModel : ReactiveObject, IRoutableViewModel
     {
@@ -29,17 +29,17 @@ namespace Skmr.ClipToTok.ViewModels
             NewCommand = ReactiveCommand.Create(Clear);
             ManualCommand = ReactiveCommand.Create(ManualAdd);
             ManualQuickCommand = ReactiveCommand.Create(ManualQuickAdd);
-            
+
             SaveCommand = ReactiveCommand.Create(SaveAsync);
             ImportCommand = ReactiveCommand.Create(ImportAsync);
         }
 
         private SourceList<HighlightViewModel> _highlightSources = new SourceList<HighlightViewModel>();
         private ReadOnlyObservableCollection<HighlightViewModel> _highlights;
-        
+
         public ReadOnlyObservableCollection<HighlightViewModel> Highlights => _highlights;
-        
-        
+
+
         private void AddHighlight(HighlightViewModel vm)
         {
             vm.OnSelectPressed += Vm_OnSelectPressed;
@@ -73,9 +73,9 @@ namespace Skmr.ClipToTok.ViewModels
             //RunAnaylzer
 
             //Add ViewModels to Highlight List
-            
-            
-            
+
+
+
             //This is just a dummy for testing Purposes
             Random random = new Random();
             AddHighlight(new HighlightViewModel()
@@ -83,7 +83,7 @@ namespace Skmr.ClipToTok.ViewModels
                 Start = TimeSpan.FromSeconds(random.Next(20, 4200)),
                 Duration = TimeSpan.FromSeconds(random.Next(20, 135)),
                 Title = "Sample"
-            }) ;
+            });
         }
         public void Clear()
         {
@@ -95,7 +95,7 @@ namespace Skmr.ClipToTok.ViewModels
         public ICommand ManualQuickCommand { get; set; }
         public TimeSpan ManualStart { get; set; } = TimeSpan.Zero;
         public TimeSpan ManualDuration { get; set; } = TimeSpan.FromSeconds(59);
-        public string ManualComment { get; set; } = String.Empty;
+        public string ManualComment { get; set; } = string.Empty;
         public void ManualAdd()
         {
             AddHighlight(new HighlightViewModel()
@@ -112,7 +112,7 @@ namespace Skmr.ClipToTok.ViewModels
             {
                 Start = TimeSpan.FromMilliseconds(ViewModelBus.PlayerViewModel.MediaPlayer.Time).Floor(),
                 Duration = TimeSpan.FromSeconds(59),
-                Title = String.Empty,
+                Title = string.Empty,
             });
         }
 
@@ -120,17 +120,17 @@ namespace Skmr.ClipToTok.ViewModels
         public ICommand SaveCommand { get; set; }
         public async Task SaveAsync()
         {
-            var dialogResult = await Interactions.SaveFileDialog.Handle(String.Empty);
+            var dialogResult = await Interactions.SaveFileDialog.Handle(string.Empty);
 
             List<Highlight> highlights = new List<Highlight>();
-            for(int i = 0; i < _highlightSources.Count; i++)
+            for (int i = 0; i < _highlightSources.Count; i++)
             {
                 //highlights.Add(Highlights[i].ToHighlight());
             }
             var highlightsArr = highlights.ToArray();
 
             var json = JsonConvert.SerializeObject(highlightsArr);
-            using(var sw = new StreamWriter(dialogResult))
+            using (var sw = new StreamWriter(dialogResult))
             {
                 sw.Write(json);
             }

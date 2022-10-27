@@ -14,7 +14,7 @@ using System.Windows.Input;
 using static Skmr.Editor.Ffmpeg;
 using static Skmr.Editor.Ffmpeg.Format;
 
-namespace Skmr.ClipToTok.ViewModels
+namespace Skmr.ClipToTok.ViewModels.ClipToTok
 {
     public class RendererViewModel : ReactiveObject
     {
@@ -85,15 +85,15 @@ namespace Skmr.ClipToTok.ViewModels
             Medium result = new Medium(
                 ResultFolder,
                 DateTime.Now.Ticks.ToString(),
-                Ffmpeg.Format.Video.Mp4);
+                Format.Video.Mp4);
 
             var videoFolder = Path.GetDirectoryName(Video.VideoFile);
             var videoName = Path.GetFileName(Video.VideoFile).Split('.')[0];
 
-            Medium footage = new Medium(videoFolder, videoName, Ffmpeg.Format.Video.Mp4);
-            Medium v0 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
-            Medium v1 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
-            Medium v2 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+            Medium footage = new Medium(videoFolder, videoName, Format.Video.Mp4);
+            Medium v0 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Format.Video.Mp4);
+            Medium v1 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Format.Video.Mp4);
+            Medium v2 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Format.Video.Mp4);
 
             #endregion
 
@@ -118,7 +118,7 @@ namespace Skmr.ClipToTok.ViewModels
             //Resize to set resolution
             int height1 = Resolution;
             if (height1 % 2 != 0) height1--;
-            int width1 = (int)(((double)1920 / (double)1080) * (double)Resolution);
+            int width1 = (int)(1920 / (double)1080 * Resolution);
             instructions.Add(new ResizeVideo(width1, height1)
             {
                 Ffmpeg = ffmpeg,
@@ -147,9 +147,9 @@ namespace Skmr.ClipToTok.ViewModels
             List<Medium> frames = new List<Medium>();
             for (int i = 0; i < Video.ScreenPositions.Count; i++)
             {
-                Medium f0 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
-                Medium f1 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
-                Medium f2 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+                Medium f0 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Format.Video.Mp4);
+                Medium f1 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Format.Video.Mp4);
+                Medium f2 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Format.Video.Mp4);
                 //Get Frame Section
                 instructions.Add(new CropVideo(
                     Video.ScreenPositions[i].Width,
@@ -163,7 +163,7 @@ namespace Skmr.ClipToTok.ViewModels
                 });
 
                 //Resize
-                int h2 = (int)((double)Resolution * ((double)Video.ScreenPositions[i].Height / (double)Video.ScreenPositions[i].Width));
+                int h2 = (int)(Resolution * (Video.ScreenPositions[i].Height / (double)Video.ScreenPositions[i].Width));
                 if (h2 % 2 == 1) h2--;
 
                 instructions.Add(new ResizeVideo(Resolution, h2)
@@ -206,8 +206,8 @@ namespace Skmr.ClipToTok.ViewModels
             #endregion
 
             #region Ffmpeg - VStack
-            Medium tmp0 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
-            Medium tmp1 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Ffmpeg.Format.Video.Mp4);
+            Medium tmp0 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Format.Video.Mp4);
+            Medium tmp1 = Medium.GenerateMedium(tdm.TmpDirectoryList[0], Format.Video.Mp4);
 
             frames.Reverse();
             if (frames.Count > 1)
@@ -241,7 +241,7 @@ namespace Skmr.ClipToTok.ViewModels
                     Image = new Medium(
                         backgroundImgPath,
                         backgroundImgFile,
-                        Format.Image.Jpg),
+                        Image.Jpg),
                     Output = tmp1
                 });
             }

@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.ReactiveUI;
 using ReactiveUI;
 using Skmr.ClipToTok.Avalonia.Views.ExtendedViews;
-using Skmr.ClipToTok.ViewModels;
+using Skmr.ClipToTok.ViewModels.ClipToTok;
 using System;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
