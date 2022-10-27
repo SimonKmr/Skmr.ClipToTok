@@ -7,6 +7,8 @@
     </Application.DataTemplates>
 
     <Application.Styles>
+      <StyleInclude Source="avares://Skmr.ClipToTok.Avalonia/Utils/Styles/TimePicker.axaml"/>
+      
       <FluentTheme Mode="Light"/>
 
       <Style Selector="Slider">

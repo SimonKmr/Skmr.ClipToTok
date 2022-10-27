@@ -36,4 +36,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Skmr.ClipToTok\Skmr.ClipToTok.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\Styles\" />
+  </ItemGroup>
 </Project>
