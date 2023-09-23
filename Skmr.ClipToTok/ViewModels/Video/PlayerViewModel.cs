@@ -2,6 +2,7 @@
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Skmr.ClipToTok.Utility;
+using Skmr.ClipToTok.ViewModels.Video;
 using System.ComponentModel;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -22,8 +23,7 @@ namespace Skmr.ClipToTok.ViewModels
             MediaPlayer = new MediaPlayer(_libVLC);
             MediaPlayer.EndReached += MediaPlayer_EndReached;
 
-            PlayCommand = ReactiveCommand.Create(PlayVideo); //PlayVideo
-            PlaySelectionCommand = ReactiveCommand.Create(PlaySection);
+            PlayCommand = ReactiveCommand.Create(Play); //PlayVideo
             JumpAheadCommand = ReactiveCommand.Create(() => JumpRelative(10));
             JumpBackCommand = ReactiveCommand.Create(() => JumpRelative(-10));
             JumpToStartCommand = ReactiveCommand.Create(() => JumpAbsolute(0));
@@ -56,7 +56,6 @@ namespace Skmr.ClipToTok.ViewModels
         #endregion
 
         public ICommand PlayCommand { get; set; }
-        public ICommand PlaySelectionCommand { get; set; }
         public ICommand JumpAheadCommand { get; set; }
         public ICommand JumpBackCommand { get; set; }
         public ICommand JumpToStartCommand { get; set; }
@@ -85,17 +84,23 @@ namespace Skmr.ClipToTok.ViewModels
         //Default Playback
         private string playedBackVideoCurrent = String.Empty;
 
-        private void PlayVideo()
+
+        public void Play()
         {
-            var videoFile = ViewModelBus.SettingsViewModel.Video.VideoFile;
-            if (File.Exists(videoFile))
+            throw new NotImplementedException();
+        }
+
+        private void Play(VideoViewModel video)
+        {
+            var file = video.Path;
+            if (File.Exists(file))
             {
-                if (!playedBackVideoCurrent.Equals(videoFile))
+                if (!playedBackVideoCurrent.Equals(file))
                 {
-                    MediaPlayer.Play(new Media(_libVLC, new Uri(videoFile)));
-                    playedBackVideoCurrent = videoFile;
+                    MediaPlayer.Play(new Media(_libVLC, new Uri(file)));
+                    playedBackVideoCurrent = file;
                 }
-                else if (!MediaPlayer.IsPlaying && playedBackVideoCurrent.Equals(videoFile))
+                else if (!MediaPlayer.IsPlaying && playedBackVideoCurrent.Equals(file))
                 {
                     MediaPlayer.Play();
                 }
@@ -118,15 +123,10 @@ namespace Skmr.ClipToTok.ViewModels
         private TimeSpan timeFrameDuration;
         private TimeSpan timeFrameStart;
 
-        private void PlaySection()
+
+        public void Play(VideoViewModel video, TimeSpan start, TimeSpan duration)
         {
-            PlaySection(
-                ViewModelBus.VideoViewModel.TimeFrameStart, 
-                ViewModelBus.VideoViewModel.TimeFrameDuration);
-        }
-        public void PlaySection(TimeSpan start, TimeSpan duration)
-        {
-            var videoFile = ViewModelBus.SettingsViewModel.Video.VideoFile;
+            var videoFile = ViewModelBus.SettingsViewModel.Videos[0].Path;
             if (File.Exists(videoFile))
             {
                 MediaPlayer.Play(new Media(_libVLC, new Uri(videoFile)));

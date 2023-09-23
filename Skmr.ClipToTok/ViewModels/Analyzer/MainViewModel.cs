@@ -1,10 +1,10 @@
 ﻿using ReactiveUI;
-using Skmr.ClipToTok.ViewModels.Analyzer;
+using Skmr.ClipToTok.ViewModels.Video;
 using Splat;
 
-namespace Skmr.ClipToTok.ViewModels
+namespace Skmr.ClipToTok.ViewModels.Analyzer
 {
-    public class AnalyzerViewModel : ReactiveObject, IRoutableViewModel
+    public class MainViewModel : ReactiveObject, IRoutableViewModel
     {
         public PlayerViewModel PlayerViewModel { get; }
         public HighlighterViewModel HighlighterViewModel { get; }
@@ -12,7 +12,7 @@ namespace Skmr.ClipToTok.ViewModels
         public string? UrlPathSegment => "Analyzer";
         public IScreen HostScreen { get; }
 
-        public AnalyzerViewModel(IScreen screen = null)
+        public MainViewModel(IScreen screen = null)
         {
             HostScreen = screen;
         }

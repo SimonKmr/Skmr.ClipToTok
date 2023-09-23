@@ -13,59 +13,25 @@ using ReactiveUI.Fody.Helpers;
 using DynamicData;
 using System.Collections.ObjectModel;
 using Skmr.ClipToTok.Model;
+using Skmr.ClipToTok.ViewModels.Video;
 
 namespace Skmr.ClipToTok.ViewModels.ClipToTok
 {
     public class ProjectViewModel : ReactiveObject
     {
         [Reactive]
-        public VideoViewModel Video { get; set; }
+        public VideoViewModel[] Videos { get; set; }
         [Reactive]
-        public RendererViewModel Renderer { get; set; }
+        public RenderableViewModel Renderer { get; set; }
 
         public ProjectViewModel()
         {
-            NewCommand = ReactiveCommand.Create(New);
-            SaveCommand = ReactiveCommand.Create(SaveAsync);
-            LoadCommand = ReactiveCommand.Create(LoadAsync);
-
-            Renderer = new RendererViewModel();
-            Video = new VideoViewModel();
-
-            ViewModelBus.VideoViewModel = Video;
+            ViewModelBus.VideoViewModel = new VideoViewModel();
         }
 
         public ICommand LoadCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand NewCommand { get; set; }
-
-        public void New()
-        {
-            this.Reset();
-        }
-        public async Task SaveAsync()
-        {
-            var dialogResult = await Interactions.SaveFileDialog.Handle(string.Empty);
-
-            using (StreamWriter sw = new StreamWriter(dialogResult))
-            {
-                sw.WriteLine(JsonConvert.SerializeObject(this.Convert()));
-            }
-        }
-        public async Task LoadAsync()
-        {
-            var dialogResult = await Interactions.OpenFileDialog.Handle(string.Empty);
-
-            using (StreamReader sr = new StreamReader(dialogResult))
-            {
-                var loaded = JsonConvert.DeserializeObject<Project>(sr.ReadToEnd());
-                this.LoadInto(loaded);
-            }
-        }
-
-
-
-
 
     }
 }

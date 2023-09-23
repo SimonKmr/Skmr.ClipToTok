@@ -1,20 +1,10 @@
 ﻿using ReactiveUI;
-using Skmr.Editor;
-using Skmr.Editor.Instructions;
-using Skmr.Editor.Instructions.Interfaces;
-using Skmr.Editor.Media;
-using System.Windows.Input;
-using static Skmr.Editor.Ffmpeg;
-using SkiaSharp;
-using System.Reactive;
-using Splat;
 using Skmr.ClipToTok.Utility;
-using Skmr.ClipToTok.ViewModels.Analyzer;
-using Skmr.ClipToTok.ViewModels.ClipToTok;
+using Skmr.ClipToTok.ViewModels.Video;
 
-namespace Skmr.ClipToTok.ViewModels
+namespace Skmr.ClipToTok.ViewModels.ClipToTok
 {
-    public class ClipToTokViewModel : ReactiveObject, IRoutableViewModel
+    public class MainViewModel : RenderableViewModel, IRoutableViewModel
     {
         public ProjectViewModel ProjectViewModel { get; }
         public PlayerViewModel PlayerViewModel { get; }
@@ -25,14 +15,12 @@ namespace Skmr.ClipToTok.ViewModels
 
 
 
-        public ClipToTokViewModel(IScreen screen = null)
+        public MainViewModel(IScreen screen = null)
         {
             HostScreen = screen;
 
             ProjectViewModel = new ProjectViewModel();
             PlayerViewModel = new PlayerViewModel();
-
-            ProjectViewModel.Renderer.OnRenderEvent += Svm_OnRenderEvent;
 
 
             ViewModelBus.PlayerViewModel = PlayerViewModel;
@@ -52,26 +40,16 @@ namespace Skmr.ClipToTok.ViewModels
             OnLog(line);
             Log += $"{DateTime.Now.ToString("hh:mm:ss.FFF")}    {line}\n";
         }
+
         public string Log
         {
             get { return _Log; }
             set { this.RaiseAndSetIfChanged(ref _Log, value); }
         }
 
-
-
-        private void Hvm_OnHighlightSelected(object sender, TimeSpan start, TimeSpan duration, bool select)
+        public override void Render()
         {
-            if (select)
-            {
-                //VideoViewModel.TimeFrameStart = start;
-                //VideoViewModel.TimeFrameDuration = duration;
-                //VideoViewModel.HasTimeFrame = select;
-            }
-            else
-            {
-                PlayerViewModel.PlaySection(start, duration);
-            }
+            throw new NotImplementedException();
         }
     }
 }

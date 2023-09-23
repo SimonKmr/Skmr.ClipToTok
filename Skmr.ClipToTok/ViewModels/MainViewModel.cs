@@ -1,6 +1,8 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Skmr.ClipToTok.Utility;
+using Skmr.ClipToTok.ViewModels.Analyzer;
+using Skmr.ClipToTok.ViewModels.ClipToTok;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +20,16 @@ namespace Skmr.ClipToTok.ViewModels
         public RoutingState Router { get; }
 
         [Reactive]
-        public ClipToTokViewModel ClipToTok { get; set; }
+        public ClipToTok.MainViewModel ClipToTok { get; set; }
         [Reactive]
-        public AnalyzerViewModel Analyzer { get; set; }
+        public Analyzer.MainViewModel Analyzer { get; set; }
 
         public MainViewModel()
         {
             Activator = new ViewModelActivator();
 
-            ClipToTok = new ClipToTokViewModel(this);
-            Analyzer = new AnalyzerViewModel(this);
+            ClipToTok = new ClipToTok.MainViewModel(this);
+            Analyzer = new Analyzer.MainViewModel(this);
 
             Router = new RoutingState();
             GoClipToTok = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(ClipToTok));

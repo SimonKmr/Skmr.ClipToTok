@@ -17,8 +17,6 @@ namespace Skmr.ClipToTok.ViewModels.Analyzer
 {
     public class HighlighterViewModel : ReactiveObject
     {
-
-
         public HighlighterViewModel()
         {
 
